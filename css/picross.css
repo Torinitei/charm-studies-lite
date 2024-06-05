@@ -3,8 +3,9 @@ html {
 }
 
 body {
-	background-color: #fafafa;
-	font-family: Helvetica, Arial, Sans-serif;
+	background-color: #dc7891;
+	color: #4e1e1b;
+	font-family: 'Nunito';
 	font-size: 13px;
 	height: 100%;
 	-webkit-touch-callout: none;
@@ -17,7 +18,7 @@ body {
 
 body.dark {
 	background-color: #222;
-	color: #ddd;
+	color: #eee;
 }
 
 table, tr, td {
@@ -28,7 +29,7 @@ table, tr, td {
 
 a {
 	text-decoration: none;
-	color: #333;
+	color: #675145;
 }
 
 body.dark a {
@@ -37,6 +38,17 @@ body.dark a {
 
 a:hover {
 	text-decoration: underline;
+}
+
+.button {
+	background-color: #ffb6c8;
+	border-color: #ffb6c8;
+	color: #985264;
+}
+
+.button:hover {
+	background-color: #ffdeb8;
+	color: #4e1e1b;
 }
 
 .container {
@@ -53,7 +65,7 @@ a:hover {
 	border-top: 1px dashed #ccc;
 	padding: 15px 0 20px;
 	text-align: center;
-	color: #999;
+	color: #985264;
 	font-size: 12px;
 	line-height: 1.5;
 }
@@ -69,26 +81,31 @@ h1 {
 	float: left;
 	height: 680px;
 	width: 150px;
+	background-color: #985264;
+	border: 2px solid #4e1e1b
 }
 
 .control-group {
-	background-color: #fff;
-	border-bottom: 2px solid #fff;
+	background-color: #ffdeb8;
+	border: 2px solid #a9736b;
 	border-radius: 5px;
-	box-shadow: inset 0px 1px 3px #999;
-	color: #333;
+	color: #675145;
 	margin-bottom: 20px;
 	padding: 15px 12px;
 	text-align: center;
+	
 }
 
 body.dark .control-group {
-	background-color: #333;
+	background-color: #675145;
 	border-bottom: 2px solid #000;
 	box-shadow: none;
 	color: #999;
 }
 
+.title { 
+	color: #fff
+}
 .control-group h3 {
 	color: #000;
 	font-size: 15px;
@@ -97,7 +114,7 @@ body.dark .control-group {
 }
 
 body.dark .control-group h3 {
-	color: #ddd;
+	color: #eee;
 }
 
 .control-group .control-section {
@@ -133,31 +150,52 @@ body.dark .custom h5 {
 	color: #999;
 }
 
+#customGame {
+	font-family: 'Nunito';
+	background-color: #ffb6c8;
+	border-color: #ffb6c8;
+	color: #985264;
+}
+
 .custom input[type=text] {
-	border: 1px solid #ddd;
+	border: 1px solid #eee;
 	margin-bottom: 10px;
 	padding: 2px;
 	text-align: center;
 	width: 100px;
+	font-family: 'Nunito';
+}
+
+#dimensions {
+	font-family: 'Nunito';
 }
 
 #new {
 	font-weight: bold;
 	padding: 5px 10px;
+	font-family: 'Nunito';
+	background-color: #ffb6c8;
+	border-color: #ffb6c8;
+	color: #985264;
 }
 
 #solve {
 	font-size: 15px;
 	font-weight: bold;
 	padding: 10px;
+	font-family: 'Nunito';
+	background-color: #ffb6c8;
+	border-color: #ffb6c8;
+	color: #985264;
 }
 
 #seed {
 	background-color: #efefef;
+	font-family: 'Nunito';
 }
 
 #progress {
-	color: #999;
+	color: #dc7891;
 	font-size: 20px;
 	font-weight: bold;
 }
@@ -171,8 +209,12 @@ body.dark .custom h5 {
 	width: 600px;
 }
 
-#puzzle td {
-	background-color: #fafafa;
+#puzzle td.left {
+	background-color: #ffb6c8;
+}
+
+#puzzle td.top {
+	background-color: #ffe4c6;
 }
 
 body.dark #puzzle td.key {
@@ -180,29 +222,28 @@ body.dark #puzzle td.key {
 }
 
 #puzzle td:nth-child(5n + 1) {
-	border-right: 1px solid #555;
+	border-right: 2px double #c2a6a2;
 }
 
 #puzzle td.cell:nth-child(5n + 1) {
-	border-right: 1px solid #555;
+	border-right: 2px double #c2a6a2;
 }
 
 #puzzle tr:nth-child(5n + 1) td {
-	border-bottom: 1px solid #555;
+	border-bottom: 2px double #c2a6a2;
 }
 
 #puzzle tr:nth-child(5n + 2) td {
-	border-top: 1px solid #555;
+	border-top: 2px double #c2a6a2;
 }
 
 #puzzle td.key {
-	font-family: Monospace;
+	font-family: 'Nunito';
 	font-weight: bold;
 }
 
 #puzzle td.key em {
-	color: #ccc;
-	text-decoration: line-through;
+	color: #b89e93;
 }
 
 body.dark #puzzle td.key em {
@@ -235,32 +276,30 @@ body.dark #puzzle td.key em {
 
 #puzzle td.cell {
 	background-color: #fff;
-	border: 1px solid #ccc;
-	color: #A00;
+	border: 2px solid #ffb6c8;
+	color: #ffb6c8;
 	text-align: center;
 	vertical-align: middle;
 }
 
 #puzzle td.cell.hoverLight {
-	background-color: #F7F2E0;
+	background-color: #FFFFFF;
 }
 
 #puzzle td.cell.hover {
-	background-color: #F7D358;
+	border: 3px #ff8a29 solid !important
 }
 
 #puzzle td.cell.s1 {
-	background-color: #ddd;
-	box-shadow: 0 0 5px 2px #ccc inset;
+	background-color: #eee;
 }
 
 #puzzle td.cell.s2 {
-	background-color: #81DAF5;
-	box-shadow: 0 0 5px 2px #01A9DB inset;
+	background-color: #675145;
 }
 
 #puzzle td.cell.hover {
-	box-shadow: 0 0 5px 2px #FF8000 inset;
+	border: 3px #ff8a29 solid !important
 }
 
 #puzzle.complete td.cell {
@@ -269,8 +308,7 @@ body.dark #puzzle td.key em {
 }
 
 #puzzle.complete td.cell.s2 {
-	background-color: #333;
-	box-shadow: 3px 3px 5px #666 inset, -3px -3px 5px #000 inset;
+	background-color: #675145;
 }
 
 #puzzle.complete.perfect {
@@ -283,5 +321,10 @@ body.dark #puzzle td.key em {
 
 #puzzle.complete.perfect td.cell.s2 {
 	background-color: transparent;
-	box-shadow: 1px 1px 5px #fff inset, -1px -1px 5px #666 inset;
+}
+
+iframe {
+	display: block;
+	text-align: center;
+	margin: auto;
 }
