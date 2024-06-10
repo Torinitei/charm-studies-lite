@@ -16,11 +16,6 @@ body {
 	user-select: none;
 }
 
-body.dark {
-	background-color: #222;
-	color: #eee;
-}
-
 table, tr, td {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -30,10 +25,6 @@ table, tr, td {
 a {
 	text-decoration: none;
 	color: #675145;
-}
-
-body.dark a {
-	color: #fff;
 }
 
 a:hover {
@@ -96,13 +87,6 @@ h1 {
 	
 }
 
-body.dark .control-group {
-	background-color: #675145;
-	border-bottom: 2px solid #000;
-	box-shadow: none;
-	color: #999;
-}
-
 .title { 
 	color: #fff
 }
@@ -111,10 +95,6 @@ body.dark .control-group {
 	font-size: 15px;
 	font-weight: bold;
 	margin-bottom: 10px;
-}
-
-body.dark .control-group h3 {
-	color: #eee;
 }
 
 .control-group .control-section {
@@ -144,10 +124,6 @@ body.dark .control-group h3 {
 .custom h5 {
 	color: #666;
 	font-size: 11px;
-}
-
-body.dark .custom h5 {
-	color: #999;
 }
 
 #customGame {
@@ -217,10 +193,6 @@ body.dark .custom h5 {
 	background-color: #ffe4c6;
 }
 
-body.dark #puzzle td.key {
-	background-color: #222;
-}
-
 #puzzle td:nth-child(5n + 1) {
 	border-right: 2px double #c2a6a2;
 }
@@ -246,17 +218,13 @@ body.dark #puzzle td.key {
 	color: #b89e93;
 }
 
-body.dark #puzzle td.key em {
-	color: #666;
-}
-
 #puzzle td.key.left em, #puzzle td.key.left strong {
 	margin-right: 5px;
 	padding: 0 1px;
 }
 
 #puzzle.complete td.key strong {
-	background-color: #c00;
+	background-color: #985264;
 	color: #fff;
 }
 
@@ -265,6 +233,7 @@ body.dark #puzzle td.key em {
 	padding-bottom: 5px;
 	text-align: center;
 	vertical-align: bottom;
+	border-radius: 2px 2px 10px 10px;
 }
 
 #puzzle td.key.left {
@@ -272,6 +241,7 @@ body.dark #puzzle td.key em {
 	padding-right: 3px;
 	text-align: right;
 	vertical-align: middle;
+	border-radius: 2px 10px 10px 2px;
 }
 
 #puzzle td.cell {
@@ -322,6 +292,20 @@ body.dark #puzzle td.key em {
 #puzzle.complete.perfect td.cell.s2 {
 	background-color: transparent;
 }
+
+#puzzle.complete.perfect td.key {
+	background-color: #dc7891;
+}
+
+#puzzle.complete.perfect td.left {
+	background-color: #ffb6c8;
+}
+
+#puzzle.complete.perfect td.top {
+	background-color: #ffe4c6;
+}
+
+
 
 iframe {
 	display: block;
