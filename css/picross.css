@@ -2,10 +2,16 @@ html {
 	height: 100%;
 }
 
+* {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-synthesis: weight style small-caps;
+	font-style: normal;
+}
+
 body {
 	background-color: #dc7891;
 	color: #4e1e1b;
-	font-family: 'Nunito';
 	font-size: 13px;
 	height: 100%;
 	-webkit-touch-callout: none;
@@ -16,7 +22,9 @@ body {
 	user-select: none;
 }
 
-table, tr, td {
+table,
+tr,
+td {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -84,12 +92,13 @@ h1 {
 	margin-bottom: 20px;
 	padding: 15px 12px;
 	text-align: center;
-	
+
 }
 
-.title { 
+.title {
 	color: #fff
 }
+
 .control-group h3 {
 	color: #000;
 	font-size: 15px;
@@ -127,7 +136,6 @@ h1 {
 }
 
 #customGame {
-	font-family: 'Nunito';
 	background-color: #ffb6c8;
 	border-color: #ffb6c8;
 	color: #985264;
@@ -139,17 +147,11 @@ h1 {
 	padding: 2px;
 	text-align: center;
 	width: 100px;
-	font-family: 'Nunito';
-}
-
-#dimensions {
-	font-family: 'Nunito';
 }
 
 #new {
 	font-weight: bold;
 	padding: 5px 10px;
-	font-family: 'Nunito';
 	background-color: #ffb6c8;
 	border-color: #ffb6c8;
 	color: #985264;
@@ -159,7 +161,6 @@ h1 {
 	font-size: 15px;
 	font-weight: bold;
 	padding: 10px;
-	font-family: 'Nunito';
 	background-color: #ffb6c8;
 	border-color: #ffb6c8;
 	color: #985264;
@@ -167,7 +168,7 @@ h1 {
 
 #seed {
 	background-color: #efefef;
-	font-family: 'Nunito';
+
 }
 
 #progress {
@@ -210,7 +211,6 @@ h1 {
 }
 
 #puzzle td.key {
-	font-family: 'Nunito';
 	font-weight: bold;
 }
 
@@ -218,7 +218,8 @@ h1 {
 	color: #b89e93;
 }
 
-#puzzle td.key.left em, #puzzle td.key.left strong {
+#puzzle td.key.left em,
+#puzzle td.key.left strong {
 	margin-right: 5px;
 	padding: 0 1px;
 }
@@ -237,7 +238,7 @@ h1 {
 	border-radius: 2px 2px 10px 10px;
 }
 
-#puzzle td.key.left {	
+#puzzle td.key.left {
 	min-width: 25px;
 	padding-right: 3px;
 	padding-left: 1em;
