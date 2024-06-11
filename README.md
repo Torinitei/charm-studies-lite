@@ -1,7 +1,7 @@
 Charm Studies lite
 =======
 
-This is a variant of [liouh's picross](https://github.com/liouh/picross)
+This is a variant of [liouh's picross](https://github.com/liouh/picross).
 Please go check them out! They did all the hard work and I just changed around some styles.
 This is themed after [NomNomNami's Charm Studies](https://nomnomnami.itch.io/charm-studies)! Highly recommend you go check them out, they make great stuff.
 
