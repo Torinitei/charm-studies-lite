@@ -1,30 +1,31 @@
-Picross
+Charm Studies lite
 =======
 
-This is a playable [picross puzzle](http://en.wikipedia.org/wiki/Nonogram) generator written in JavaScript
-
-You can access [an online version here](http://liouh.com/picross/)
+This is a variant of [liouh's picross](https://github.com/liouh/picross)
+Please go check them out! They did all the hard work and I just changed around some styles.
+This is themed after [NomNomNami's Charm Studies](https://nomnomnami.itch.io/charm-studies)! Highly recommend you go check them out, they make great stuff.
 
 ### Instructions
 
-* Left click : mark cell as active
-* Left click + drag : mark multiple cells as active
-* Right click : mark cell as inactive
-* Right click + drag : mark multiple cells as inactive
+* Left click: paint cell
+* Right click: cross out cell
+Both support dragging to select multiple!
 
 On touch capable devices:
 
 * Tap: mark cell as active
 * Tap and hold: mark cell as inactive
 
+**NOTE: This website was designed with desktop in mind. Results may vary across devices. Apologies >.<**
+
 ### Features
 
-* Adjustable grid dimensions (the code is generic and supports any dimension, but a 30x30 game can take up to 2 hours)
-* Custom game seeds (allows multiple computers to play using the same starting puzzle configuration)
+* Adjustable grid dimensions (5x5 - 30x30)
+* Custom game seeds
 * Option to toggle crossouts, helping you track numbers that have already been solved
 * Auto-saves using HTML5 web storage
 * Progress indicator
-* Mistakes counter
+* Charm Studies OST! (as a YT embed)
 
 ### Library Dependencies
 
