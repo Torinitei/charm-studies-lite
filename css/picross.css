@@ -231,14 +231,16 @@ h1 {
 #puzzle td.key.top {
 	line-height: 1.3;
 	padding-bottom: 5px;
+	padding-top: 1em;
 	text-align: center;
 	vertical-align: bottom;
 	border-radius: 2px 2px 10px 10px;
 }
 
-#puzzle td.key.left {
+#puzzle td.key.left {	
 	min-width: 25px;
 	padding-right: 3px;
+	padding-left: 1em;
 	text-align: right;
 	vertical-align: middle;
 	border-radius: 2px 10px 10px 2px;
@@ -248,6 +250,7 @@ h1 {
 	background-color: #fff;
 	border: 2px solid #ffb6c8;
 	color: #ffb6c8;
+	content: "";
 	text-align: center;
 	vertical-align: middle;
 }
@@ -262,6 +265,14 @@ h1 {
 
 #puzzle td.cell.s1 {
 	background-color: #eee;
+}
+
+#puzzle td.cell.s1::after {
+	content: "\d7";
+	color: #c2a6a2;
+	font-size: 1.4em;
+	text-align: center;
+	vertical-align: middle;
 }
 
 #puzzle td.cell.s2 {
@@ -304,8 +315,6 @@ h1 {
 #puzzle.complete.perfect td.top {
 	background-color: #ffe4c6;
 }
-
-
 
 iframe {
 	display: block;
