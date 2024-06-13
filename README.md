@@ -1,5 +1,6 @@
 Charm Studies lite
 =======
+[Play here!](https://torinitei.github.io/charm-studies-lite/)
 
 This is a variant of [liouh's picross](https://github.com/liouh/picross).
 Please go check them out! They did all the hard work and I just changed around some styles.
