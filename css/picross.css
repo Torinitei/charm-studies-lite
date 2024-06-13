@@ -45,11 +45,6 @@ a:hover {
 	color: #985264;
 }
 
-.button:hover {
-	background-color: #ffdeb8;
-	color: #4e1e1b;
-}
-
 .container {
 	width: 800px;
 	overflow: hidden;
