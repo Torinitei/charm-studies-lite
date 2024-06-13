@@ -54,7 +54,7 @@ a:hover {
 	width: 800px;
 	overflow: hidden;
 	margin: 0 auto;
-	padding-top: 50px;
+	padding-top: 20px;	
 }
 
 .footer {
@@ -69,10 +69,26 @@ a:hover {
 	line-height: 1.5;
 }
 
+.highlight {
+	text-decoration: none;
+	color: #675145;
+}
+
+.header {
+	clear: both;
+	width: 800px;
+	margin: 0 auto;
+	padding: 15px;
+	text-align: center;
+	color: #985264;
+	font-size: 30px;
+	line-height: 1.5;
+}
+
 h1 {
 	font-size: 30px;
 	font-weight: bold;
-	margin-bottom: 30px;
+	margin: 15px;
 	text-align: center;
 }
 
@@ -141,6 +157,12 @@ h1 {
 	color: #985264;
 }
 
+#customGame:hover {
+	background-color: #ffdeb8;
+	border-color: #4e1e1b;
+	color: #dc7891;
+}
+
 .custom input[type=text] {
 	border: 1px solid #eee;
 	margin-bottom: 10px;
@@ -157,6 +179,12 @@ h1 {
 	color: #985264;
 }
 
+#new:hover {
+	background-color: #ffdeb8;
+	border-color: #4e1e1b;
+	color: #dc7891;
+}
+
 #solve {
 	font-size: 15px;
 	font-weight: bold;
@@ -164,6 +192,12 @@ h1 {
 	background-color: #ffb6c8;
 	border-color: #ffb6c8;
 	color: #985264;
+}
+
+#solve:hover {
+	background-color: #ffdeb8;
+	border-color: #4e1e1b;
+	color: #dc7891;
 }
 
 #seed {
@@ -261,7 +295,7 @@ h1 {
 }
 
 #puzzle td.cell.hover {
-	border: 3px #ff8a29 solid !important
+	border: 3px #ff8a29 solid !important;
 }
 
 #puzzle td.cell.s1 {
@@ -321,4 +355,9 @@ iframe {
 	display: block;
 	text-align: center;
 	margin: auto;
+}
+
+#time {
+	font-size: 20px;
+	font-weight: bold;
 }
