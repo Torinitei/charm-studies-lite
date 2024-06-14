@@ -35,7 +35,7 @@ a {
 	color: #675145;
 }
 
-a:hover {
+a:hover:enabled {
 	text-decoration: underline;
 }
 
@@ -49,7 +49,7 @@ a:hover {
 	width: 800px;
 	overflow: hidden;
 	margin: 0 auto;
-	padding-top: 20px;	
+	padding-top: 20px;
 }
 
 .footer {
@@ -92,7 +92,8 @@ h1 {
 	height: 680px;
 	width: 150px;
 	background-color: #985264;
-	border: 2px solid #4e1e1b
+	border: 2px solid #4e1e1b;
+	border-radius: 5px;
 }
 
 .control-group {
@@ -152,9 +153,7 @@ h1 {
 	color: #985264;
 }
 
-#customGame:hover {
-	background-color: #ffdeb8;
-	border-color: #4e1e1b;
+#customGame:hover:enabled {
 	color: #dc7891;
 }
 
@@ -174,9 +173,7 @@ h1 {
 	color: #985264;
 }
 
-#new:hover {
-	background-color: #ffdeb8;
-	border-color: #4e1e1b;
+#new:hover:enabled {
 	color: #dc7891;
 }
 
@@ -189,10 +186,14 @@ h1 {
 	color: #985264;
 }
 
-#solve:hover {
-	background-color: #ffdeb8;
-	border-color: #4e1e1b;
+#solve:hover:enabled {
 	color: #dc7891;
+}
+
+#solve:disabled {
+	background-color: #efefef;
+	border-color: #efefef;
+	color: #101010;
 }
 
 #seed {
@@ -293,6 +294,10 @@ h1 {
 	border: 3px #ff8a29 solid !important;
 }
 
+#puzzle td.cell.s9 {
+	background-color: #ffe4c6;
+}
+
 #puzzle td.cell.s1 {
 	background-color: #eee;
 }
@@ -323,7 +328,23 @@ h1 {
 }
 
 #puzzle.complete.perfect {
-	background-image: url(../images/rainbow.gif);
+	/* source: https: //codepen.io/P1N2O/pen/pyBNzX */
+	/* character references:         periwinkle,	astragalus, cassia,		pastille, 	senna	*/
+	background: linear-gradient(90deg, #bedbff,  #f3daff, #ffb6c8, #ffdaed, #ffdeb8);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 #puzzle.complete.perfect td {

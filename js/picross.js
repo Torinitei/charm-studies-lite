@@ -374,6 +374,7 @@ $(function () {
 			this.model.reset(customSeed);
 			this.render();
 			this.showSeed();
+			document.getElementById("solve").disabled = false;
 		},
 
 		newGame: function (e) {
@@ -417,6 +418,11 @@ $(function () {
 					// left click
 					e.preventDefault();
 					this.mouseMode = 1;
+					break;
+				case 2:
+					// middle click
+					e.preventDefault();
+					this.mouseMode = 2;
 					break;
 				case 3:
 					// right click
@@ -495,6 +501,18 @@ $(function () {
 						this.clickArea(this.mouseEndX, this.mouseEndY, 2);
 					} else {
 						this.clickArea(target.attr('data-x'), target.attr('data-y'), 2);
+					}
+					break;
+				case 2:
+					// middle click
+					if (this.mouseMode != 2) {
+						this.mouseMode = 0;
+						return;
+					}
+					if (target.attr('data-x') === undefined || target.attr('data-y') === undefined) {
+						this.clickArea(this.mouseEndX, this.mouseEndY, 9);
+					} else {
+						this.clickArea(target.attr('data-x'), target.attr('data-y'), 9);
 					}
 					break;
 				case 3:
@@ -579,9 +597,19 @@ $(function () {
 				return;
 			}
 
+			document.getElementById("solve").disabled = true;
 			var state = this.model.get('state');
 			var hintsX = this.model.get('hintsX');
 			var hintsY = this.model.get('hintsY');
+
+			// convert marks to empty squares
+			for (let rowIndex in state) {
+				for (let columnIndex = 0; columnIndex < state[rowIndex].length; columnIndex++) {
+					if (state[rowIndex][columnIndex] == 9) {
+						state[rowIndex][columnIndex] = 0;
+					}
+				}
+			}
 
 			var perfect = true;
 			var solutionX = this.model.getHintsX(state);
