@@ -46,7 +46,7 @@ a:hover:enabled {
 }
 
 .container {
-	width: 800px;
+	width: 903px;
 	overflow: hidden;
 	margin: 0 auto;
 	padding-top: 20px;
@@ -108,7 +108,7 @@ h1 {
 }
 
 .title {
-	color: #fff
+	color: #fff;
 }
 
 .control-group h3 {
@@ -198,7 +198,15 @@ h1 {
 
 #seed {
 	background-color: #efefef;
+}
 
+.stats {
+	float: right;
+	height: 680px;
+	width: 150px;
+	background-color: #985264;
+	border: 2px solid #4e1e1b;
+	border-radius: 5px;
 }
 
 #progress {
@@ -298,11 +306,52 @@ h1 {
 	background-color: #ffe4c6;
 }
 
-#puzzle td.cell.s1 {
-	background-color: #eee;
+#puzzle.complete td.cell {
+	background-color: #fff;
+	box-shadow: none;
+}
+
+#puzzle.complete td.cell.s11 {
+	background-color: #ffb6c8;
+}
+
+#puzzle.complete td.cell.s11::after {
+	content: "\d7";
+	color: #fff;
+	font-size: 1.4em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#puzzle.complete td.cell.s12 {
+	background-color: #675145;
+}
+
+#puzzle.complete td.cell.s12::after {
+	content: "\d7";
+	color: #fff;
+	font-size: 1.4em;
+	text-align: center;
+	vertical-align: middle;
 }
 
 #puzzle td.cell.s1::after {
+	content: "\d7";
+	color: #ffb6c8;
+	font-size: 1.4em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#puzzle.complete td.cell.s1 {
+	background-color: #eee;
+}
+
+#puzzle.complete.perfect td.cell.s1 {
+	background-color: #eeec;
+}
+
+#puzzle.complete td.cell.s1::after {
 	content: "\d7";
 	color: #c2a6a2;
 	font-size: 1.4em;
@@ -315,22 +364,13 @@ h1 {
 }
 
 #puzzle td.cell.hover {
-	border: 3px #ff8a29 solid !important
-}
-
-#puzzle.complete td.cell {
-	background-color: #fff;
-	box-shadow: none;
-}
-
-#puzzle.complete td.cell.s2 {
-	background-color: #675145;
+	border: 3px #ff8a29 solid !important;
 }
 
 #puzzle.complete.perfect {
 	/* source: https: //codepen.io/P1N2O/pen/pyBNzX */
 	/* character references:         periwinkle,	astragalus, cassia,		pastille, 	senna	*/
-	background: linear-gradient(90deg, #bedbff,  #f3daff, #ffb6c8, #ffdaed, #ffdeb8);
+	background: linear-gradient(90deg, #bedbff, #f3daff, #ffb6c8, #ffdaed, #ffdeb8);
 	background-size: 400% 400%;
 	animation: gradient 10s ease infinite;
 }
@@ -339,9 +379,11 @@ h1 {
 	0% {
 		background-position: 0% 50%;
 	}
+
 	50% {
 		background-position: 100% 50%;
 	}
+
 	100% {
 		background-position: 0% 50%;
 	}
@@ -361,10 +403,12 @@ h1 {
 
 #puzzle.complete.perfect td.left {
 	background-color: #ffb6c8;
+	opacity: 0.75;
 }
 
 #puzzle.complete.perfect td.top {
 	background-color: #ffe4c6;
+	opacity: 0.75;
 }
 
 iframe {

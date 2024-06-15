@@ -4,8 +4,15 @@
     * Summation cells for each column/row
         * With higher grid sizes, it can be really hard to keep track of how many cells need to be filled in a column<br>
         Want to add cells on the opposite site of the board that has the sum of all the numbers together (or maybe numbers + spaces?? idk)
-    * Toggleable timer for charm?
-        * Like in original game!
+    * Additional sidebar
+        * Toggleable timer for charm
+            * Like in original game!
+        * Perfect charm streak
+            * Maybe perfect/complete ratio?
+        * Total playtime?
+        * THEME CUSTOMISER???????
+            * nah that would be too much effort
+
 * Better styling/theming
     * Add spacing between charm pattern labels, like in original Charm Studies
         * Might have problems on larger grids where extra spacing could be disruptive

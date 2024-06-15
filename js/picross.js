@@ -380,7 +380,7 @@ $(function () {
 		newGame: function (e) {
 			$('#customSeed').val('');
 			this._newGame();
-		},
+		},  
 
 		newCustom: function (e) {
 			e.preventDefault();
@@ -602,11 +602,11 @@ $(function () {
 			var hintsX = this.model.get('hintsX');
 			var hintsY = this.model.get('hintsY');
 
-			// convert marks to empty squares
-			for (let rowIndex in state) {
-				for (let columnIndex = 0; columnIndex < state[rowIndex].length; columnIndex++) {
-					if (state[rowIndex][columnIndex] == 9) {
-						state[rowIndex][columnIndex] = 0;
+			// convert marks to crossses
+			for (let y in state) {
+				for (let x = 0; x < state[y].length; x++) {
+					if (state[y][x] == 9) {
+						state[y][x] = 1;
 					}
 				}
 			}
@@ -615,11 +615,13 @@ $(function () {
 			var solutionX = this.model.getHintsX(state);
 			var solutionY = this.model.getHintsY(state);
 
+			console.clear()
 			for (var i = 0; i < hintsX.length; i++) {
 				if (hintsX[i].length !== solutionX[i].length) {
 					perfect = false;
 					break;
 				}
+
 				for (var j = 0; j < hintsX[i].length; j++) {
 					if (Math.abs(hintsX[i][j]) !== solutionX[i][j]) {
 						perfect = false;
@@ -637,6 +639,15 @@ $(function () {
 					if (Math.abs(hintsY[i][j]) !== solutionY[i][j]) {
 						perfect = false;
 						break;
+					}
+				}
+			}
+
+			// convert perfect empties to crossses
+			for (let y in state) {
+				for (let x = 0; x < state[y].length; x++) {
+					if (state[y][x] == 0 && perfect) {
+						state[y][x] = 1;
 					}
 				}
 			}
