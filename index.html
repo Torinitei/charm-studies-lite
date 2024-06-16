@@ -26,10 +26,10 @@
 			<script>
 				/* Source: https://codepen.io/Uhiriwe/pen/pqVLvK */
 				var clearTime;
-				var seconds = 0,
+					var seconds = 0,
 					minutes = 0,
 					hours = 0;
-				var secs, mins, hrs;
+				var secs, mins, gethours;
 
 				function startWatch() {
 					/* convert 60 seconds to 1 minute */
@@ -47,12 +47,12 @@
 					}
 
 					/* 0 padding hours & seconds if not two digits */
-					hrs = hours < 10 ? "0" + hours + ":" : hours + ":";
+					gethours = hours < 10 ? "0" + hours + ":" : hours + ":";
 					secs = seconds < 10 ? "0" + seconds : seconds;
 
 					/* display count-up */
 					var x = document.getElementById("timer");
-					x.innerHTML = hrs + mins + secs;
+					x.innerHTML = gethours + mins + secs;
 
 					seconds++;
 
@@ -72,6 +72,11 @@
 				<h3>progress</h3>
 				<span id="progress">0.0%</span>
 				<div class="custom"></div>
+				<!-- <h3>time</h3>
+				<span id="time">
+					00:00
+				</span>
+				<div class="custom"></div> -->
 				<button id="solve">finish charm!</button>
 			</div>
 			<div class="control-group">
@@ -107,18 +112,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="stats">
-			<h1 class="title">stats</h1>
-			<div class="control-group">
-				<h3>time</h3><span>placeholder</span>
-				<div class="custom"></div>
-				<h3>streak</h3><span>placeholder</span>
-				<div class="custom"></div>
-				<h3>complete charms</h3><span>placeholder</span>
-				<div class="custom"></div>
-				<h3>perfect charms</h3><span>placeholder</span>
-			</div>
-		</div>
 		<div id="puzzle"></div>
 	</div>
 	<div class="footer">
@@ -127,8 +120,7 @@
 		<br>edited by <a href="https://torinitei.carrd.co/">Torinitei</a>. themed after <a
 			href="https://nomnomnami.com/">NomNomNami's</a> <a href="https://nomnomnami.itch.io/charm-studies">Charm
 			Studies</a>.<br />
-		left click tiles to paint, right click to cross out, middle click to mark (highlight). drag to select multiple
-		at once.<br><br>
+		left click tiles to paint, right click to cross out, middle click to mark (highlight). drag to select multiple at once.<br><br>
 		<iframe type="text/html"
 			src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8"
 			width="320" height="180" title="Charm Studies OST ~ magical beats to study to ~" frameborder="0"

@@ -46,7 +46,7 @@ a:hover:enabled {
 }
 
 .container {
-	width: 950px;
+	width: 800px;
 	overflow: hidden;
 	margin: 0 auto;
 	padding-top: 20px;
@@ -220,7 +220,7 @@ h1 {
 }
 
 #puzzle {
-	margin: auto;
+	float: right;
 	width: 600px;
 }
 
