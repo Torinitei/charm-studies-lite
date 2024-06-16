@@ -83,6 +83,10 @@ $(function () {
 			});
 		},
 
+		blankTemplate: function (squareLength) {
+			return Array(squareLength).fill().map(() => Array(squareLength).fill(0));
+		},
+
 		reset: function (customSeed) {
 
 			var seed = customSeed;
@@ -95,14 +99,196 @@ $(function () {
 			var state = [];
 			var total = 0;
 
-			for (var i = 0; i < this.get('dimensionHeight'); i++) {
-				solution[i] = [];
-				state[i] = [];
-				for (var j = 0; j < this.get('dimensionWidth'); j++) {
-					var random = Math.ceil(Math.random() * 2);
-					solution[i][j] = random;
-					total += (random - 1);
-					state[i][j] = 0;
+			// charm gallery generator
+			// failed to separate this into another function (cries)
+			originalCharms = [
+				// 5x5
+				"Astral Magic",
+				"Temporal Magic",
+				"Spatial Magic",
+				"Sweets!",
+				"Love <3",
+				// 10x10
+				"Connection Magic",
+				"Illusion Magic",
+				"Growth Magic",
+				"Kitty~",
+				"Charm Book",
+				// 15x15
+				"Magic Circle"
+			];
+			let inCharmGallery = originalCharms.includes(seed);
+
+			if (inCharmGallery) {
+				switch (seed) {
+					default: break;
+					case "Astral Magic":
+						state = this.blankTemplate(5);
+						solution = [
+							[2, 2, 1, 2, 2],
+							[2, 1, 1, 1, 2],
+							[1, 1, 1, 1, 1],
+							[2, 1, 1, 1, 2],
+							[2, 2, 1, 2, 2]
+						];
+						total = 12;
+						break;
+					case "Temporal Magic":
+						state = this.blankTemplate(5);
+						solution = [
+							[2, 2, 2, 2, 2],
+							[1, 2, 2, 2, 1],
+							[1, 1, 2, 1, 1],
+							[1, 2, 2, 2, 1],
+							[2, 2, 2, 2, 2]
+						];
+						total = 17;
+						break;
+					case "Spatial Magic":
+						state = this.blankTemplate(5);
+						solution = [
+							[1, 2, 2, 2, 1],
+							[2, 2, 1, 2, 2],
+							[2, 2, 2, 1, 2],
+							[2, 1, 2, 2, 2],
+							[1, 2, 2, 2, 1]
+						];
+						total = 18;
+						break;
+					case "Sweets!":
+						state = this.blankTemplate(5);
+						solution = [
+							[1, 2, 1, 1, 1],
+							[2, 2, 2, 2, 1],
+							[1, 2, 2, 2, 1],
+							[1, 2, 2, 2, 2],
+							[1, 1, 1, 2, 2]
+						];
+						total = 14;
+						break;
+					case "Love <3":
+						state = this.blankTemplate(5);
+						solution = [
+							[2, 2, 1, 2, 2],
+							[2, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2],
+							[1, 2, 2, 2, 1],
+							[1, 1, 2, 1, 1]
+						];
+						total = 18;
+						break;
+					case "Connection Magic":
+						state = this.blankTemplate(10);
+						solution = [
+							[2, 2, 2, 2, 1, 1, 2, 2, 2, 2],
+							[2, 2, 1, 2, 1, 1, 2, 1, 2, 2],
+							[2, 1, 1, 2, 1, 1, 2, 1, 1, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[1, 1, 1, 2, 1, 1, 2, 1, 1, 1],
+							[1, 1, 1, 2, 1, 1, 2, 1, 1, 1],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 1, 1, 2, 1, 1, 2, 1, 1, 2],
+							[2, 2, 1, 2, 1, 1, 2, 1, 2, 2],
+							[2, 2, 2, 2, 1, 1, 2, 2, 2, 2]
+						];
+						total = 60;
+						break;
+					case "Illusion Magic":
+						state = this.blankTemplate(10);
+						solution = [
+							[2, 2, 2, 2, 1, 2, 2, 2, 2, 2],
+							[2, 2, 2, 1, 2, 1, 2, 2, 2, 2],
+							[2, 1, 1, 2, 1, 2, 1, 1, 2, 2],
+							[1, 2, 2, 1, 1, 1, 2, 2, 1, 2],
+							[1, 2, 2, 2, 1, 2, 2, 2, 1, 2],
+							[2, 1, 2, 2, 2, 2, 2, 1, 2, 1],
+							[1, 1, 1, 2, 1, 2, 1, 1, 1, 2],
+							[2, 1, 2, 2, 2, 2, 2, 1, 2, 1],
+							[1, 2, 2, 2, 1, 2, 2, 2, 1, 2],
+							[1, 2, 2, 1, 1, 1, 2, 2, 1, 2],
+						];
+						total = 63;
+						break;
+					case "Growth Magic":
+						state = this.blankTemplate(10);
+						solution = [
+							[2, 1, 2, 1, 2, 2, 1, 1, 2, 1],
+							[2, 1, 2, 1, 2, 2, 1, 1, 1, 1],
+							[2, 1, 2, 1, 2, 2, 2, 2, 1, 1],
+							[1, 1, 2, 1, 2, 2, 2, 2, 2, 1],
+							[1, 1, 2, 1, 2, 2, 1, 1, 1, 1],
+							[1, 1, 1, 1, 2, 2, 1, 2, 1, 1],
+							[1, 1, 2, 2, 2, 2, 1, 2, 1, 1],
+							[1, 2, 2, 2, 2, 2, 1, 2, 1, 2],
+							[1, 1, 1, 1, 2, 2, 1, 2, 1, 2],
+							[1, 2, 1, 1, 2, 2, 1, 2, 1, 2]
+						];
+						total = 48;
+						break;
+					case "Kitty~":
+						state = this.blankTemplate(10);
+						solution = [
+							[1, 1, 2, 1, 1, 1, 1, 1, 2, 1],
+							[1, 1, 2, 2, 1, 1, 1, 2, 2, 1],
+							[1, 1, 2, 2, 2, 1, 2, 2, 2, 1],
+							[1, 1, 2, 2, 2, 2, 2, 2, 2, 1],
+							[1, 2, 2, 1, 2, 2, 2, 1, 2, 2],
+							[1, 2, 2, 1, 2, 2, 2, 1, 2, 2],
+							[2, 1, 2, 2, 2, 2, 2, 2, 2, 1],
+							[2, 2, 2, 1, 2, 1, 2, 1, 2, 2],
+							[1, 2, 2, 2, 1, 2, 1, 2, 2, 2],
+							[1, 1, 2, 2, 2, 2, 2, 2, 2, 1]
+						];
+						total = 62;
+						break;
+					case "Charm Book":
+						state = this.blankTemplate(10);
+						solution = [
+							[1, 1, 1, 2, 2, 2, 1, 1, 1, 1],
+							[1, 2, 2, 2, 2, 2, 2, 1, 1, 1],
+							[2, 2, 2, 2, 1, 2, 2, 2, 1, 1],
+							[2, 2, 2, 1, 1, 2, 2, 2, 2, 1],
+							[1, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 1, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 2, 1, 2, 2, 2, 2, 2, 2, 1],
+							[2, 2, 2, 1, 2, 2, 2, 1, 1, 1],
+							[1, 2, 2, 2, 1, 2, 1, 1, 1, 2],
+							[1, 1, 2, 2, 2, 1, 1, 1, 2, 2]
+						];
+						total = 65;
+						break;
+					case "Magic Circle":
+						state = this.blankTemplate(15);
+						solution = [
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2],
+							[2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2],
+							[2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2],
+							[2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2],
+							[2, 2, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 2, 2],
+							[2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2],
+							[2, 2, 1, 2, 1, 1, 1, 2, 2, 1, 1, 2, 1, 2, 2],
+							[2, 2, 1, 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 2],
+							[2, 2, 1, 2, 1, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2],
+							[2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2],
+							[2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2],
+							[2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2],
+							[2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+						];
+						total = 161;
+						break;
+				}
+			} else {
+				for (var i = 0; i < this.get('dimensionHeight'); i++) {
+					solution[i] = [];
+					state[i] = [];
+					for (var j = 0; j < this.get('dimensionWidth'); j++) {
+						var random = Math.ceil(Math.random() * 2);
+						solution[i][j] = random;
+						total += (random - 1);
+						state[i][j] = 0;
+					}
 				}
 			}
 
@@ -357,6 +543,27 @@ $(function () {
 		},
 
 		changeDimensions: function (e) {
+			// charm gallery resizer
+			switch (e) {
+				default: break;
+				case "Astral Magic":
+				case "Temporal Magic":
+				case "Spatial Magic":
+				case "Sweets!":
+				case "Love <3":
+					document.getElementById("dimensions").value = "5x5";
+					break;
+				case "Connection Magic":
+				case "Illusion Magic":
+				case "Growth Magic":
+				case "Kitty~":
+				case "Charm Book":
+					document.getElementById("dimensions").value = "10x10";
+					break;
+				case "Magic Circle":
+					document.getElementById("dimensions").value = "15x15";
+					break;
+			}
 			var dimensions = $('#dimensions').val();
 			dimensions = dimensions.split('x');
 			this.model.set({
@@ -370,7 +577,7 @@ $(function () {
 			$('#puzzle').removeClass('complete');
 			$('#puzzle').removeClass('perfect');
 			$('#progress').removeClass('done');
-			this.changeDimensions();
+			this.changeDimensions(customSeed);
 			this.model.reset(customSeed);
 			this.render();
 			this.showSeed();
@@ -380,7 +587,7 @@ $(function () {
 		newGame: function (e) {
 			$('#customSeed').val('');
 			this._newGame();
-		},  
+		},
 
 		newCustom: function (e) {
 			e.preventDefault();
