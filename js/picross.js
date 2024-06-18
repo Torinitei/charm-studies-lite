@@ -10,7 +10,7 @@ $(function () {
 		defaults: function () {
 			return {
 				dimensionWidth: 10,		// default dimension width
-				dimensionHeight: 10,	// default dimension height
+				dimensionHeight: 10, 	// default dimension height
 				state: [],
 				hintsX: [],
 				hintsY: [],
@@ -19,8 +19,7 @@ $(function () {
 				complete: false,
 				perfect: false,
 				seed: 0,
-				darkMode: false,
-				easyMode: true	// show crossouts
+				easyMode: true			// show crossouts
 			};
 		},
 
@@ -42,7 +41,6 @@ $(function () {
 				localStorage['picross2.complete'] = JSON.stringify(this.get('complete'));
 				localStorage['picross2.perfect'] = JSON.stringify(this.get('perfect'));
 				localStorage['picross2.seed'] = JSON.stringify(this.get('seed'));
-				localStorage['picross2.darkMode'] = JSON.stringify(this.get('darkMode'));
 				localStorage['picross2.easyMode'] = JSON.stringify(this.get('easyMode'));
 			}
 		},
@@ -64,7 +62,6 @@ $(function () {
 			var complete = JSON.parse(localStorage['picross2.complete']);
 			var perfect = JSON.parse(localStorage['picross2.perfect']);
 			var seed = JSON.parse(localStorage['picross2.seed']);
-			var darkMode = JSON.parse(localStorage['picross2.darkMode']);
 			var easyMode = JSON.parse(localStorage['picross2.easyMode']);
 
 			this.set({
@@ -78,9 +75,12 @@ $(function () {
 				complete: complete,
 				perfect: perfect,
 				seed: seed,
-				darkMode: darkMode,
 				easyMode: easyMode
 			});
+		},
+
+		blankTemplate: function (squareLength, filler = 0) {
+			return Array(squareLength).fill().map(() => Array(squareLength).fill(filler));
 		},
 
 		reset: function (customSeed) {
@@ -95,14 +95,284 @@ $(function () {
 			var state = [];
 			var total = 0;
 
-			for (var i = 0; i < this.get('dimensionHeight'); i++) {
-				solution[i] = [];
-				state[i] = [];
-				for (var j = 0; j < this.get('dimensionWidth'); j++) {
-					var random = Math.ceil(Math.random() * 2);
-					solution[i][j] = random;
-					total += (random - 1);
-					state[i][j] = 0;
+			// charm gallery generator
+			// failed to separate this into another function (cries)
+			originalCharms = [
+				/* NomNomNami - Charm Studies Originals */
+				// 5x5
+				"Astral Magic",
+				"Temporal Magic",
+				"Spatial Magic",
+				"Sweets!",
+				"Love <3",
+				// 10x10
+				"Connection Magic",
+				"Illusion Magic",
+				"Growth Magic",
+				"Kitty~",
+				"Charm Book",
+				"Cute Staff",
+				// 15x15
+				"Magic Circle",
+				"Broomstick",
+				"Senna <3",
+				"Me!"
+			];
+			let inCharmGallery = originalCharms.includes(seed);
+
+			if (inCharmGallery) {
+				switch (seed) {
+					default: break;
+					/* NomNomNami - Charm Studies Originals */
+					// 5x5
+					case "Astral Magic":
+						state = this.blankTemplate(5);
+						solution = [
+							[2, 2, 1, 2, 2],
+							[2, 1, 1, 1, 2],
+							[1, 1, 1, 1, 1],
+							[2, 1, 1, 1, 2],
+							[2, 2, 1, 2, 2]
+						];
+						total = 12;
+						break;
+					case "Temporal Magic":
+						state = this.blankTemplate(5);
+						solution = [
+							[2, 2, 2, 2, 2],
+							[1, 2, 2, 2, 1],
+							[1, 1, 2, 1, 1],
+							[1, 2, 2, 2, 1],
+							[2, 2, 2, 2, 2]
+						];
+						total = 17;
+						break;
+					case "Spatial Magic":
+						state = this.blankTemplate(5);
+						solution = [
+							[1, 2, 2, 2, 1],
+							[2, 2, 1, 2, 2],
+							[2, 2, 2, 1, 2],
+							[2, 1, 2, 2, 2],
+							[1, 2, 2, 2, 1]
+						];
+						total = 18;
+						break;
+					case "Sweets!":
+						state = this.blankTemplate(5);
+						solution = [
+							[1, 2, 1, 1, 1],
+							[2, 2, 2, 2, 1],
+							[1, 2, 2, 2, 1],
+							[1, 2, 2, 2, 2],
+							[1, 1, 1, 2, 2]
+						];
+						total = 14;
+						break;
+					case "Love <3":
+						state = this.blankTemplate(5);
+						solution = [
+							[2, 2, 1, 2, 2],
+							[2, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2],
+							[1, 2, 2, 2, 1],
+							[1, 1, 2, 1, 1]
+						];
+						total = 18;
+						break;
+					// 10x10
+					case "Connection Magic":
+						state = this.blankTemplate(10);
+						solution = [
+							[2, 2, 2, 2, 1, 1, 2, 2, 2, 2],
+							[2, 2, 1, 2, 1, 1, 2, 1, 2, 2],
+							[2, 1, 1, 2, 1, 1, 2, 1, 1, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[1, 1, 1, 2, 1, 1, 2, 1, 1, 1],
+							[1, 1, 1, 2, 1, 1, 2, 1, 1, 1],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 1, 1, 2, 1, 1, 2, 1, 1, 2],
+							[2, 2, 1, 2, 1, 1, 2, 1, 2, 2],
+							[2, 2, 2, 2, 1, 1, 2, 2, 2, 2]
+						];
+						total = 60;
+						break;
+					case "Illusion Magic":
+						state = this.blankTemplate(10);
+						solution = [
+							[2, 2, 2, 2, 1, 2, 2, 2, 2, 2],
+							[2, 2, 2, 1, 2, 1, 2, 2, 2, 2],
+							[2, 1, 1, 2, 1, 2, 1, 1, 2, 2],
+							[1, 2, 2, 1, 1, 1, 2, 2, 1, 2],
+							[1, 2, 2, 2, 1, 2, 2, 2, 1, 2],
+							[2, 1, 2, 2, 2, 2, 2, 1, 2, 1],
+							[1, 1, 1, 2, 1, 2, 1, 1, 1, 2],
+							[2, 1, 2, 2, 2, 2, 2, 1, 2, 1],
+							[1, 2, 2, 2, 1, 2, 2, 2, 1, 2],
+							[1, 2, 2, 1, 1, 1, 2, 2, 1, 2],
+						];
+						total = 63;
+						break;
+					case "Growth Magic":
+						state = this.blankTemplate(10);
+						solution = [
+							[2, 1, 2, 1, 2, 2, 1, 1, 2, 1],
+							[2, 1, 2, 1, 2, 2, 1, 1, 1, 1],
+							[2, 1, 2, 1, 2, 2, 2, 2, 1, 1],
+							[1, 1, 2, 1, 2, 2, 2, 2, 2, 1],
+							[1, 1, 2, 1, 2, 2, 1, 1, 1, 1],
+							[1, 1, 1, 1, 2, 2, 1, 2, 1, 1],
+							[1, 1, 2, 2, 2, 2, 1, 2, 1, 1],
+							[1, 2, 2, 2, 2, 2, 1, 2, 1, 2],
+							[1, 1, 1, 1, 2, 2, 1, 2, 1, 2],
+							[1, 2, 1, 1, 2, 2, 1, 2, 1, 2]
+						];
+						total = 48;
+						break;
+					case "Kitty~":
+						state = this.blankTemplate(10);
+						solution = [
+							[1, 1, 2, 1, 1, 1, 1, 1, 2, 1],
+							[1, 1, 2, 2, 1, 1, 1, 2, 2, 1],
+							[1, 1, 2, 2, 2, 1, 2, 2, 2, 1],
+							[1, 1, 2, 2, 2, 2, 2, 2, 2, 1],
+							[1, 2, 2, 1, 2, 2, 2, 1, 2, 2],
+							[1, 2, 2, 1, 2, 2, 2, 1, 2, 2],
+							[2, 1, 2, 2, 2, 2, 2, 2, 2, 1],
+							[2, 2, 2, 1, 2, 1, 2, 1, 2, 2],
+							[1, 2, 2, 2, 1, 2, 1, 2, 2, 2],
+							[1, 1, 2, 2, 2, 2, 2, 2, 2, 1]
+						];
+						total = 62;
+						break;
+					case "Charm Book":
+						state = this.blankTemplate(10);
+						solution = [
+							[1, 1, 1, 2, 2, 2, 1, 1, 1, 1],
+							[1, 2, 2, 2, 2, 2, 2, 1, 1, 1],
+							[2, 2, 2, 2, 1, 2, 2, 2, 1, 1],
+							[2, 2, 2, 1, 1, 2, 2, 2, 2, 1],
+							[1, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 1, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 2, 1, 2, 2, 2, 2, 2, 2, 1],
+							[2, 2, 2, 1, 2, 2, 2, 1, 1, 1],
+							[1, 2, 2, 2, 1, 2, 1, 1, 1, 2],
+							[1, 1, 2, 2, 2, 1, 1, 1, 2, 2]
+						];
+						total = 65;
+						break;
+					case "Cute Staff":
+						state = this.blankTemplate(10);
+						solution = [
+							[1, 2, 2, 2, 2, 1, 2, 1, 2, 1],
+							[2, 2, 1, 1, 2, 1, 2, 1, 1, 1],
+							[2, 1, 1, 1, 2, 1, 2, 2, 1, 1],
+							[2, 1, 1, 1, 2, 1, 2, 2, 1, 1],
+							[2, 2, 2, 2, 1, 2, 1, 2, 2, 1],
+							[1, 1, 1, 1, 2, 2, 2, 1, 1, 1],
+							[2, 2, 2, 2, 1, 2, 2, 2, 1, 1],
+							[1, 1, 2, 2, 2, 1, 2, 2, 2, 1],
+							[2, 1, 1, 1, 2, 1, 1, 2, 2, 2],
+							[1, 1, 1, 1, 1, 1, 1, 1, 2, 2]
+						];
+						total = 48;
+						break;
+					// 15x15
+					case "Magic Circle":
+						state = this.blankTemplate(15);
+						solution = [
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2],
+							[2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2],
+							[2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2],
+							[2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2],
+							[2, 2, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 2, 2],
+							[2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2],
+							[2, 2, 1, 2, 1, 1, 1, 2, 2, 1, 1, 2, 1, 2, 2],
+							[2, 2, 1, 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 2],
+							[2, 2, 1, 2, 1, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2],
+							[2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2],
+							[2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2],
+							[2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2],
+							[2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+						];
+						total = 161;
+						break;
+					case "Broomstick":
+						state = this.blankTemplate(15);
+						solution = [
+							[2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 1],
+							[2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 2, 2, 1, 1, 1],
+							[2, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 1],
+							[2, 1, 1, 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 2],
+							[2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2],
+							[2, 1, 2, 2, 2, 2, 1, 2, 1, 1, 1, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 2, 2, 2, 1, 2],
+							[2, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2],
+							[1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2, 2, 2, 2],
+							[1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 2],
+							[2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1],
+							[2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1],
+							[2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1],
+							[2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+						];
+						total = 127;
+						break;
+					case "Senna <3":
+						state = this.blankTemplate(15);
+						solution = [
+							[1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1],
+							[1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1],
+							[1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 2, 1],
+							[1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1],
+							[2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2],
+							[2, 2, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 2, 2],
+							[2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2],
+							[2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2],
+							[2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2],
+							[2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+						];
+						total = 142;
+						break;
+					case "Me!":
+						state = this.blankTemplate(15);
+						solution = [
+							[1, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+							[1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2, 2, 2, 2, 1],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1],
+							[1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 1, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 1, 1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 2, 2, 2],
+							[2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 1, 1, 2],
+							[2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1],
+							[2, 1, 2, 2, 2, 1, 1, 1, 2, 2, 1, 2, 1, 1, 1],
+							[1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 2, 2, 1, 2, 1],
+							[1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1],
+							[1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 1],
+							[2, 1, 1, 2, 1, 1, 2, 2, 1, 1, 2, 1, 1, 2, 2],
+							[2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2]
+						]
+						total = 124;
+						break;
+				}
+			} else {
+				for (var i = 0; i < this.get('dimensionHeight'); i++) {
+					solution[i] = [];
+					state[i] = [];
+					for (var j = 0; j < this.get('dimensionWidth'); j++) {
+						var random = Math.ceil(Math.random() * 2);
+						solution[i][j] = random;
+						total += (random - 1);
+						state[i][j] = 0;
+					}
 				}
 			}
 
@@ -289,7 +559,7 @@ $(function () {
 				return {
 					"click #new": "newGame",
 					"click #solve": "solve",
-					"change #dark": "changeDarkMode",
+					"click #galleryStudy": "galleryStudy",
 					"change #easy": "changeEasyMode",
 					"mousedown": "clickStart",
 					"mouseover td.cell": "mouseOver",
@@ -307,7 +577,7 @@ $(function () {
 				return {
 					"click #new": "newGame",
 					"click #solve": "solve",
-					"change #dark": "changeDarkMode",
+					"click #galleryStudy": "galleryStudy",
 					"change #easy": "changeEasyMode",
 					"mousedown": "clickStart",
 					"mouseover td.cell": "mouseOver",
@@ -330,11 +600,6 @@ $(function () {
 		initialize: function () {
 			this.model.resume();
 			$('#dimensions').val(this.model.get('dimensionWidth') + 'x' + this.model.get('dimensionHeight'));
-			if (this.model.get('darkMode')) {
-				$('#dark').attr('checked', 'checked');
-			} else {
-				$('#dark').removeAttr('checked');
-			}
 			if (this.model.get('easyMode')) {
 				$('#easy').attr('checked', 'checked');
 			} else {
@@ -344,12 +609,6 @@ $(function () {
 			this.showSeed();
 		},
 
-		changeDarkMode: function (e) {
-			var darkMode = $('#dark').attr('checked') !== undefined;
-			this.model.set({ darkMode: darkMode });
-			this.render();
-		},
-
 		changeEasyMode: function (e) {
 			var easyMode = $('#easy').attr('checked') !== undefined;
 			this.model.set({ easyMode: easyMode });
@@ -357,6 +616,35 @@ $(function () {
 		},
 
 		changeDimensions: function (e) {
+			// charm gallery resizer
+			switch (e) {
+				default: break;
+				/* NomNomNami - Charm Studies Originals */
+				// 5x5
+				case "Astral Magic":
+				case "Temporal Magic":
+				case "Spatial Magic":
+				case "Sweets!":
+				case "Love <3":
+					document.getElementById("dimensions").value = "5x5";
+					break;
+				// 10x10
+				case "Connection Magic":
+				case "Illusion Magic":
+				case "Growth Magic":
+				case "Kitty~":
+				case "Charm Book":
+				case "Cute Staff":
+					document.getElementById("dimensions").value = "10x10";
+					break;
+				// 15x15
+				case "Magic Circle":
+				case "Broomstick":
+				case "Senna <3":
+				case "Me!":
+					document.getElementById("dimensions").value = "15x15";
+					break;
+			}
 			var dimensions = $('#dimensions').val();
 			dimensions = dimensions.split('x');
 			this.model.set({
@@ -365,12 +653,22 @@ $(function () {
 			});
 		},
 
+		galleryStudy: function (e) {
+			e.preventDefault();
+
+			selectedCharm = document.getElementById("original-charms").value;
+			if (selectedCharm !== "default") {
+				this._newGame(selectedCharm);
+				document.getElementById("original-charms").value = "default";
+			}
+		},
+
 		_newGame: function (customSeed) {
 			$('#solve').prop('disabled', false);
 			$('#puzzle').removeClass('complete');
 			$('#puzzle').removeClass('perfect');
 			$('#progress').removeClass('done');
-			this.changeDimensions();
+			this.changeDimensions(customSeed);
 			this.model.reset(customSeed);
 			this.render();
 			this.showSeed();
@@ -380,7 +678,7 @@ $(function () {
 		newGame: function (e) {
 			$('#customSeed').val('');
 			this._newGame();
-		},  
+		},
 
 		newCustom: function (e) {
 			e.preventDefault();
@@ -615,7 +913,6 @@ $(function () {
 			var solutionX = this.model.getHintsX(state);
 			var solutionY = this.model.getHintsY(state);
 
-			console.clear()
 			for (var i = 0; i < hintsX.length; i++) {
 				if (hintsX[i].length !== solutionX[i].length) {
 					perfect = false;
@@ -666,12 +963,6 @@ $(function () {
 			var progress = this.model.get('guessed') / this.model.get('total') * 100;
 			$('#progress').text(progress.toFixed(1) + '%');
 
-			if (this.model.get('darkMode')) {
-				$('body').addClass('dark');
-			} else {
-				$('body').removeClass('dark');
-			}
-
 			if (this.model.get('complete')) {
 				$('#solve').prop('disabled', true);
 				$('#puzzle').addClass('complete');
@@ -687,6 +978,7 @@ $(function () {
 
 			var hintsXText = [];
 			var hintsYText = [];
+
 			if (this.model.get('easyMode') || this.model.get('complete')) {
 				for (var i = 0; i < hintsX.length; i++) {
 					hintsXText[i] = [];

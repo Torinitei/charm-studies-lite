@@ -16,7 +16,6 @@
 	<meta name="msapplication-TileColor" content="#b91d47">
 	<meta name="msapplication-config" content="images/browserconfig.xml">
 	<meta name="theme-color" content="#ffffff">
-
 </head>
 
 <body>
@@ -26,10 +25,10 @@
 			<script>
 				/* Source: https://codepen.io/Uhiriwe/pen/pqVLvK */
 				var clearTime;
-					var seconds = 0,
+				var seconds = 0,
 					minutes = 0,
 					hours = 0;
-				var secs, mins, gethours;
+				var secs, mins, hrs;
 
 				function startWatch() {
 					/* convert 60 seconds to 1 minute */
@@ -47,12 +46,12 @@
 					}
 
 					/* 0 padding hours & seconds if not two digits */
-					gethours = hours < 10 ? "0" + hours + ":" : hours + ":";
+					hrs = hours < 10 ? "0" + hours + ":" : hours + ":";
 					secs = seconds < 10 ? "0" + seconds : seconds;
 
 					/* display count-up */
 					var x = document.getElementById("timer");
-					x.innerHTML = gethours + mins + secs;
+					x.innerHTML = hrs + mins + secs;
 
 					seconds++;
 
@@ -72,11 +71,6 @@
 				<h3>progress</h3>
 				<span id="progress">0.0%</span>
 				<div class="custom"></div>
-				<!-- <h3>time</h3>
-				<span id="time">
-					00:00
-				</span>
-				<div class="custom"></div> -->
 				<button id="solve">finish charm!</button>
 			</div>
 			<div class="control-group">
@@ -112,15 +106,62 @@
 				</div>
 			</div>
 		</div>
+		<div class="stats">
+			<h1 class="title">stats</h1>
+			<div class="control-group">
+				<h3>time</h3><span id="puzzletime">placeholder</span>
+				<div class="custom"></div>
+				<h3>streak</h3><span>placeholder</span>
+				<div class="custom"></div>
+				<h3>complete charms</h3><span>placeholder</span>
+				<div class="custom"></div>
+				<h3>perfect charms</h3><span>placeholder</span>
+			</div>
+			<h1 class="title">other</h1>
+			<div class="control-group">
+				<h3>charm gallery</h3>
+				<form id="charm-gallery">
+					<select name="original-charms" id="original-charms">
+						<option hidden disabled selected value="default">select charm</option>
+						<option value="nami's charms!" disabled>nami's charms!</option>
+						<option value="5x5" disabled>5x5</option>
+						<option value="Astral Magic">Astral Magic</option>
+						<option value="Temporal Magic">Temporal Magic</option>
+						<option value="Spatial Magic">Spatial Magic</option>
+						<option value="Sweets!">Sweets!</option>
+						<option value="Love &lt;3">Love &lt;3</option>
+						<option disabled></option>
+
+						<option value="10x10" disabled>10x10</option>
+						<option value="Connection Magic">Connection Magic</option>
+						<option value="Illusion Magic">Illusion Magic</option>
+						<option value="Growth Magic">Growth Magic</option>
+						<option value="Kitty~">Kitty~</option>
+						<option value="Charm Book">Charm Book</option>
+						<option value="Cute Staff">Cute Staff</option>
+						<option disabled></option>
+
+
+						<option value="15x15" disabled>15x15</option>
+						<option value="Magic Circle">Magic Circle</option>
+						<option value="Broomstick">Broomstick</option>
+						<option value="Senna &lt;3">Senna &lt;3</option>
+						<option value="Me!">Me!</option>
+					</select>
+					<button type="submit" id="galleryStudy">study charm~</button>
+				</form>
+			</div>
+		</div>
 		<div id="puzzle"></div>
 	</div>
 	<div class="footer">
 		randomly generated <a href="http://en.wikipedia.org/wiki/Nonogram" target="_blank">picross puzzles</a>.original
 		designed and written by <a href="http://liouh.com/home/">Henry Liou</a>.
-		<br>edited by <a href="https://torinitei.carrd.co/">Torinitei</a>. themed after <a
+		<br />edited by <a href="https://torinitei.carrd.co/">Torinitei</a>. themed after <a
 			href="https://nomnomnami.com/">NomNomNami's</a> <a href="https://nomnomnami.itch.io/charm-studies">Charm
 			Studies</a>.<br />
-		left click tiles to paint, right click to cross out, middle click to mark (highlight). drag to select multiple at once.<br><br>
+		left click tiles to paint, right click to cross out, middle click to mark (highlight). drag to select multiple
+		at once.<br /><br />
 		<iframe type="text/html"
 			src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8"
 			width="320" height="180" title="Charm Studies OST ~ magical beats to study to ~" frameborder="0"
