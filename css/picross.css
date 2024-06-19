@@ -223,6 +223,12 @@ h1 {
 	border-radius: 5px;
 }
 
+#original-charms {
+	width: 125px;
+	margin: auto;
+	text-overflow: clip;
+}
+
 .other {
 	float: right;
 	height: 680px;
@@ -448,8 +454,6 @@ h1 {
 	background-color: #ffb6c8;
 	opacity: 0.75;
 }
-
-
 
 iframe {
 	display: block;
