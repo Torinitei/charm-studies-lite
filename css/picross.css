@@ -30,6 +30,7 @@ td {
 	-webkit-box-sizing: border-box;
 }
 
+
 a {
 	text-decoration: none;
 	color: #675145;
@@ -37,6 +38,12 @@ a {
 
 a:hover:enabled {
 	text-decoration: underline;
+}
+
+#AAAAA {
+	background-color: #dd94a6;
+	border-color: #dd94a6;
+	color: #763042;
 }
 
 .button {
