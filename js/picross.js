@@ -21,9 +21,9 @@ $(function () {
 				seed: 0,
 				easyMode: true, // show crossouts
 				// stats
-				perfectStreak: 0,
+/* 				perfectStreak: 0,
 				charmsComplete: 0,
-				charmsPerfect: 0
+				charmsPerfect: 0 */
 			};
 		},
 
@@ -46,9 +46,9 @@ $(function () {
 				localStorage['picross2.perfect'] = JSON.stringify(this.get('perfect'));
 				localStorage['picross2.seed'] = JSON.stringify(this.get('seed'));
 				localStorage['picross2.easyMode'] = JSON.stringify(this.get('easyMode'));
-				localStorage['picross2.perfectStreak'] = JSON.stringify(this.get('perfectStreak'))
+/* 				localStorage['picross2.perfectStreak'] = JSON.stringify(this.get('perfectStreak'))
 				localStorage['picross2.charmsComplete'] = JSON.stringify(this.get('charmsComplete'))
-				localStorage['picross2.charmsPerfect'] = JSON.stringify(this.get('charmsPerfect'))
+				localStorage['picross2.charmsPerfect'] = JSON.stringify(this.get('charmsPerfect')) */
 			}
 		},
 
@@ -70,9 +70,9 @@ $(function () {
 			var perfect = JSON.parse(localStorage['picross2.perfect']);
 			var seed = JSON.parse(localStorage['picross2.seed']);
 			var easyMode = JSON.parse(localStorage['picross2.easyMode']);
-			var perfectStreak = JSON.parse(localStorage['picross2.perfectStreak'])
+/* 			var perfectStreak = JSON.parse(localStorage['picross2.perfectStreak'])
 			var charmsComplete = JSON.parse(localStorage['picross2.charmsComplete'])
-			var charmsPerfect = JSON.parse(localStorage['picross2.charmsPerfect'])
+			var charmsPerfect = JSON.parse(localStorage['picross2.charmsPerfect']) */
 
 			this.set({
 				dimensionWidth: dimensionWidth,
@@ -86,9 +86,9 @@ $(function () {
 				perfect: perfect,
 				seed: seed,
 				easyMode: easyMode,
-				perfectStreak: perfectStreak,
+/* 				perfectStreak: perfectStreak,
 				charmsComplete: charmsComplete,
-				charmsPerfect: charmsPerfect
+				charmsPerfect: charmsPerfect */
 			});
 		},
 
