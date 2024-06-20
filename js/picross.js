@@ -92,8 +92,8 @@ $(function () {
 			});
 		},
 
-		blankTemplate: function (charmLength, charmWidth = charmLength, filler = 0) {
-			return Array(charmWidth).fill().map(() => Array(charmLength).fill(filler));
+		blankTemplate: function (charmLength, filler = 0) {
+			return Array(charmLength).fill().map(() => Array(charmLength).fill(filler));
 		},
 
 		reset: function (customSeed) {
@@ -138,7 +138,9 @@ $(function () {
 				"OVERLORD",
 				"TRAGEDY",
 				/* Starry Flowers */
-				"Starry Flowers"
+				"Starry Flowers",
+				/* test */
+				"BLANK"
 			];
 			let inCharmGallery = originalCharms.includes(seed);
 
@@ -603,7 +605,14 @@ $(function () {
 							[1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1], 
 							[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 						];
-					total = 207;					
+						total = 207;
+						break;
+					case "BLANK":
+					/* test */
+						state = this.blankTemplate(30);
+						solution = this.blankTemplate(30, 2);
+						total = 900;
+						break;
 				}
 			} else {
 				for (var i = 0; i < this.get('dimensionHeight'); i++) {
@@ -876,7 +885,7 @@ $(function () {
 		},
 
 		changeDimensions: function (e) {
-			var ogDim = $('#dimensions').val();
+			// var ogDim = $('#dimensions').val();
 			// charm gallery resizer
 			switch (e) {
 				default:
@@ -915,6 +924,8 @@ $(function () {
 				case "OVERLORD":
 				/* Starry Flowers */
 				case "Starry Flowers":
+				/* test */
+				case "BLANK":
 					document.getElementById("dimensions").value = "30x30";
 			}
 			var dimensions = $('#dimensions').val();
@@ -923,7 +934,7 @@ $(function () {
 				dimensionWidth: dimensions[0],
 				dimensionHeight: dimensions[1]
 			});
-			document.getElementById("dimensions").value = ogDim;
+			// document.getElementById("dimensions").value = ogDim;
 		},
 
 		galleryStudy: function (e) {

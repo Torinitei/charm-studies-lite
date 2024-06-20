@@ -260,6 +260,11 @@ h1 {
 	table-layout: fixed;
 	margin: auto;
 	width: 600px;
+	height: 650px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-content: center;
 }
 
 #puzzle tr:nth-child(even):not(:first-child) td.key.left {
