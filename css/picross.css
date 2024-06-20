@@ -20,6 +20,7 @@ body {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	font-family: 'Nunito', sans-serif;
 }
 
 table,
