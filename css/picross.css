@@ -256,6 +256,7 @@ h1 {
 }
 
 #puzzle {
+	table-layout: fixed;
 	margin: auto;
 	width: 600px;
 }
