@@ -259,8 +259,10 @@ h1 {
 #puzzle {
 	table-layout: fixed;
 	margin: auto;
-	width: 600px;
-	height: 650px;
+	width: fit-content;
+	height: fit-content;
+	max-width: 600px;
+	max-height: 650px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-end;
@@ -425,6 +427,8 @@ h1 {
 	background: linear-gradient(90deg, #bedbff, #f3daff, #ffb6c8, #ffdaed, #ffdeb8);
 	background-size: 400% 400%;
 	animation: gradient 10s ease infinite;
+	width: fit-content;
+	height: fit-content;
 }
 
 @keyframes gradient {
