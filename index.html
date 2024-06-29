@@ -20,8 +20,16 @@
 	<meta name="msapplication-config" content="images/browserconfig.xml">
 	<meta name="theme-color" content="#ffffff">
 </head>
-
 <body>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-9LTLPW1PR1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-9LTLPW1PR1');
+	</script>
 	<div class="container">
 		<div class="header">
 			you have been studying charms for <span class="highlight" id="timer"> 00:00:00 </span>
@@ -186,7 +194,7 @@
 				<button id="AAAAA" onclick="localStorage.clear(); location.reload();">clear storage</button>
 			</div>
 		</div>
-		<div id="puzzle">if you're seeing this, something's gone wrong! please press the clear storage in the debug section. sorry v.v</div>
+		<div id="puzzle">if you're seeing this, something's gone wrong! please press the clear storage in the debug section.<br />i am afraid that if you had progress on a board, it will be reset, sorry (&gt;.&lt;)</div>
 	</div>
 	<div class="footer">
 		randomly generated <a href="http://en.wikipedia.org/wiki/Nonogram" target="_blank">picross puzzles</a>.original
