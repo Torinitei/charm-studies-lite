@@ -568,7 +568,7 @@ body.dark #puzzle.complete td.cell.s1 {
 }
 
 body.dark #puzzle.complete.perfect td.cell.s1 {
-	background-color: #111c;
+	background-color: #808080cc;
 }
 
 #puzzle.complete td.cell.s1::after {
@@ -603,6 +603,12 @@ body.dark #puzzle td.cell.s2 {
 	animation: gradient 10s ease infinite;
 	width: fit-content;
 	height: fit-content;
+}
+
+body.dark #puzzle.complete.perfect {
+	background: linear-gradient(90deg, #5f7da1, #866d92, #a35b6d, #926d80, #a1815c);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
 }
 
 @keyframes gradient {
