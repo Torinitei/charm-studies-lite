@@ -58,6 +58,8 @@ a:hover:enabled {
 	overflow: hidden;
 	margin: 0 auto;
 	padding-top: 20px;
+	text-align: center;
+	vertical-align: middle;
 }
 
 .footer {

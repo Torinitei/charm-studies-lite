@@ -21,9 +21,9 @@ $(function () {
 				seed: 0,
 				easyMode: true, // show crossouts
 				// stats
-/* 				perfectStreak: 0,
+				perfectStreak: 0,
 				charmsComplete: 0,
-				charmsPerfect: 0 */
+				charmsPerfect: 0
 			};
 		},
 
@@ -46,9 +46,21 @@ $(function () {
 				localStorage['picross2.perfect'] = JSON.stringify(this.get('perfect'));
 				localStorage['picross2.seed'] = JSON.stringify(this.get('seed'));
 				localStorage['picross2.easyMode'] = JSON.stringify(this.get('easyMode'));
-/* 				localStorage['picross2.perfectStreak'] = JSON.stringify(this.get('perfectStreak'))
-				localStorage['picross2.charmsComplete'] = JSON.stringify(this.get('charmsComplete'))
-				localStorage['picross2.charmsPerfect'] = JSON.stringify(this.get('charmsPerfect')) */
+
+				let streakCheck = JSON.stringify(this.get('perfectStreak'));
+				let completeCheck = JSON.stringify(this.get('charmsComplete'));
+				let perfectCheck = JSON.stringify(this.get('charmsPerfect'));
+
+				if (!streakCheck && completeCheck && perfectCheck) {
+					localStorage['picross2.perfectStreak'] = 0;
+					localStorage['picross2.charmsComplete'] = 0;
+					localStorage['picross2.charmsPerfect'] = 0;
+					location.reload();	
+				} else {
+					localStorage['picross2.perfectStreak'] = streakCheck;
+					localStorage['picross2.charmsComplete'] = completeCheck;
+					localStorage['picross2.charmsPerfect'] = perfectCheck;
+				}
 			}
 		},
 
@@ -70,9 +82,9 @@ $(function () {
 			var perfect = JSON.parse(localStorage['picross2.perfect']);
 			var seed = JSON.parse(localStorage['picross2.seed']);
 			var easyMode = JSON.parse(localStorage['picross2.easyMode']);
-/* 			var perfectStreak = JSON.parse(localStorage['picross2.perfectStreak'])
-			var charmsComplete = JSON.parse(localStorage['picross2.charmsComplete'])
-			var charmsPerfect = JSON.parse(localStorage['picross2.charmsPerfect']) */
+			var perfectStreak = JSON.parse(localStorage['picross2.perfectStreak']);
+			var charmsComplete = JSON.parse(localStorage['picross2.charmsComplete']);
+			var charmsPerfect = JSON.parse(localStorage['picross2.charmsPerfect']);
 
 			this.set({
 				dimensionWidth: dimensionWidth,
@@ -86,9 +98,9 @@ $(function () {
 				perfect: perfect,
 				seed: seed,
 				easyMode: easyMode,
-/* 				perfectStreak: perfectStreak,
+				perfectStreak: perfectStreak,
 				charmsComplete: charmsComplete,
-				charmsPerfect: charmsPerfect */
+				charmsPerfect: charmsPerfect
 			});
 		},
 
@@ -138,9 +150,7 @@ $(function () {
 				"OVERLORD",
 				"TRAGEDY",
 				/* Starry Flowers */
-				"Starry Flowers",
-				/* test */
-				"BLANK"
+				"Starry Flowers"
 			];
 			let inCharmGallery = originalCharms.includes(seed);
 
@@ -575,43 +585,37 @@ $(function () {
 						state = this.blankTemplate(30);
 						solution = [
 							[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-							[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
-							[1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
-							[1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
-							[1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1], 
-							[1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1], 
-							[1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 1, 1, 1, 1], 
-							[1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1], 
-							[1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1], 
-							[1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 1], 
-							[1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1], 
-							[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1], 
-							[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], 
-							[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], 
-							[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], 
-							[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2], 
-							[1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1], 
-							[1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1], 
-							[1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1], 
-							[1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1], 
-							[1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1], 
-							[1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1], 
-							[1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1], 
-							[1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1], 
-							[1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1], 
-							[1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1], 
-							[1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1], 
-							[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1], 
-							[1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1], 
+							[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 1, 1, 1, 1],
+							[1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1],
+							[1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1],
+							[1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 1],
+							[1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1],
+							[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1],
+							[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+							[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+							[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+							[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+							[1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1],
+							[1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1],
+							[1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1],
+							[1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1],
+							[1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1],
+							[1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1],
+							[1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1],
+							[1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1],
+							[1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1],
+							[1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1],
+							[1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1],
 							[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 						];
 						total = 207;
-						break;
-					case "BLANK":
-					/* test */
-						state = this.blankTemplate(30);
-						solution = this.blankTemplate(30, 2);
-						total = 900;
 						break;
 				}
 			} else {
@@ -924,8 +928,6 @@ $(function () {
 				case "OVERLORD":
 				/* Starry Flowers */
 				case "Starry Flowers":
-				/* test */
-				case "BLANK":
 					document.getElementById("dimensions").value = "30x30";
 			}
 			var dimensions = $('#dimensions').val();
@@ -1233,19 +1235,23 @@ $(function () {
 				}
 			}
 
-/* 			if (perfect) {
-				var charmsPerfect = this.model.get('charmsPerfect') + 1;
-				var perfectStreak = this.model.get('perfectStreak') + 1;
+			if (perfect) {
+				var thisCharmsPerfect = this.model.get('charmsPerfect') + 1;
+				var thisPerfectStreak = this.model.get('perfectStreak') + 1;
 			} else {
-				var perfectStreak = 0;
+				var thisCharmsPerfect = this.model.get('charmsPerfect');
+				var thisPerfectStreak = 0;
 			}
-			var charmsComplete = this.model.get('charmsComplete') + 1; */
+			var thisCharmsComplete = this.model.get('charmsComplete') + 1;
 
 			this.model.set({
 				complete: true,
 				perfect: perfect,
 				hintsX: hintsX,
 				hintsY: hintsY,
+				perfectStreak: thisPerfectStreak,
+				charmsPerfect: thisCharmsPerfect,
+				charmsComplete: thisCharmsComplete
 			});
 
 			this.render();
@@ -1255,6 +1261,19 @@ $(function () {
 			var progress = this.model.get('guessed') / this.model.get('total') * 100;
 			$('#progress').text(progress.toFixed(1) + '%');
 
+
+			let perfVal = this.model.get('charmsPerfect');
+			let compVal = this.model.get('charmsComplete');
+			$('#perfectStreak').text(this.model.get('perfectStreak'))
+			$('#perfectCharms').text(perfVal);
+			$('#completeCharms').text(compVal);
+			if (compVal == 0) {
+				pcRatio = 0;
+			} else {
+				pcRatio = 100 * perfVal/compVal;
+			}
+			$('#pcRatio').text(pcRatio.toFixed(1) + '%');
+
 			if (this.model.get('complete')) {
 				$('#solve').prop('disabled', true);
 				$('#puzzle').addClass('complete');
@@ -1263,6 +1282,8 @@ $(function () {
 					$('#puzzle').addClass('perfect');
 				}
 			}
+
+
 
 			var state = this.model.get('state');
 			var hintsX = this.model.get('hintsX');
@@ -1306,6 +1327,7 @@ $(function () {
 					}
 				}
 			}
+
 
 			var html = '<table>';
 			html += '<tr><td class="key"></td>';
