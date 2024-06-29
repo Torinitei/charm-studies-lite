@@ -637,12 +637,13 @@ $(function () {
 
 			var hintsX = this.getHintsX(solution);
 			var hintsY = this.getHintsY(solution);
+			/* state = solution; */
 
 			this.set({
 				state: state,
 				hintsX: hintsX,
 				hintsY: hintsY,
-				guessed: 0,
+				guessed: 0, // replace with total for perfect
 				total: total,
 				complete: false,
 				perfect: false,
