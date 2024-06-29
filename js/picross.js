@@ -19,6 +19,7 @@ $(function () {
 				complete: false,
 				perfect: false,
 				seed: 0,
+				darkMode: false,
 				easyMode: true, // show crossouts
 				// stats
 				perfectStreak: 0,
@@ -45,6 +46,7 @@ $(function () {
 				localStorage['picross2.complete'] = JSON.stringify(this.get('complete'));
 				localStorage['picross2.perfect'] = JSON.stringify(this.get('perfect'));
 				localStorage['picross2.seed'] = JSON.stringify(this.get('seed'));
+				localStorage['picross2.darkMode'] = JSON.stringify(this.get('darkMode'));
 				localStorage['picross2.easyMode'] = JSON.stringify(this.get('easyMode'));
 
 				let streakCheck = JSON.stringify(this.get('perfectStreak'));
@@ -55,7 +57,7 @@ $(function () {
 					localStorage['picross2.perfectStreak'] = 0;
 					localStorage['picross2.charmsComplete'] = 0;
 					localStorage['picross2.charmsPerfect'] = 0;
-					location.reload();	
+					location.reload();
 				} else {
 					localStorage['picross2.perfectStreak'] = streakCheck;
 					localStorage['picross2.charmsComplete'] = completeCheck;
@@ -81,6 +83,7 @@ $(function () {
 			var complete = JSON.parse(localStorage['picross2.complete']);
 			var perfect = JSON.parse(localStorage['picross2.perfect']);
 			var seed = JSON.parse(localStorage['picross2.seed']);
+			var darkMode = JSON.parse(localStorage['picross2.darkMode']);
 			var easyMode = JSON.parse(localStorage['picross2.easyMode']);
 			var perfectStreak = JSON.parse(localStorage['picross2.perfectStreak']);
 			var charmsComplete = JSON.parse(localStorage['picross2.charmsComplete']);
@@ -98,6 +101,7 @@ $(function () {
 				perfect: perfect,
 				seed: seed,
 				easyMode: easyMode,
+				darkMode: darkMode,
 				perfectStreak: perfectStreak,
 				charmsComplete: charmsComplete,
 				charmsPerfect: charmsPerfect
@@ -633,12 +637,13 @@ $(function () {
 
 			var hintsX = this.getHintsX(solution);
 			var hintsY = this.getHintsY(solution);
+			state = solution;
 
 			this.set({
 				state: state,
 				hintsX: hintsX,
 				hintsY: hintsY,
-				guessed: 0,
+				guessed: total,
 				total: total,
 				complete: false,
 				perfect: false,
@@ -818,6 +823,7 @@ $(function () {
 				return {
 					"click #new": "newGame",
 					"click #solve": "solve",
+					"change #dark": "changeDarkMode",
 					"click #galleryStudy": "galleryStudy",
 					"change #easy": "changeEasyMode",
 					"mousedown": "clickStart",
@@ -842,6 +848,7 @@ $(function () {
 				return {
 					"click #new": "newGame",
 					"click #solve": "solve",
+					"change #dark": "changeDarkMode",
 					"click #galleryStudy": "galleryStudy",
 					"change #easy": "changeEasyMode",
 					"mousedown": "clickStart",
@@ -871,6 +878,11 @@ $(function () {
 		initialize: function () {
 			this.model.resume();
 			$('#dimensions').val(this.model.get('dimensionWidth') + 'x' + this.model.get('dimensionHeight'));
+			if (this.model.get('darkMode')) {
+				$('#dark').attr('checked', 'checked');
+			} else {
+				$('#dark').removeAttr('checked');
+			}
 			if (this.model.get('easyMode')) {
 				$('#easy').attr('checked', 'checked');
 			} else {
@@ -878,6 +890,12 @@ $(function () {
 			}
 			this.render();
 			this.showSeed();
+		},
+
+		changeDarkMode: function (e) {
+			var darkMode = $('#dark').attr('checked') !== undefined;
+			this.model.set({ darkMode: darkMode });
+			this.render();
 		},
 
 		changeEasyMode: function (e) {
@@ -1261,6 +1279,11 @@ $(function () {
 			var progress = this.model.get('guessed') / this.model.get('total') * 100;
 			$('#progress').text(progress.toFixed(1) + '%');
 
+			if (this.model.get('darkMode')) {
+				$('body').addClass('dark');
+			} else {
+				$('body').removeClass('dark');
+			}
 
 			let perfVal = this.model.get('charmsPerfect');
 			let compVal = this.model.get('charmsComplete');
@@ -1270,7 +1293,7 @@ $(function () {
 			if (compVal == 0) {
 				pcRatio = 0;
 			} else {
-				pcRatio = 100 * perfVal/compVal;
+				pcRatio = 100 * perfVal / compVal;
 			}
 			$('#pcRatio').text(pcRatio.toFixed(1) + '%');
 

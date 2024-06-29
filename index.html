@@ -22,6 +22,7 @@
 </head>
 <body>
 	<!-- Google tag (gtag.js) -->
+	<!-- before i get yelled at i just wanna see how many people are here i dont want to harvest your data :( )-->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-9LTLPW1PR1"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
@@ -75,8 +76,7 @@
 		</div>
 		<div class="controls">
 			<h1 class="title">
-				Charm Studies
-				lite
+				Charm Studies lite
 			</h1>
 			<div class="control-group">
 				<h3>progress</h3>
@@ -87,6 +87,7 @@
 			<div class="control-group">
 				<h3>settings</h3>
 				<div class="control-section">
+					<input type="checkbox" id="dark" /><label for="dark"> dark mode</label><br/>
 					<input type="checkbox" id="easy" checked /><label for="easy"> show crossouts</label>
 				</div>
 				<select id="dimensions">
@@ -117,9 +118,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="stats">
-			<!--
-				-->
+		<div class="stats">	
 			<h1 class="title">stats</h1>
 			<div class="control-group">
 				<h3>time</h3>
@@ -188,13 +187,12 @@
 					</select>
 					<button type="submit" id="galleryStudy">study charm~</button>
 				</form>
-				<!-- DEBUG -->
-				<br /><br />
+				<div class="custom"></div>
 				<h3>debug</h3>
 				<button id="AAAAA" onclick="localStorage.clear(); location.reload();">clear storage</button>
 			</div>
 		</div>
-		<div id="puzzle">if you're seeing this, something's gone wrong! please press the clear storage in the debug section.<br />i am afraid that if you had progress on a board, it will be reset, sorry (&gt;.&lt;)</div>
+		<div id="puzzle">if you're seeing this, something's gone wrong! please press the clear storage in the debug section.<br />unfortunately if you had progress on a board, it will be reset, sorry (&gt;.&lt;)</div>
 	</div>
 	<div class="footer">
 		randomly generated <a href="http://en.wikipedia.org/wiki/Nonogram" target="_blank">picross puzzles</a>.original

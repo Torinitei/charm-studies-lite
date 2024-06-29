@@ -23,12 +23,21 @@ body {
 	font-family: 'Nunito', sans-serif;
 }
 
+body.dark {
+	background-color: #86233b;
+	color: #e4b3af;
+}
+
 table,
 tr,
 td {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+}
+
+body.dark a {
+	color: #f5c4c0;
 }
 
 
@@ -45,6 +54,12 @@ a:hover:enabled {
 	background-color: #dd94a6;
 	border-color: #dd94a6;
 	color: #763042;
+}
+
+body.dark #AAAAA {
+	background-color: #470012;
+	border-color: #470012;
+	color: #ad677e;
 }
 
 .button {
@@ -79,6 +94,10 @@ a:hover:enabled {
 	color: #675145;
 }
 
+body.dark .highlight {
+	color: #baa397;
+}
+
 .header {
 	clear: both;
 	width: 800px;
@@ -88,6 +107,10 @@ a:hover:enabled {
 	color: #985264;
 	font-size: 30px;
 	line-height: 1.5;
+}
+
+body.dark .header {
+	color: #ad6778;
 }
 
 h1 {
@@ -106,6 +129,11 @@ h1 {
 	border-radius: 5px;
 }
 
+body.dark .controls {
+	background-color: #ad6778;
+	border: 2px solid #e4b3af;
+}
+
 .control-group {
 	background-color: #ffdeb8;
 	border: 2px solid #a9736b;
@@ -114,7 +142,14 @@ h1 {
 	margin-bottom: 20px;
 	padding: 15px 12px;
 	text-align: center;
+}
 
+body.dark .control-group {
+	background-color: #472600;
+	border: 2px solid #945f57;
+	border-bottom: 2px solid #000;
+	box-shadow: none;
+	color: #baa397;
 }
 
 .title {
@@ -126,6 +161,10 @@ h1 {
 	font-size: 15px;
 	font-weight: bold;
 	margin-bottom: 10px;
+}
+
+body.dark .control-group h3 {
+	color: #eee;
 }
 
 .control-group .control-section {
@@ -157,14 +196,34 @@ h1 {
 	font-size: 11px;
 }
 
+body.dark .custom h5 {
+	color: #999;
+}
+
 #customGame {
 	background-color: #ffb6c8;
 	border-color: #ffb6c8;
 	color: #985264;
 }
 
+body.dark #customGame {
+	background-color: #470012;
+	border-color: #470012;
+	color: #ad677e;
+}
+
 #customGame:hover {
 	color: #dc7891;
+}
+
+body.dark #customGame:hover {
+	color: #86233b;
+}
+
+body.dark input {
+	background-color: #000;
+	color: #fff;
+	border: 1px solid #8a8a8a;
 }
 
 .custom input[type=text] {
@@ -184,8 +243,18 @@ h1 {
 	color: #985264;
 }
 
+body.dark #galleryStudy {
+	background-color: #470012;
+	border-color: #470012;
+	color: #ad677e;
+}
+
 #galleryStudy:hover {
 	color: #dc7891;
+}
+
+body.dark #galleryStudy:hover {
+	color: #86233b;
 }
 
 #new {
@@ -196,8 +265,24 @@ h1 {
 	color: #985264;
 }
 
-#new:hover:enabled {
+body.dark #new {
+	background-color: #470012;
+	border-color: #470012;
+	color: #ad677e;
+}
+
+#new:hover {
 	color: #dc7891;
+}
+
+body.dark #new:hover {
+	color: #86233b;
+}
+
+body.dark select {
+	background-color: #000;
+	color: #fff;
+	border: 1px solid #8a8a8a;
 }
 
 #solve {
@@ -209,8 +294,18 @@ h1 {
 	color: #985264;
 }
 
+body.dark #solve {
+	background-color: #470012;
+	border-color: #470012;
+	color: #ad677e;
+}
+
 #solve:hover:enabled {
 	color: #dc7891;
+}
+
+body.dark #new:hover:enabled {
+	color: #86233b;
 }
 
 #solve:disabled {
@@ -219,9 +314,21 @@ h1 {
 	color: #101010;
 }
 
+body.dark #solve:disabled {
+	background-color: #101010;
+	border-color: #101010;
+	color: #efefef;
+}
+
 #seed {
 	background-color: #efefef;
 	width: 120px;
+}
+
+body.dark #seed {
+	background-color: #0f0f0f;
+	color: #fff;
+	border: 1px solid #8a8a8a;
 }
 
 .stats {
@@ -231,6 +338,11 @@ h1 {
 	background-color: #985264;
 	border: 2px solid #4e1e1b;
 	border-radius: 5px;
+}
+
+body.dark .stats {
+	background-color: #ad6778;
+	border: 2px solid #e4b3af;
 }
 
 #original-charms {
@@ -254,8 +366,16 @@ h1 {
 	font-weight: bold;
 }
 
+body.dark #progress {
+	color: #86233b;
+}
+
 #progress.done {
 	color: #080;
+}
+
+body.dark #progress.done {
+	color: #75ff75;
 }
 
 #puzzle {
@@ -275,17 +395,37 @@ h1 {
 	background-color: #ffb6c8;
 }
 
+body.dark #puzzle tr:nth-child(even):not(:first-child) td.key.left {
+	background-color: #470012;
+}
+
 #puzzle tr:nth-child(odd):not(:first-child) td.key.left {
 	background-color: #ffe4c6;
 }
+
+body.dark #puzzle tr:nth-child(odd):not(:first-child) td.key.left {
+	background-color: #381e00;
+}
+
 
 #puzzle td.top:nth-of-type(even):not(:first-child) {
 	background-color: #ffe4c6;
 }
 
+body.dark #puzzle td.top:nth-of-type(even):not(:first-child) {
+	background-color: #381e00;
+}
 
 #puzzle td.top:nth-of-type(odd):not(:first-child) {
 	background-color: #ffb6c8;
+}
+
+#puzzle td.top:nth-of-type(odd):not(:first-child) {
+	background-color: #ffb6c8;
+}
+
+body.dark #puzzle td.top:nth-of-type(odd):not(:first-child) {
+	background-color: #470012;
 }
 
 #puzzle td:nth-child(5n + 1) {
@@ -310,6 +450,10 @@ h1 {
 
 #puzzle td.key em {
 	color: #b89e93;
+}
+
+body.dark #puzzle td.key em {
+	color: #6c5247;
 }
 
 #puzzle td.key.left em,
@@ -350,6 +494,11 @@ h1 {
 	vertical-align: middle;
 }
 
+body.dark #puzzle td.cell {
+	background-color: #000;
+	/* border: 2px solid #470012; */
+}
+
 #puzzle td.cell.hoverLight {
 	background-color: #FFFFFF;
 }
@@ -362,11 +511,16 @@ h1 {
 	background-color: #ffe4c6;
 }
 
+body.dark #puzzle td.cell.s9 {
+	background-color: #381e00;
+}
+
 #puzzle.complete td.cell {
 	background-color: #fff;
 	box-shadow: none;
 }
 
+/* alt cell styles? could use for preset puzzles with only one solution
 #puzzle.complete td.cell.s11 {
 	background-color: #ffb6c8;
 }
@@ -390,6 +544,7 @@ h1 {
 	text-align: center;
 	vertical-align: middle;
 }
+*/
 
 #puzzle td.cell.s1::after {
 	content: "\d7";
@@ -403,8 +558,17 @@ h1 {
 	background-color: #eee;
 }
 
+body.dark #puzzle.complete td.cell.s1 {
+	background-color: #111;
+}
+
+
 #puzzle.complete.perfect td.cell.s1 {
 	background-color: #eeec;
+}
+
+body.dark #puzzle.complete.perfect td.cell.s1 {
+	background-color: #111c;
 }
 
 #puzzle.complete td.cell.s1::after {
@@ -415,8 +579,16 @@ h1 {
 	vertical-align: middle;
 }
 
+body.dark #puzzle.complete td.cell.s1::after {
+	color: #5d413c;
+}
+
 #puzzle td.cell.s2 {
 	background-color: #675145;
+}
+
+body.dark #puzzle td.cell.s2 {
+	background-color: #baa397;
 }
 
 #puzzle td.cell.hover {
@@ -451,6 +623,10 @@ h1 {
 	background-color: #dc7891;
 }
 
+body.dark #puzzle.complete.perfect td.key {
+	background-color: #86233b;
+}
+
 #puzzle.complete.perfect td.cell.s2 {
 	background-color: transparent;
 }
@@ -460,8 +636,18 @@ h1 {
 	opacity: 0.75;
 }
 
+body.dark #puzzle.complete.perfect tr:nth-child(even):not(:first-child) td.key.left {
+	background-color: #470012;
+	opacity: 0.75;
+}
+
 #puzzle.complete.perfect tr:nth-child(odd):not(:first-child) td.key.left {
 	background-color: #ffe4c6;
+	opacity: 0.75;
+}
+
+body.dark #puzzle.complete.perfect tr:nth-child(odd):not(:first-child) td.key.left {
+	background-color: #381e00;
 	opacity: 0.75;
 }
 
@@ -470,8 +656,18 @@ h1 {
 	opacity: 0.75;
 }
 
+body.dark #puzzle.complete.perfect td.top:nth-of-type(even):not(:first-child) {
+	background-color: #381e00;
+	opacity: 0.75;
+}
+
 #puzzle.complete.perfect td.top:nth-of-type(odd):not(:first-child) {
 	background-color: #ffb6c8;
+	opacity: 0.75;
+}
+
+body.dark #puzzle.complete.perfect td.top:nth-of-type(odd):not(:first-child) {
+	background-color: #470012;
 	opacity: 0.75;
 }
 
