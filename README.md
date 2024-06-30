@@ -23,9 +23,13 @@ On touch capable devices:
 
 * Adjustable grid dimensions (5x5 - 30x30)
 * Custom game seeds
-* Option to toggle crossouts, helping you track numbers that have already been solved
+* Toggleable easy mode
+  * Crossouts which tracks which rows/columns are complete
+  * Row/column sums which help deduce potential squares to fill
 * Auto-saves using HTML5 web storage
 * Progress indicator
+* Charm completion and streak statistics
+* Original Charm Studies charms from NomNomNami's game, and a few extra ones based off her works!
 * Charm Studies OST! (as a YT embed)
 
 ### Library Dependencies
