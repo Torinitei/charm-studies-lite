@@ -46,6 +46,10 @@ a {
 	color: #675145;
 }
 
+a:hover {
+	text-decoration: underline;
+}
+
 a:hover:enabled {
 	text-decoration: underline;
 }
@@ -90,7 +94,6 @@ body.dark #AAAAA {
 }
 
 .highlight {
-	text-decoration: none;
 	color: #675145;
 }
 
@@ -675,6 +678,28 @@ body.dark #puzzle.complete.perfect td.top:nth-of-type(even):not(:first-child) {
 body.dark #puzzle.complete.perfect td.top:nth-of-type(odd):not(:first-child) {
 	background-color: #470012;
 	opacity: 0.75;
+}
+
+.smol {
+	font-size: 40%;
+}
+
+.smol.full {
+	color: #080;
+	text-decoration: underline;
+}
+
+body.dark .smol.full {
+	color: #75ff75;
+}
+
+.smol.partial { 
+	color: #004ca8;
+	text-decoration: dotted underline;
+}
+
+body.dark .smol.partial {
+	color: #57a2ff
 }
 
 iframe {

@@ -80,15 +80,17 @@
 			</h1>
 			<div class="control-group">
 				<h3>progress</h3>
-				<span id="progress">0.0%</span>
+				<span class="notable" id="progress">0.0%</span>
 				<div class="custom"></div>
 				<button id="solve">finish charm!</button>
 			</div>
 			<div class="control-group">
 				<h3>settings</h3>
 				<div class="control-section">
-					<input type="checkbox" id="dark" /><label for="dark"> dark mode</label><br/>
-					<input type="checkbox" id="easy" checked /><label for="easy"> show crossouts</label>
+					<input type="checkbox" id="dark" />
+					<label for="dark" title="switches between light and dark mode!&#010;light theme takes the original charm studies colour scheme, with dark mode being the luminous opposite." style="text-decoration: dotted underline;"> dark mode</label><br/>
+					<input type="checkbox" id="easy" checked />
+					<label for="easy" title="toggles crossouts (which keep track of which columns/rows you've completed),&#010;and toggles sums (which can be used for logical deduction).&#010;&#010;highly recommended!" style="text-decoration: dotted underline;" > easy mode</label>
 				</div>
 				<select id="dimensions">
 					<option value="5x5">5x5</option>
@@ -122,7 +124,7 @@
 			<h1 class="title">stats</h1>
 			<div class="control-group">
 				<h3>time</h3>
-				<span id="puzzletime">work in progress</span>
+				<span id="puzzletime">procrastinating addition</span>
 				<div class="custom"></div>
 
 				<h3>streak</h3>
@@ -180,7 +182,7 @@
 						<option value="TRAGEDY">TRAGEDY</option>
 						<hr />
 
-						<optgroup label="Starry Flowers"></optgroup>
+						<optgroup label="Starry Flowers" style="text-align: center;"></optgroup>
 						<hr />
 						<option value="Starry Flowers">Starry Flowers</option>
 						<option value disabled style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;(icon)</option>
@@ -195,7 +197,7 @@
 		<div id="puzzle">if you're seeing this, something's gone wrong! please press the clear storage in the debug section.<br />unfortunately if you had progress on a board, it will be reset, sorry (&gt;.&lt;)</div>
 	</div>
 	<div class="footer">
-		randomly generated <a href="http://en.wikipedia.org/wiki/Nonogram" target="_blank">picross puzzles</a>.original
+		randomly generated <a href="http://en.wikipedia.org/wiki/Nonogram" target="_blank">picross puzzles.</a> original
 		designed and written by <a href="http://liouh.com/home/">Henry Liou</a>.
 		<br />edited by <a href="https://torinitei.carrd.co/">Torinitei</a>. themed after <a
 			href="https://nomnomnami.com/">NomNomNami's</a> <a href="https://nomnomnami.itch.io/charm-studies">Charm

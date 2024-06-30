@@ -1,9 +1,6 @@
 # Potential additions
 
 * Quality of Life changes
-  * Summation cells for each column/row
-    * With higher grid sizes, it can be really hard to keep track of how many cells need to be filled in a column
-      * Want to add cells on the opposite site of the board that has the sum of all the numbers together (or maybe numbers + spaces?? idk)
   * Additional sidebar
     * Toggleable timer for charm
       * Like in original game!
@@ -28,6 +25,8 @@
 
 ## Complete additions
 
+* Quality of Life changes
+  * Summation cells for each column/row
 * Better styling/theming
 * Additional gameplay features
   * The original charm gallery
