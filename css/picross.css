@@ -435,16 +435,32 @@ body.dark #puzzle td.top:nth-of-type(odd):not(:first-child) {
 	border-right: 2px double #c2a6a2;
 }
 
+body.dark #puzzle td:nth-child(5n + 1) {
+	border-right: 2px double #d8c3c0;
+}
+
 #puzzle td.cell:nth-child(5n + 1) {
 	border-right: 2px double #c2a6a2;
+}
+
+body.dark #puzzle td.cell:nth-child(5n + 1) {
+	border-right: 2px double #d8c3c0;
 }
 
 #puzzle tr:nth-child(5n + 1) td {
 	border-bottom: 2px double #c2a6a2;
 }
 
+body.dark #puzzle tr:nth-child(5n + 1) td {
+	border-bottom: 2px double #d8c3c0;
+}
+
 #puzzle tr:nth-child(5n + 2) td {
 	border-top: 2px double #c2a6a2;
+}
+
+body.dark #puzzle tr:nth-child(5n + 2) td {
+	border-top: 2px double #d8c3c0;
 }
 
 #puzzle td.key {
@@ -502,9 +518,22 @@ body.dark #puzzle td.cell {
 	/* border: 2px solid #470012; */
 }
 
-#puzzle td.cell.hoverLight {
-	background-color: #FFFFFF;
+#puzzle td.cell.hoverLight.hover {
+	box-shadow: 0 0 0 1px #ffdaed inset;
 }
+
+body.dark #puzzle td.cell.hoverLight.hover {
+	box-shadow: 0 0 0 1px #bedbff inset;
+}
+
+#puzzle td.cell.hoverLight {
+	background-color: #feeaf5;
+}
+
+body.dark #puzzle td.cell.hoverLight {
+	background-color: #2f363f;
+}
+
 
 #puzzle td.cell.hover {
 	border: 3px #ff8a29 solid !important;

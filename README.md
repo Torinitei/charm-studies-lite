@@ -1,4 +1,5 @@
-Charm Studies lite
+# Charm Studies lite
+
 =======
 [Play here!](https://torinitei.github.io/charm-studies-lite/)
 
@@ -6,7 +7,7 @@ This is a variant of [liouh's picross](https://github.com/liouh/picross).
 Please go check them out! They did all the hard work and I just changed around some styles.
 This is themed after [NomNomNami's Charm Studies](https://nomnomnami.itch.io/charm-studies)! Highly recommend you go check them out, they make great stuff.
 
-### Instructions
+## Instructions
 
 * Left click: paint cell
 * Right click: cross out cell
@@ -17,7 +18,7 @@ On touch capable devices:
 * Tap: mark cell as active
 * Tap and hold: mark cell as inactive
 
-**NOTE: This website was designed with desktop in mind. Results may vary across devices. Apologies >.<**
+**NOTE:** This website was designed with desktop in mind. Results may vary across devices. Apologies >.<
 
 ### Features
 

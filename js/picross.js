@@ -1,7 +1,7 @@
 $(function () {
 
 	// localStorage save format versioning
-	var saveVersion = '2019.08.03';
+	var saveVersion = '2024.07.02';
 
 	var touchSupport = true;
 
@@ -53,7 +53,7 @@ $(function () {
 				let completeCheck = JSON.stringify(this.get('charmsComplete'));
 				let perfectCheck = JSON.stringify(this.get('charmsPerfect'));
 
-				if (!streakCheck && completeCheck && perfectCheck) {
+				if (!(streakCheck && completeCheck && perfectCheck)) {
 					localStorage['picross2.perfectStreak'] = 0;
 					localStorage['picross2.charmsComplete'] = 0;
 					localStorage['picross2.charmsPerfect'] = 0;
@@ -126,7 +126,7 @@ $(function () {
 
 			// charm gallery generator
 			// failed to separate this into another function (cries)
-			originalCharms = [
+			let originalCharms = [
 				/* NomNomNami - Charm Studies Originals */
 				// 5x5
 				"Astral Magic",
