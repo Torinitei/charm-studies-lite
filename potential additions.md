@@ -1,14 +1,8 @@
 # Potential additions
 
 * Quality of Life changes
-  * Additional sidebar
-    * Toggleable timer for charm
-      * Like in original game!
-    * Perfect charm streak
-      * Maybe perfect/complete ratio?
-    * Total playtime?
-    * THEME CUSTOMISER???????
-      * nah that would be too much effort
+  * THEME CUSTOMISER???????
+    * nah that would be too much effort
 
 * Better styling/theming
   * Add spacing between charm pattern labels, like in original Charm Studies
@@ -27,6 +21,8 @@
 
 * Quality of Life changes
   * Summation cells for each column/row
+  * Perfect charm streak
+  * Total playtime
 * Better styling/theming
 * Additional gameplay features
   * The original charm gallery
