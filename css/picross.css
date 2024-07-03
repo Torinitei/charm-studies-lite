@@ -544,7 +544,7 @@ body.dark #puzzle td.cell.hoverLight {
 }
 
 body.dark #puzzle td.cell.s9 {
-	background-color: #381e00;
+	background-color: #876935bb;
 }
 
 #puzzle.complete td.cell {
@@ -729,6 +729,10 @@ body.dark .smol.full {
 
 body.dark .smol.partial {
 	color: #57a2ff
+}
+
+.control-group span.stat {
+	font-size: 16px;
 }
 
 iframe {

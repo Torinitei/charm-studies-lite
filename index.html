@@ -20,10 +20,49 @@
 	<meta name="msapplication-config" content="images/browserconfig.xml">
 	<meta name="theme-color" content="#ffffff">
 </head>
+
 <body>
 	<div class="container">
 		<div class="header">
-			you have been studying charms for <span class="highlight" id="timer"> 00:00:00 </span>
+			you have studied charms for
+			<span class="highlight" id="totalPlaytimeDisplay">xm</span>
+			<script>
+				var totalTimeout, totalPlaytime, totalDays, totalHours, totalMinutes;
+
+				function timeFormat() {
+					totalTimeText = "";
+					totalDays = Math.floor(totalPlaytime/86400);
+					totalHours = Math.floor((totalPlaytime%86400)/3600);
+					totalMinutes = Math.floor(((totalPlaytime % 86400)%3600)/60);
+					if (totalDays) {
+						totalTimeText = totalDays + "d ";
+					}
+					if (totalHours) {
+						totalTimeText = totalTimeText + totalHours + "h ";
+					}
+					totalTimeText = totalTimeText + totalMinutes + "m";
+					return totalTimeText;
+				}
+
+				function playtimeIncrement() {
+					totalPlaytime = setLocalStorage('charmStudiesLite.totalPlaytime', totalPlaytime += 1);
+					totalTimer = document.getElementById('totalPlaytimeDisplay');
+					totalTimer.innerHTML = timeFormat();
+					totalTimeout = setTimeout('playtimeIncrement()', 1000);
+				}
+
+				function setLocalStorage(key, val) {
+					if (window.localStorage) {
+						window.localStorage.setItem(key, val);
+					}
+					return val;
+				}
+
+				function getLocalStorage(key) {
+					return window.localStorage ? window.localStorage.getItem(key) : '';
+				}
+			</script>
+			<span style="font-size: 16px">(<span class="highlight" id="sessionTimer">00:00:00</span> this session)</span>
 			<script>
 				/* Source: https://codepen.io/Uhiriwe/pen/pqVLvK */
 				var clearTime;
@@ -52,16 +91,14 @@
 					secs = seconds < 10 ? "0" + seconds : seconds;
 
 					/* display count-up */
-					var x = document.getElementById("timer");
+					var x = document.getElementById("sessionTimer");
 					x.innerHTML = hrs + mins + secs;
 
 					seconds++;
 
-					/* call the setTimeout( ) to keep the Count-Up alive ! */
+					/* call async timeout to run in background */
 					clearTime = setTimeout("startWatch( )", 1000);
 				}
-
-				startWatch();
 			</script>
 		</div>
 		<div class="controls">
@@ -72,15 +109,19 @@
 				<h3>progress</h3>
 				<span class="notable" id="progress">0.0%</span>
 				<div class="custom"></div>
-				<button id="solve">finish charm!</button>
+				<button id="solve" onclick="pauseCharmTimer();">finish charm!</button>
 			</div>
 			<div class="control-group">
 				<h3>settings</h3>
 				<div class="control-section">
 					<input type="checkbox" id="dark" />
-					<label for="dark" title="switches between light and dark mode!&#010;light theme takes the original charm studies colour scheme, with dark mode being the luminous opposite." style="text-decoration: dotted underline;"> dark mode</label><br/>
+					<label for="dark"
+						title="switches between light and dark mode!&#010;light theme takes the original charm studies colour scheme, with dark mode being the luminous opposite."
+						style="text-decoration: dotted underline;"> dark mode</label><br />
 					<input type="checkbox" id="easy" checked />
-					<label for="easy" title="toggles crossouts (which keep track of which columns/rows you've completed),&#010;and toggles sums (which can be used for logical deduction).&#010;&#010;highly recommended!" style="text-decoration: dotted underline;" > easy mode</label>
+					<label for="easy"
+						title="toggles crossouts (which keep track of which columns/rows you've completed),&#010;and toggles sums (which can be used for logical deduction).&#010;&#010;highly recommended!"
+						style="text-decoration: dotted underline;"> easy mode</label>
 				</div>
 				<select id="dimensions">
 					<option value="5x5">5x5</option>
@@ -98,7 +139,7 @@
 				<span>charm size</span>
 			</div>
 			<div class="control-group">
-				<button id="new">new charm &raquo;</button>
+				<button id="new" onclick="resetCharmTimer();">new charm &raquo;</button>
 				<div class="custom">
 					<h5>charm id</h5>
 					<input type="text" id="seed" readonly="readonly" />
@@ -110,19 +151,100 @@
 				</div>
 			</div>
 		</div>
-		<div class="stats">	
+		<div class="stats">
 			<h1 class="title">stats</h1>
 			<div class="control-group">
 				<h3>time</h3>
-				<span class="highlight" id="charmTimer">procrastinating addition (forever)</span>
-				<div class="custom"></div>
+				<span class="stat" id="charmTimer">xx:xx</span>
+				<script>
+					var charmClearTime, timerSeconds, timerMinutes, charmSecs, charmMins;
+					var theCharmTimer = document.getElementById("charmTimer");
 
+					window.onload = function () {
+						totalPlaytime = Number(getLocalStorage('charmStudiesLite.totalPlaytime')) || 0;
+						timeFormat();
+						startWatch();
+						playtimeIncrement();
+						initCharmTimer();
+					};
+
+					function resumingHandler() {
+						if (document.getElementById("puzzle").classList.contains("complete")) {
+							pauseCharmTimer();
+						} else {
+							startCharmTimer();
+						}
+					}
+
+					function initCharmTimer() {
+						charmClearTime = getLocalStorage('charmStudiesLite.charmClearTime') || undefined;
+						timerSeconds = Number(getLocalStorage('charmStudiesLite.timerSeconds')) || 0;
+						timerMinutes = Number(getLocalStorage('charmStudiesLite.timerMinutes')) || 0;
+						charmSecs = getLocalStorage('charmStudiesLite.charmSecs') || "00";
+						charmMins = getLocalStorage('charmStudiesLite.charmMins') || "00:";
+						resumingHandler();
+					}
+
+					function setLocalStorage(key, val) {
+						if (window.localStorage) {
+							window.localStorage.setItem(key, val);
+						}
+						return val;
+					}
+
+					function getLocalStorage(key) {
+						return window.localStorage ? window.localStorage.getItem(key) : '';
+					}
+
+					function startCharmTimer() {
+						if (timerSeconds === 60) {
+							timerSeconds = 0;
+							timerMinutes += 1;
+							setLocalStorage('charmStudiesLite.timerSeconds', timerSeconds);
+							setLocalStorage('charmStudiesLite.timerMinutes', timerMinutes);
+						}
+
+						charmMins = timerMinutes < 10 ? "0" + timerMinutes + ":" : timerMinutes + ":";
+						charmSecs = timerSeconds < 10 ? "0" + timerSeconds : timerSeconds;
+
+						theCharmTimer.innerHTML = charmMins + charmSecs;
+						setLocalStorage('charmStudiesLite.charmMins', charmMins);
+						setLocalStorage('charmStudiesLite.charmSecs', charmSecs);
+
+						timerSeconds += 1;
+						setLocalStorage('charmStudiesLite.timerSeconds', timerSeconds);
+
+						charmClearTime = setTimeout(startCharmTimer, 1000);
+					}
+
+					function pauseCharmTimer() {
+						let stopCharmTime = charmMins + charmSecs;
+						theCharmTimer.innerHTML = stopCharmTime;
+						clearTimeout(charmClearTime);
+					}
+
+					function resetCharmTimer() {
+						timerSeconds = 0;
+						timerMinutes = 0;
+						charmSecs = "00";
+						charmMins = "00:";
+
+						setLocalStorage('charmStudiesLite.timerSeconds', timerSeconds);
+						setLocalStorage('charmStudiesLite.timerMinutes', timerMinutes);
+						setLocalStorage('charmStudiesLite.charmSecs', charmSecs);
+						setLocalStorage('charmStudiesLite.charmMins', charmMins);
+
+						clearTimeout(charmClearTime);
+						startCharmTimer();
+					}
+				</script>
+				<div class="custom"></div>
 				<h3>streak</h3>
-				<span id="perfectStreak">x</span>
+				<span class="stat" id="perfectStreak">x</span>
 				<div class="custom"></div>
 
 				<h3>perfect charms</h3>
-				<span id="perfectCharms">x</span>/<span id="completeCharms">x</span> (<span id="pcRatio">xx.x%</span>)
+				<span class="stat"><span class="stat" id="perfectCharms">x</span>/<span class="stat" id="completeCharms">x</span> (<span class="stat" id="pcRatio">xx.x%</span>)</span>
 			</div>
 			<h1 class="title">other</h1>
 			<div class="control-group">
@@ -186,8 +308,11 @@
 				<button id="AAAAA" onclick="localStorage.clear(); location.reload();">clear storage</button>
 			</div>
 		</div>
-		<div id="puzzle">if you're seeing this, something's gone wrong! please press the clear storage in the debug section.<br />unfortunately, this resets board and stat progression, sorry (&gt;.&lt;)
-		<br /><br />this may happen on your first time loading the website, since new internal features were added the original site doesn't load by default, don't be alarmed if so</div>
+		<div id="puzzle">if you're seeing this, something's gone wrong! please press the clear storage in the debug
+			section.<br />unfortunately, this resets board and stat progression, sorry (&gt;.&lt;)
+			<br /><br />this may happen on your first time loading the website, since new internal features were added
+			the original site doesn't load by default, don't be alarmed if so
+		</div>
 	</div>
 	<div class="footer">
 		randomly generated <a href="http://en.wikipedia.org/wiki/Nonogram" target="_blank">picross puzzles.</a> original

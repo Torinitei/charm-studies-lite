@@ -54,15 +54,16 @@ $(function () {
 				let perfectCheck = JSON.stringify(this.get('charmsPerfect'));
 
 				if (!(streakCheck && completeCheck && perfectCheck)) {
-					localStorage['picross2.perfectStreak'] = 0;
-					localStorage['picross2.charmsComplete'] = 0;
-					localStorage['picross2.charmsPerfect'] = 0;
+					localStorage['charmStudiesLite.perfectStreak'] = 0;
+					localStorage['charmStudiesLite.charmsComplete'] = 0;
+					localStorage['charmStudiesLite.charmsPerfect'] = 0;
 					location.reload();
 				} else {
-					localStorage['picross2.perfectStreak'] = streakCheck;
-					localStorage['picross2.charmsComplete'] = completeCheck;
-					localStorage['picross2.charmsPerfect'] = perfectCheck;
+					localStorage['charmStudiesLite.perfectStreak'] = streakCheck;
+					localStorage['charmStudiesLite.charmsComplete'] = completeCheck;
+					localStorage['charmStudiesLite.charmsPerfect'] = perfectCheck;
 				}
+
 			}
 		},
 
@@ -85,9 +86,9 @@ $(function () {
 			var seed = JSON.parse(localStorage['picross2.seed']);
 			var darkMode = JSON.parse(localStorage['picross2.darkMode']);
 			var easyMode = JSON.parse(localStorage['picross2.easyMode']);
-			var perfectStreak = JSON.parse(localStorage['picross2.perfectStreak']);
-			var charmsComplete = JSON.parse(localStorage['picross2.charmsComplete']);
-			var charmsPerfect = JSON.parse(localStorage['picross2.charmsPerfect']);
+			var perfectStreak = JSON.parse(localStorage['charmStudiesLite.perfectStreak']);
+			var charmsComplete = JSON.parse(localStorage['charmStudiesLite.charmsComplete']);
+			var charmsPerfect = JSON.parse(localStorage['charmStudiesLite.charmsPerfect']);
 
 			this.set({
 				dimensionWidth: dimensionWidth,
