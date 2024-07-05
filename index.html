@@ -146,7 +146,7 @@
 					<h5>custom id</h5>
 					<form id="customForm">
 						<input type="text" id="customSeed" />
-						<button type="submit" id="customGame">custom charm</button>
+						<button type="submit" onclick="resetCharmTimer();" id="customGame">custom charm</button>
 					</form>
 				</div>
 			</div>
@@ -237,6 +237,12 @@
 						clearTimeout(charmClearTime);
 						startCharmTimer();
 					}
+
+					function galleryReset() {
+						if (document.getElementById("original-charms").value != "default") {
+							resetCharmTimer();
+						}
+					}
 				</script>
 				<div class="custom"></div>
 				<h3>streak</h3>
@@ -308,7 +314,7 @@
 						<option value="Kamila">Kamila</option>
 						<option value="Eleni">Eleni</option>
 					</select>
-					<button type="submit" id="galleryStudy">study charm~</button>
+					<button type="submit" onclick="galleryReset();" id="galleryStudy">study charm~</button>
 				</form>
 				<div class="custom"></div>
 				<h3>debug</h3>
