@@ -1012,6 +1012,7 @@ $(function () {
 					"click #solve": "solve",
 					"change #dark": "changeDarkMode",
 					"click #galleryStudy": "galleryStudy",
+					"click #statReset": "statReset",
 					"change #easy": "changeEasyMode",
 					"mousedown": "clickStart",
 					"mouseover td.cell": "mouseOver",
@@ -1037,6 +1038,7 @@ $(function () {
 					"click #solve": "solve",
 					"change #dark": "changeDarkMode",
 					"click #galleryStudy": "galleryStudy",
+					"click #statReset": "statReset",
 					"change #easy": "changeEasyMode",
 					"mousedown": "clickStart",
 					"mouseover td.cell": "mouseOver",
@@ -1158,6 +1160,17 @@ $(function () {
 				this._newGame(selectedCharm);
 				document.getElementById("original-charms").value = "default";
 			}
+		},
+
+		statReset: function (e) {
+			e.preventDefault();
+
+			this.model.set({
+				perfectStreak: 0,
+				charmsComplete: 0,
+				charmsPerfect: 0
+			});
+			this.render();
 		},
 
 		_newGame: function (customSeed) {

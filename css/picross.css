@@ -61,9 +61,9 @@ a:hover:enabled {
 }
 
 body.dark #AAAAA {
-	background-color: #470012;
-	border-color: #470012;
-	color: #ad677e;
+	background-color: #6d2235;
+	border-color: #6d2235;
+	color: #ce8899;
 }
 
 .button {
@@ -733,6 +733,18 @@ body.dark .smol.partial {
 
 .control-group span.stat {
 	font-size: 16px;
+}
+
+#statReset {
+	background-color: #dd94a6;
+	border-color: #dd94a6;
+	color: #763042;
+}
+
+body.dark #statReset {
+	background-color: #6d2235;
+	border-color	: #6d2235;
+	color: #ce8899;
 }
 
 iframe {
