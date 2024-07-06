@@ -26,3 +26,9 @@
 * Better styling/theming
 * Additional gameplay features
   * The original charm gallery
+
+### To-do
+
+* Play the rest of NomNomNami's games to add even more charms!
+  * plus the games are silly so
+  
