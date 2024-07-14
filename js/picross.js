@@ -1,7 +1,7 @@
 $(function () {
 
 	// localStorage save format versioning
-	var saveVersion = '2024.07.02';
+	var saveVersion = '2024.07.14';
 
 	var touchSupport = true;
 
@@ -1467,7 +1467,6 @@ $(function () {
 				var thisPerfectStreak = 0;
 			}
 			var thisCharmsComplete = this.model.get('charmsComplete') + 1;
-
 			this.model.set({
 				complete: true,
 				perfect: perfect,
@@ -1509,7 +1508,8 @@ $(function () {
 
 			let perfVal = this.model.get('charmsPerfect');
 			let compVal = this.model.get('charmsComplete');
-			$('#perfectStreak').text(this.model.get('perfectStreak'));
+			let strkVal = this.model.get('perfectStreak')
+			$('#perfectStreak').text(strkVal);
 			$('#perfectCharms').text(perfVal);
 			$('#completeCharms').text(compVal);
 			if (compVal == 0) {
@@ -1580,6 +1580,7 @@ $(function () {
 				}
 			}
 
+			document.getElementById("perfectStreak").style.fontSize = (15 + Math.floor(Math.log2(this.model.get('perfectStreak') + 1))).toString() + "px"
 
 			var html = '<table>';
 			html += '<tr><td class="key"></td>';
