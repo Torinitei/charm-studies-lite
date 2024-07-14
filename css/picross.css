@@ -260,6 +260,11 @@ body.dark #galleryStudy:hover {
 	color: #86233b;
 }
 
+body.dark select hr {
+	background-color: #fff;
+	border: none;
+}
+
 #new {
 	font-weight: bold;
 	padding: 5px 10px;

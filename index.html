@@ -31,9 +31,9 @@
 
 				function timeFormat() {
 					totalTimeText = "";
-					totalDays = Math.floor(totalPlaytime/86400);
-					totalHours = Math.floor((totalPlaytime%86400)/3600);
-					totalMinutes = Math.floor(((totalPlaytime % 86400)%3600)/60);
+					totalDays = Math.floor(totalPlaytime / 86400);
+					totalHours = Math.floor((totalPlaytime % 86400) / 3600);
+					totalMinutes = Math.floor(((totalPlaytime % 86400) % 3600) / 60);
 					if (totalDays) {
 						totalTimeText = totalDays + "d ";
 					}
@@ -62,7 +62,8 @@
 					return window.localStorage ? window.localStorage.getItem(key) : '';
 				}
 			</script>
-			<span style="font-size: 16px">(<span class="highlight" id="sessionTimer">00:00:00</span> this session)</span>
+			<span style="font-size: 16px">(<span class="highlight" id="sessionTimer">00:00:00</span> this
+				session)</span>
 			<script>
 				/* Source: https://codepen.io/Uhiriwe/pen/pqVLvK */
 				var clearTime;
@@ -250,7 +251,8 @@
 				<div class="custom"></div>
 
 				<h3>perfect charms</h3>
-				<span class="stat"><span class="stat" id="perfectCharms">x</span>/<span class="stat" id="completeCharms">x</span> (<span class="stat" id="pcRatio">xx.x%</span>)</span>
+				<span class="stat"><span class="stat" id="perfectCharms">x</span>/<span class="stat"
+						id="completeCharms">x</span> (<span class="stat" id="pcRatio">xx.x%</span>)</span>
 			</div>
 			<h1 class="title">other</h1>
 			<div class="control-group">
@@ -261,58 +263,66 @@
 						<optgroup label="nami's charms!" style="text-align: center;">
 							<hr />
 							<hr />
-						<optgroup label="5x5"> </optgroup>
-						<option value="Astral Magic">Astral Magic</option>
-						<option value="Temporal Magic">Temporal Magic</option>
-						<option value="Spatial Magic">Spatial Magic</option>
-						<option value="Sweets!">Sweets!</option>
-						<option value="Love &lt;3">Love &lt;3</option>
+						<optgroup label="5x5">
+							<option value="Astral Magic">Astral Magic</option>
+							<option value="Temporal Magic">Temporal Magic</option>
+							<option value="Spatial Magic">Spatial Magic</option>
+							<option value="Sweets!">Sweets!</option>
+							<option value="Love &lt;3">Love &lt;3</option>
+						</optgroup>
+
+						<hr />
+
+						<optgroup label="10x10">
+							<option value="Connection Magic">Connection Magic</option>
+							<option value="Illusion Magic">Illusion Magic</option>
+							<option value="Growth Magic">Growth Magic</option>
+							<option value="Kitty~">Kitty~</option>
+							<option value="Charm Book">Charm Book</option>
+							<option value="Cute Staff">Cute Staff</option>
+						</optgroup>
+
+						<hr />
+
+						<optgroup label="15x15">
+							<option value="Magic Circle">Magic Circle</option>
+							<option value="Broomstick">Broomstick</option>
+							<option value="Senna &lt;3">Senna &lt;3</option>
+							<option value="Me!">Me!</option>
+						</optgroup>
+
+						<hr />
+						<hr />
+
+						</optgroup>
+
+
+						<optgroup label="other nami works &lt;3" style="text-align: center;">
+							<hr />
+							<hr />
+						<optgroup label="BAD END THEATER">
+							<option value="HERO">HERO</option>
+							<option value="MAIDEN">MAIDEN</option>
+							<option value="UNDERLING">UNDERLING</option>
+							<option value="OVERLORD">OVERLORD</option>
+							<option value="TRAGEDY">TRAGEDY</option>
 						</optgroup>
 						<hr />
 
-						<optgroup label="10x10"> </optgroup>
-						<option value="Connection Magic">Connection Magic</option>
-						<option value="Illusion Magic">Illusion Magic</option>
-						<option value="Growth Magic">Growth Magic</option>
-						<option value="Kitty~">Kitty~</option>
-						<option value="Charm Book">Charm Book</option>
-						<option value="Cute Staff">Cute Staff</option>
+						<optgroup label="Starry Flowers">
+							<option value="Starry Flowers">Starry Flowers</option>
+							<option value disabled style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;(icon)</option>
+							<option value="Pastille">Pastille</option>
+							<option value="Periwinkle">Periwinkle</option>
+							<option value="Astragalus">Astragalus</option>
+						</optgroup>
 						<hr />
 
-						<optgroup label="15x15"> </optgroup>
-						<option value="Magic Circle">Magic Circle</option>
-						<option value="Broomstick">Broomstick</option>
-						<option value="Senna &lt;3">Senna &lt;3</option>
-						<option value="Me!">Me!</option>
-						<hr />
-						<hr />
-
-
-						<optgroup label="other nami works &lt;3" style="text-align: center;"></optgroup>
-						<hr />
-						<hr />
-						<optgroup label="BAD END THEATER"> </optgroup>
-						<hr />
-						<option value="HERO">HERO</option>
-						<option value="MAIDEN">MAIDEN</option>
-						<option value="UNDERLING">UNDERLING</option>
-						<option value="OVERLORD">OVERLORD</option>
-						<option value="TRAGEDY">TRAGEDY</option>
-						<hr />
-
-						<optgroup label="Starry Flowers"> </optgroup>
-						<hr />
-						<option value="Starry Flowers">Starry Flowers</option>
-						<option value disabled style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;(icon)</option>
-						<option value="Pastille">Pastille</option>
-						<option value="Periwinkle">Periwinkle</option>
-						<option value="Astragalus">Astragalus</option>
-						<hr />
-
-						<optgroup label="Contract Demon"></optgroup>
-						<hr />
-						<option value="Kamila">Kamila</option>
-						<option value="Eleni">Eleni</option>
+						<optgroup label="Contract Demon">
+							<option value="Kamila">Kamila</option>
+							<option value="Eleni">Eleni</option>
+						</optgroup>
+						</optgroup>
 					</select>
 					<button type="submit" onclick="galleryReset();" id="galleryStudy">study charm~</button>
 				</form>
