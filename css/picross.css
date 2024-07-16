@@ -67,22 +67,16 @@ a:hover:enabled {
 	color: #763042;
 }
 
-.button {
-	background-color: #ffb6c8;
-	border-color: #ffb6c8;
-	color: #985264;
-}
-
 .charm-header {
 	background-color: #dc7891;
 	color: #ffdeb8;
 	font-weight: bold;
 	text-align: center;
+	text-decoration: dotted underline;
 }
 
 .container {
 	width: 950px;
-	overflow: hidden;
 	margin: 0 auto;
 	padding-top: 20px;
 	text-align: center;
@@ -201,6 +195,11 @@ iframe {
 
 #galleryStudy:hover {
 	color: #dc7891;
+}
+
+.group-astras-garden {
+	background-color: #275a6b;
+	color: #48ada8;
 }
 
 .group-bad-end-theater {
@@ -816,7 +815,7 @@ body.dark select hr {
 }
 
 .smol {
-	font-size: 40%;
+	font-size: 70%;
 }
 
 .smol.full {
@@ -874,4 +873,77 @@ body.dark select hr {
 
 html {
 	height: 100%;
+}
+
+.player {
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.tooltip {
+	position: relative;
+}
+
+.tooltip .tooltiptext {
+	position: absolute;
+
+	/* vertically center */
+	top: 50%;
+	transform: translateY(-50%);
+
+	/* move to right */
+	left: 100%;
+	margin-left: 15px;
+
+	/* basic styles */
+	white-space: pre-wrap;
+	width: max-content;
+	padding: 10px;
+	border: 2px solid #4e1e1b;
+	border-radius: 3px;
+	background: #ffdeb8;
+	color: #4e1e1b;
+	text-align: left;
+
+	display: none; /* hide by default */
+}
+
+.tooltip:hover .tooltiptext {
+	display: block;
+	z-index: 1;
+}
+
+body.dark .tooltip .tooltiptext {
+	background: #472600;
+	color: #e4b3af;
+	border: 2px solid #e4b3af;
+}
+
+.tooltip:after {
+	content: "";
+	position: absolute;
+
+	/* position tooltip correctly */
+	left: 100%;
+	margin-left: -5px;
+
+	/* vertically center */
+	top: 50%;
+	transform: translateY(-50%);
+
+	/* the arrow */
+	border: 11px solid #4e1e1b;
+	border-color: transparent #4e1e1b transparent transparent;
+
+	display: none;
+}
+
+.tooltip:hover:before,
+.tooltip:hover:after {
+	display: block;
+}
+
+body.dark .tooltip:after {
+	border: 11px solid #e4b3af;
+	border-color: transparent #e4b3af transparent transparent;
 }

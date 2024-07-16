@@ -116,13 +116,18 @@
 				<h3>settings</h3>
 				<div class="control-section">
 					<input type="checkbox" id="dark" />
-					<label for="dark"
-						title="switches between light and dark mode!&#010;light theme takes the original charm studies colour scheme, with dark mode being the luminous opposite."
-						style="text-decoration: dotted underline;"> dark mode</label><br />
+					<label for="dark" class="tooltip" style="text-decoration: dotted underline;">dark mode
+						<span class="tooltiptext">switches between light and dark mode!
+light theme takes the original charm studies colour scheme,
+with dark mode being the luminous opposite.</span>
+					</label><br />
 					<input type="checkbox" id="easy" checked />
-					<label for="easy"
-						title="toggles crossouts (which keep track of which columns/rows you've completed),&#010;and toggles sums (which can be used for logical deduction).&#010;&#010;highly recommended!"
-						style="text-decoration: dotted underline;"> easy mode</label>
+					<label for="easy" class="tooltip" style="text-decoration: dotted underline;">easy mode
+						<span class="tooltiptext">toggles crossouts (which keep track of which columns/rows you've completed),
+and toggles sums (which can be used for logical deduction).
+
+highly recommended!</span>
+					</label>
 				</div>
 				<select id="dimensions">
 					<option value="5x5">5x5</option>
@@ -157,6 +162,10 @@
 			<div class="control-group">
 				<h3>time</h3>
 				<span class="stat" id="charmTimer">xx:xx</span>
+				<div class="control-section">
+					<input type="checkbox" id="showTimer" checked />
+					<label for="showTimer">show timer</label>
+				</div>
 				<script>
 					var charmClearTime, timerSeconds, timerMinutes, charmSecs, charmMins;
 					var theCharmTimer = document.getElementById("charmTimer");
@@ -208,7 +217,12 @@
 						charmMins = timerMinutes < 10 ? "0" + timerMinutes + ":" : timerMinutes + ":";
 						charmSecs = timerSeconds < 10 ? "0" + timerSeconds : timerSeconds;
 
-						theCharmTimer.innerHTML = charmMins + charmSecs;
+						showTimerBox = document.getElementById("showTimer")
+						if (showTimerBox.checked) {
+							theCharmTimer.innerHTML = charmMins + charmSecs;
+						} else {
+							theCharmTimer.innerHTML = "=^.^="
+						}
 						setLocalStorage('charmStudiesLite.charmMins', charmMins);
 						setLocalStorage('charmStudiesLite.charmSecs', charmSecs);
 
@@ -256,10 +270,27 @@
 			</div>
 			<h1 class="title">other</h1>
 			<div class="control-group">
-				<h3>charm gallery</h3>
+				<h3 class="tooltip" style="text-decoration: dotted underline">charm gallery<span
+						class="tooltiptext left">nami's charms:
+	the original charms in Charm Studies!
+	go play it, nami's games are amazing!! (link in footer)
+
+other nami works:
+	charms derived from artworks in nami's games,
+	with minor edits here and there.
+	all of these are 30x30, so be prepared~
+
+	the following characters aren't under their initial appearance games:
+		pastille
+		periwinkle
+		vinegar
+	as i haven't played the other games yet.
+	this will be amended when i get around to that &lt;3
+					</span></h3>
 				<form id="charm-gallery">
-					<select name="original-charms" id="original-charms" class="decorated">
-						<option hidden disabled selected value="default">select charm</option><optgroup hidden></optgroup>
+					<select name="original-charms" id="original-charms">
+						<option hidden disabled selected value="default">select charm</option>
+						<optgroup hidden></optgroup>
 						<option disabled class="charm-header" label="nami's charms!"></option>
 						<optgroup label="5x5" class="group-nami-charms">
 							<option value="Astral Magic">Astral Magic</option>
@@ -310,6 +341,12 @@
 							<option value="Kamila">Kamila</option>
 							<option value="Eleni">Eleni</option>
 						</optgroup>
+
+						<optgroup label="Astra's Garden" class="group-astras-garden">Astra's Garden
+							<option value="Vinegar">Vinegar</option>
+						</optgroup>
+
+
 						</optgroup>
 					</select>
 					<button type="submit" onclick="galleryReset();" id="galleryStudy">study charm~</button>
@@ -334,7 +371,7 @@
 			Studies</a>.<br />
 		left click tiles to paint, right click to cross out, middle click to mark (highlight). drag to select multiple
 		at once.<br /><br />
-		<iframe type="text/html"
+		<iframe class="player" type="text/html"
 			src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8"
 			width="320" height="180" title="Charm Studies OST ~ magical beats to study to ~" frameborder="0"
 			allow="autoplay">

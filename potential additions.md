@@ -5,10 +5,12 @@
     * nah that would be too much effort
 
 * Better styling/theming
-  * Add spacing between charm pattern labels, like in original Charm Studies
-    * Might have problems on larger grids where extra spacing could be disruptive
   * "You did it!" complete banner on perfect charm
     * Alternative banner for imperfect completion
+  * Moving away from select elements
+    * select2 is a pain
+    * Making things more accessible
+      * Increasing contrast for sum elements in light mode
 * Additional gameplay features
   * Any possibility for charm editor?????
     * Probably not - finding seeds would take too long
@@ -24,6 +26,8 @@
   * Perfect charm streak
   * Total playtime
 * Better styling/theming
+  * Custom tooltips
+  * Added dark mode
 * Additional gameplay features
   * The original charm gallery
 
