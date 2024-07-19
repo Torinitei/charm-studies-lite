@@ -29,7 +29,7 @@
             "id": "com.nomnomnami.charmstudies"
         }
     ],
-    "start_url": "/",
+    "start_url": "/charm-studies-lite/",
     "screenshots": [
         {
             "src": "the hat.png",
