@@ -1,4 +1,5 @@
 {
+    "start-url": "https://torinitei.github.io/charm-studies-lite/",
     "name": "Charm Studies lite",
     "short_name": "Charm Studies",
     "icons": [
@@ -17,8 +18,17 @@
             "sizes": "1739x1335",
             "type": "image/png",
             "form_factor": "wide",
-            "label": "Charm Studies lite",
-            "description": "Take the magic of NomNomNami's Charm Studies, and put it in your browser!"
+            "label": "Charm Studies lite desktop screenshot",
+            "description": "Take the magic of NomNomNami's Charm Studies, and put it in your browser!",
+            "platform": "windows"
+        },
+        {
+            "src": "this game is so made for mobile.png",
+            "sizes": "1170x1393",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Charm Studies lite mobile screenshot",
+            "platform": "ios"
         }
     ]
 }
