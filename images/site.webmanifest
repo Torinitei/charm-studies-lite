@@ -1,7 +1,16 @@
 {
-    "start-url": "https://torinitei.github.io/charm-studies-lite/",
-    "name": "Charm Studies lite",
-    "short_name": "Charm Studies",
+    "background_color": "#dc7891",
+    "categories": [
+        "entertainment",
+        "games",
+        "music"
+    ],
+    "description": "Take the magic of NomNomNami's Charm Studies, and put it in your browser!",
+    "display": "standalone",
+    "display_override": [
+        "fullscreen",
+        "minimal-ui"
+    ],
     "icons": [
         {
             "src": "android-chrome-192x192.png",
@@ -9,9 +18,16 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
-    "display": "standalone",
+    "name": "Charm Studies lite",
+    "orientation": "landscape-primary",
+    "related_applications": [
+        {
+            "platform": "play",
+            "url": "https://play.google.com/store/apps/details?id=com.nomnomnami.charmstudies",
+            "id": "com.nomnomnami.charmstudies"
+        }
+    ],
+    "start_url": "https://torinitei.github.io/charm-studies-lite/",
     "screenshots": [
         {
             "src": "the hat.png",
@@ -30,5 +46,7 @@
             "label": "Charm Studies lite mobile screenshot",
             "platform": "ios"
         }
-    ]
+    ],
+    "short_name": "C. Studies lite",
+    "theme_color": "#dc7891"
 }
