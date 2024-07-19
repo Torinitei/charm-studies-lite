@@ -1,6 +1,6 @@
 {
     "name": "Charm Studies lite",
-    "short_name": "Charm Studies lite",
+    "short_name": "Charm Studies",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
@@ -10,5 +10,15 @@
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "display": "standalone"
+    "display": "standalone",
+    "screenshots": [
+        {
+            "src": "the hat.png",
+            "sizes": "1739x1335",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Charm Studies lite",
+            "description": "Take the magic of NomNomNami's Charm Studies, and put it in your browser!"
+        }
+    ]
 }

@@ -142,6 +142,7 @@ $(function () {
 				"Kitty~",
 				"Charm Book",
 				"Cute Staff",
+				"t h e  h a t",
 				// 15x15
 				"Magic Circle",
 				"Broomstick",
@@ -325,6 +326,22 @@ $(function () {
 						];
 						total = 48;
 						break;
+					case "t h e  h a t":
+						state = this.blankTemplate(10);
+						solution = [
+							[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 2, 1, 1, 1, 1],
+							[1, 1, 1, 1, 2, 2, 2, 2, 1, 1],
+							[1, 1, 1, 1, 2, 2, 1, 1, 1, 1],
+							[1, 1, 1, 2, 2, 2, 2, 1, 1, 1],
+							[1, 1, 1, 2, 2, 2, 2, 1, 1, 1],
+							[2, 2, 2, 1, 1, 1, 1, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+							[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+						];
+						total = 39;
+						break;	
 					// 15x15
 					case "Magic Circle":
 						state = this.blankTemplate(15);
@@ -1157,6 +1174,7 @@ $(function () {
 				case "Kitty~":
 				case "Charm Book":
 				case "Cute Staff":
+				case "t h e  h a t":
 					document.getElementById("dimensions").value = "10x10";
 					break;
 				// 15x15
