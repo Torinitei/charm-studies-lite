@@ -27,7 +27,7 @@
 <body>
 	<div class="container">
 		<div class="header">
-			you have studied charms for
+			You have studied charms for
 			<span class="highlight" id="totalPlaytimeDisplay">xm</span>
 			<script>
 				var totalTimeout, totalPlaytime, totalDays, totalHours, totalMinutes;
@@ -110,26 +110,27 @@
 				Charm Studies lite
 			</h1>
 			<div class="control-group">
-				<h3>progress</h3>
+				<h3>Progress:</h3>
 				<span class="notable" id="progress">0.0%</span>
 				<div class="custom"></div>
-				<button id="solve" onclick="pauseCharmTimer();">finish charm!</button>
+				<button id="solve" onclick="pauseCharmTimer();">Finish Charm!</button>
 			</div>
 			<div class="control-group">
-				<h3>settings</h3>
+				<h3>Settings</h3>
 				<div class="control-section">
 					<input type="checkbox" id="dark" />
-					<label for="dark" class="tooltip" style="text-decoration: dotted underline;">dark mode
-						<span class="tooltiptext">switches between light and dark mode!
-light theme takes the original charm studies colour scheme,
+					<label for="dark" class="tooltip" style="text-decoration: dotted underline;">Dark mode
+						<span class="tooltiptext">Switches between light and dark mode!
+Light theme takes the original charm studies colour scheme,
 with dark mode being the luminous opposite.</span>
 					</label><br />
 					<input type="checkbox" id="easy" checked />
-					<label for="easy" class="tooltip" style="text-decoration: dotted underline;">easy mode
-						<span class="tooltiptext">toggles crossouts (which keep track of which columns/rows you've completed),
+					<label for="easy" class="tooltip" style="text-decoration: dotted underline;">Easy mode
+						<span class="tooltiptext">Toggles crossouts (which keep track of which columns/rows you've
+completed),
 and toggles sums (which can be used for logical deduction).
 
-highly recommended!</span>
+Highly recommended!</span>
 					</label>
 				</div>
 				<select id="dimensions">
@@ -148,26 +149,26 @@ highly recommended!</span>
 				<span>charm size</span>
 			</div>
 			<div class="control-group">
-				<button id="new" onclick="resetCharmTimer();">new charm &raquo;</button>
+				<button id="new" onclick="resetCharmTimer();">New Charm &gt;</button>
 				<div class="custom">
-					<h5>charm id</h5>
+					<h5>Charm ID</h5>
 					<input type="text" id="seed" readonly="readonly" />
-					<h5>custom id</h5>
+					<h5>Custom ID</h5>
 					<form id="customForm">
 						<input type="text" id="customSeed" />
-						<button type="submit" onclick="resetCharmTimer();" id="customGame">custom charm</button>
+						<button type="submit" onclick="resetCharmTimer();" id="customGame">Custom Charm</button>
 					</form>
 				</div>
 			</div>
 		</div>
 		<div class="stats">
-			<h1 class="title">stats</h1>
+			<h1 class="title">Stats</h1>
 			<div class="control-group">
-				<h3>time</h3>
+				<h3>Time:</h3>
 				<span class="stat" id="charmTimer">xx:xx</span>
 				<div class="control-section">
 					<input type="checkbox" id="showTimer" checked />
-					<label for="showTimer">show timer</label>
+					<label for="showTimer">Show timer</label>
 				</div>
 				<script>
 					var charmClearTime, timerSeconds, timerMinutes, charmSecs, charmMins;
@@ -263,38 +264,41 @@ highly recommended!</span>
 					}
 				</script>
 				<div class="custom"></div>
-				<h3>streak</h3>
+				<h3>Streak:</h3>
 				<span class="stat" id="perfectStreak">x</span>
 				<div class="custom"></div>
 
-				<h3>perfect charms</h3>
+				<h3>Perfect Charms:</h3>
 				<span class="stat"><span class="stat" id="perfectCharms">x</span>/<span class="stat"
 						id="completeCharms">x</span> (<span class="stat" id="pcRatio">xx.x%</span>)</span>
 			</div>
-			<h1 class="title">other</h1>
+			<h1 class="title">Other</h1>
 			<div class="control-group">
-				<h3 class="tooltip" style="text-decoration: dotted underline">charm gallery<span
-						class="tooltiptext left">nami's charms:
-	the original charms in Charm Studies!
-	go play it, nami's games are amazing!! (link in footer)
+				<h3 class="tooltip" style="text-decoration: dotted underline">Charm Gallery<span
+						class="tooltiptext left">Nami's Charms:
+	The original charms in Charm Studies!
+	Go play it, Nami's games are amazing!! (link in footer)
 
-other nami works:
-	charms derived from artworks in nami's games,
+Other Nami Works:
+	Charms derived from artworks in Nami's games,
 	with minor edits here and there.
-	all of these are 30x30, so be prepared~
+	All of these are 30x30, so be prepared~
 
-the following characters aren't under their initial appearance games:
-	pastille
-	periwinkle
-	vinegar
+The following characters aren't under their initial appearance games:
+	Pastille
+	Periwinkle
+	Vinegar
 as i haven't played the other games yet.
-this will be amended when i get around to that &lt;3
+This will be amended when i get around to that &lt;3
+
+*This is not a charm in the actual game.
+	but done for the sake of contiguity ^^
 					</span></h3>
 				<form id="charm-gallery">
 					<select name="original-charms" id="original-charms">
-						<option hidden disabled selected value="default">select charm</option>
+						<option hidden disabled selected value="default">Select Charm</option>
 						<optgroup hidden></optgroup>
-						<option disabled class="charm-header" label="nami's charms!"></option>
+						<option disabled class="charm-header" label="Nami's Charms!"></option>
 						<optgroup label="5x5" class="group-nami-charms">
 							<option value="Astral Magic">Astral Magic</option>
 							<option value="Temporal Magic">Temporal Magic</option>
@@ -311,6 +315,7 @@ this will be amended when i get around to that &lt;3
 							<option value="Kitty~">Kitty~</option>
 							<option value="Charm Book">Charm Book</option>
 							<option value="Cute Staff">Cute Staff</option>
+							<option value="Charm Studies">Charm Studies (icon)*</option>
 						</optgroup>
 
 
@@ -322,7 +327,7 @@ this will be amended when i get around to that &lt;3
 						</optgroup>
 						</optgroup>
 
-						<option disabled label="other nami works &lt;3" class="charm-header"></option>
+						<option disabled label="Other Nami Works &lt;3" class="charm-header"></option>
 						<optgroup label="BAD END THEATER" class="group-bad-end-theater">
 							<option value="HERO">HERO</option>
 							<option value="MAIDEN">MAIDEN</option>
@@ -332,9 +337,7 @@ this will be amended when i get around to that &lt;3
 						</optgroup>
 
 						<optgroup label="Starry Flowers" class="group-starry-flowers">
-							<option value="Starry Flowers">Starry Flowers</option>
-							<option value disabled style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;(icon)
-							</option>
+							<option value="Starry Flowers">Starry Flowers (icon)</option>
 							<option value="Pastille">Pastille</option>
 							<option value="Periwinkle">Periwinkle</option>
 							<option value="Astragalus">Astragalus</option>
@@ -352,12 +355,12 @@ this will be amended when i get around to that &lt;3
 
 						</optgroup>
 					</select>
-					<button type="submit" onclick="galleryReset();" id="galleryStudy">study charm~</button>
+					<button type="submit" onclick="galleryReset();" id="galleryStudy">Study Charm~</button>
 				</form>
 				<div class="custom"></div>
-				<h3>debug</h3>
-				<button id="AAAAA" onclick="localStorage.clear(); location.reload();">clear storage</button>
-				<button id="statReset">stat reset</button>
+				<h3>Debug</h3>
+				<button id="AAAAA" onclick="localStorage.clear(); location.reload();">Clear Storage</button>
+				<button id="statReset">Stat Reset</button>
 			</div>
 		</div>
 		<div id="puzzle">if you're seeing this, something's gone wrong! please press the clear storage in the debug
@@ -367,12 +370,12 @@ this will be amended when i get around to that &lt;3
 		</div>
 	</div>
 	<div class="footer">
-		randomly generated <a href="http://en.wikipedia.org/wiki/Nonogram" target="_blank">picross puzzles.</a> original
+		Randomly generated <a href="http://en.wikipedia.org/wiki/Nonogram" target="_blank">picross puzzles.</a> Original
 		designed and written by <a href="http://liouh.com/home/">Henry Liou</a>.
-		<br />edited by <a href="https://torinitei.carrd.co/">Torinitei</a>. themed after <a
+		<br />Edited by <a href="https://torinitei.carrd.co/">Torinitei</a>. Themed after <a
 			href="https://nomnomnami.com/">NomNomNami's</a> <a href="https://nomnomnami.itch.io/charm-studies">Charm
 			Studies</a>.<br />
-		left click tiles to paint, right click to cross out, middle click to mark (highlight). drag to select multiple
+		Left click tiles to paint, right click to cross out, middle click to mark (highlight). Drag to select multiple
 		at once.<br /><br />
 		<iframe class="player" type="text/html"
 			src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8"

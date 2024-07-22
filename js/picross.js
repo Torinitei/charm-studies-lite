@@ -142,7 +142,7 @@ $(function () {
 				"Kitty~",
 				"Charm Book",
 				"Cute Staff",
-				"t h e  h a t",
+				"Charm Studies", // game logo
 				// 15x15
 				"Magic Circle",
 				"Broomstick",
@@ -165,6 +165,7 @@ $(function () {
 				"Eleni",
 				/* Astra's Garden */
 				"Vinegar",
+
 			];
 			let inCharmGallery = originalCharms.includes(seed);
 
@@ -326,7 +327,7 @@ $(function () {
 						];
 						total = 48;
 						break;
-					case "t h e  h a t":
+					case "Charm Studies": // game logo
 						state = this.blankTemplate(10);
 						solution = [
 							[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -1054,6 +1055,58 @@ $(function () {
 				silent: true
 			});
 			this.trigger('change');
+		},
+
+		isPerfect: function () {
+			var perfect = true;
+			var state = this.get('state');
+
+			// convert marks to crossses
+			let markedCells = new Array()
+			for (let y in state) {
+				for (let x = 0; x < state[y].length; x++) {
+					if (state[y][x] == 9) {
+						state[y][x] = 1;
+						markedCells.push([y, x])
+					}
+				}
+			}
+
+			var hintsX = this.get('hintsX');
+			var hintsY = this.get('hintsY');
+			var solutionX = this.getHintsX(state);
+			var solutionY = this.getHintsY(state);
+
+			for (var i = 0; i < hintsX.length; i++) {
+				if (hintsX[i].length !== solutionX[i].length) {
+					perfect = false;
+					break;
+				}
+				for (var j = 0; j < hintsX[i].length; j++) {
+					if (Math.abs(hintsX[i][j]) !== solutionX[i][j]) {
+						perfect = false;
+						break;
+					}
+				}
+			}
+
+			for (var i = 0; i < hintsY.length; i++) {
+				if (hintsY[i].length !== solutionY[i].length) {
+					perfect = false;
+					break;
+				}
+				for (var j = 0; j < hintsY[i].length; j++) {
+					if (Math.abs(hintsY[i][j]) !== solutionY[i][j]) {
+						perfect = false;
+						break;
+					}
+				}
+			}
+
+			// reverting marked cells if not perfect
+			if (!perfect){ markedCells.forEach(([y, x]) => state[y][x] = 9); }
+
+			return perfect;
 		}
 
 	});
@@ -1174,7 +1227,7 @@ $(function () {
 				case "Kitty~":
 				case "Charm Book":
 				case "Cute Staff":
-				case "t h e  h a t":
+				case "Charm Studies": // game logo
 					document.getElementById("dimensions").value = "10x10";
 					break;
 				// 15x15
@@ -1399,6 +1452,13 @@ $(function () {
 			}
 			this.mouseMode = 0;
 			this.render();
+			this.checkCompletion();
+		},
+
+		checkCompletion: function () {
+			if (this.model.isPerfect()) {
+				this.solve();
+			}
 		},
 
 		clickArea: function (endX, endY, guess) {
@@ -1457,6 +1517,7 @@ $(function () {
 			if (Math.abs(this.mouseEndX - this.mouseStartX) < 10 && Math.abs(this.mouseEndY - this.mouseStartY) < 10) {
 				this.model.guess(target.attr('data-x'), target.attr('data-y'), 2);
 				this.render();
+				this.checkCompletion();
 			}
 		},
 
@@ -1470,45 +1531,7 @@ $(function () {
 			var hintsX = this.model.get('hintsX');
 			var hintsY = this.model.get('hintsY');
 
-			// convert marks to crossses
-			for (let y in state) {
-				for (let x = 0; x < state[y].length; x++) {
-					if (state[y][x] == 9) {
-						state[y][x] = 1;
-					}
-				}
-			}
-
-			var perfect = true;
-			var solutionX = this.model.getHintsX(state);
-			var solutionY = this.model.getHintsY(state);
-
-			for (var i = 0; i < hintsX.length; i++) {
-				if (hintsX[i].length !== solutionX[i].length) {
-					perfect = false;
-					break;
-				}
-
-				for (var j = 0; j < hintsX[i].length; j++) {
-					if (Math.abs(hintsX[i][j]) !== solutionX[i][j]) {
-						perfect = false;
-						break;
-					}
-				}
-			}
-
-			for (var i = 0; i < hintsY.length; i++) {
-				if (hintsY[i].length !== solutionY[i].length) {
-					perfect = false;
-					break;
-				}
-				for (var j = 0; j < hintsY[i].length; j++) {
-					if (Math.abs(hintsY[i][j]) !== solutionY[i][j]) {
-						perfect = false;
-						break;
-					}
-				}
-			}
+			var perfect = this.model.isPerfect();
 
 			// convert perfect empties to crossses
 			for (let y in state) {

@@ -3,6 +3,8 @@
 * Quality of Life changes
   * THEME CUSTOMISER???????
     * nah that would be too much effort
+  * Rework footer to be buttons instead of long text
+    * Create button modals to house tutorial, credits, and update log
 
 * Better styling/theming
   * "You did it!" complete banner on perfect charm
@@ -18,6 +20,10 @@
   * Cassia reactions???
     * Again, could be problematic
       * As a fan of Nami's work I want to include this stuff but I don't want to detract or steal from the original >.<
+  * Integrated tutorial
+    * Create lore that Cassia made the website for others to practice charms without needing magic
+      * so that others who struggled learning charms can benefit too :3
+    * Either separate page or pop-up dialogue
 
 ## Complete additions
 

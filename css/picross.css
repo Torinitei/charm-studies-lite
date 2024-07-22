@@ -186,6 +186,7 @@ iframe {
 
 #galleryStudy {
 	font-weight: bold;
+	width: max-content;
 	margin: 10px;
 	padding: 5px 5px;
 	background-color: #ffb6c8;
