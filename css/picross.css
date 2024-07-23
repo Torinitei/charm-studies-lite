@@ -21,6 +21,7 @@
 
 a {
 	text-decoration: none;
+	font-weight: bold;
 	color: #675145;
 }
 
@@ -59,12 +60,6 @@ a:hover {
 
 a:hover:enabled {
 	text-decoration: underline;
-}
-
-#AAAAA {
-	background-color: #dd94a6;
-	border-color: #dd94a6;
-	color: #763042;
 }
 
 .charm-header {
@@ -150,16 +145,6 @@ a:hover:enabled {
 	width: 120px;
 }
 
-#customGame {
-	background-color: #ffb6c8;
-	border-color: #ffb6c8;
-	color: #985264;
-}
-
-#customGame:hover {
-	color: #dc7891;
-}
-
 td {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -185,17 +170,8 @@ iframe {
 }
 
 #galleryStudy {
-	font-weight: bold;
-	width: max-content;
 	margin: 10px;
 	padding: 5px 5px;
-	background-color: #ffb6c8;
-	border-color: #ffb6c8;
-	color: #985264;
-}
-
-#galleryStudy:hover {
-	color: #dc7891;
 }
 
 .group-astras-garden {
@@ -241,13 +217,6 @@ iframe {
 #new {
 	font-weight: bold;
 	padding: 5px 10px;
-	background-color: #ffb6c8;
-	border-color: #ffb6c8;
-	color: #985264;
-}
-
-#new:hover {
-	color: #dc7891;
 }
 
 body {
@@ -267,46 +236,6 @@ body {
 body.dark {
 	background-color: #86233b;
 	color: #e4b3af;
-}
-
-body.dark #AAAAA {
-	background-color: #6d2235;
-	border-color: #6d2235;
-	color: #ce8899;
-}
-
-body.dark #customGame {
-	background-color: #470012;
-	border-color: #470012;
-	color: #ad677e;
-}
-
-body.dark #customGame:hover {
-	color: #86233b;
-}
-
-body.dark #galleryStudy {
-	background-color: #470012;
-	border-color: #470012;
-	color: #ad677e;
-}
-
-body.dark #galleryStudy:hover {
-	color: #86233b;
-}
-
-body.dark #new {
-	background-color: #470012;
-	border-color: #470012;
-	color: #ad677e;
-}
-
-body.dark #new:hover {
-	color: #86233b;
-}
-
-body.dark #new:hover:enabled {
-	color: #86233b;
 }
 
 body.dark #progress {
@@ -339,7 +268,7 @@ body.dark #puzzle td.cell.s9 {
 }
 
 body.dark #puzzle td.cell:nth-child(5n + 1) {
-	border-right: 2px double #d8c3c0;
+	border-right: 2px solid #ffe4c6;
 }
 
 body.dark #puzzle td.key em {
@@ -355,15 +284,15 @@ body.dark #puzzle td.top:nth-of-type(odd):not(:first-child) {
 }
 
 body.dark #puzzle td:nth-child(5n + 1) {
-	border-right: 2px double #d8c3c0;
+	border-right: 2px solid #ffe4c6;
 }
 
 body.dark #puzzle tr:nth-child(5n + 1) td {
-	border-bottom: 2px double #d8c3c0;
+	border-bottom: 2px solid #ffe4c6;
 }
 
 body.dark #puzzle tr:nth-child(5n + 2) td {
-	border-top: 2px double #d8c3c0;
+	border-top: 2px solid #ffe4c6;
 }
 
 body.dark #puzzle tr:nth-child(even):not(:first-child) td.key.left {
@@ -422,22 +351,10 @@ body.dark #seed {
 	border: 1px solid #8a8a8a;
 }
 
-body.dark #solve {
-	background-color: #470012;
-	border-color: #470012;
-	color: #ad677e;
-}
-
 body.dark #solve:disabled {
 	background-color: #101010;
 	border-color: #101010;
 	color: #efefef;
-}
-
-body.dark #statReset {
-	background-color: #6d2235;
-	border-color: #6d2235;
-	color: #ce8899;
 }
 
 body.dark .control-group {
@@ -525,7 +442,7 @@ body.dark select hr {
 }
 
 #progress.done {
-	color: #080;
+	color: #127a0a;
 }
 
 #puzzle {
@@ -608,7 +525,7 @@ body.dark select hr {
 }
 
 #puzzle td.cell:nth-child(5n + 1) {
-	border-right: 2px double #c2a6a2;
+	border-right: 2px solid #470012;;
 }
 
 #puzzle td.key {
@@ -650,20 +567,16 @@ body.dark select hr {
 	background-color: #ffb6c8;
 }
 
-#puzzle td.top:nth-of-type(odd):not(:first-child) {
-	background-color: #ffb6c8;
-}
-
 #puzzle td:nth-child(5n + 1) {
-	border-right: 2px double #c2a6a2;
+	border-right: 2px solid #470012;;
 }
 
 #puzzle tr:nth-child(5n + 1) td {
-	border-bottom: 2px double #c2a6a2;
+	border-bottom: 2px solid #470012;;
 }
 
 #puzzle tr:nth-child(5n + 2) td {
-	border-top: 2px double #c2a6a2;
+	border-top: 2px solid #470012;;
 }
 
 #puzzle tr:nth-child(even):not(:first-child) td.key.left {
@@ -681,78 +594,6 @@ body.dark select hr {
 
 #puzzle.complete td.cell.s1 {
 	background-color: #eee;
-}
-
-#puzzle.complete td.cell.s11 {
-	background-color: #ffb6c8;
-}
-
-#puzzle.complete td.cell.s11 {
-	background-color: #ffb6c8;
-}
-
-#puzzle.complete td.cell.s11 {
-	background-color: #ffb6c8;
-}
-
-#puzzle.complete td.cell.s11::after {
-	content: "\d7";
-	color: #fff;
-	font-size: 1.4em;
-	text-align: center;
-	vertical-align: middle;
-}
-
-#puzzle.complete td.cell.s11::after {
-	content: "\d7";
-	color: #fff;
-	font-size: 1.4em;
-	text-align: center;
-	vertical-align: middle;
-}
-
-#puzzle.complete td.cell.s11::after {
-	content: "\d7";
-	color: #fff;
-	font-size: 1.4em;
-	text-align: center;
-	vertical-align: middle;
-}
-
-#puzzle.complete td.cell.s12 {
-	background-color: #675145;
-}
-
-#puzzle.complete td.cell.s12 {
-	background-color: #675145;
-}
-
-#puzzle.complete td.cell.s12 {
-	background-color: #675145;
-}
-
-#puzzle.complete td.cell.s12::after {
-	content: "\d7";
-	color: #fff;
-	font-size: 1.4em;
-	text-align: center;
-	vertical-align: middle;
-}
-
-#puzzle.complete td.cell.s12::after {
-	content: "\d7";
-	color: #fff;
-	font-size: 1.4em;
-	text-align: center;
-	vertical-align: middle;
-}
-
-#puzzle.complete td.cell.s12::after {
-	content: "\d7";
-	color: #fff;
-	font-size: 1.4em;
-	text-align: center;
-	vertical-align: middle;
 }
 
 #puzzle.complete td.cell.s1::after {
@@ -831,27 +672,13 @@ body.dark select hr {
 
 #solve {
 	font-size: 15px;
-	font-weight: bold;
 	padding: 10px;
-	background-color: #ffb6c8;
-	border-color: #ffb6c8;
-	color: #985264;
 }
 
 #solve:disabled {
 	background-color: #efefef;
 	border-color: #efefef;
 	color: #101010;
-}
-
-#solve:hover:enabled {
-	color: #dc7891;
-}
-
-#statReset {
-	background-color: #dd94a6;
-	border-color: #dd94a6;
-	color: #763042;
 }
 
 .stats {
@@ -947,4 +774,126 @@ body.dark .tooltip .tooltiptext {
 body.dark .tooltip:after {
 	border: 11px solid #e4b3af;
 	border-color: transparent #e4b3af transparent transparent;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: #ffb6c888;
+}
+
+body.dark .modal {
+	background-color: #47001288;
+}
+
+.modal-content {
+	font-size: 18px;
+	background-color: #ffdeb8;
+	margin: 15% auto;
+	padding: 20px;
+	border: 4px solid #a9736b;
+	border-radius: 5px;
+	width: fit-content;
+	max-width: 600px;
+	text-align: center;
+	
+}
+
+body.dark .modal-content {
+	background-color: #472600;;
+	color: #baa397;
+	border: 4px solid #945f57;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-header {
+	color: #cc6600;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.modal-body { 
+	padding: 2px 16px;
+	text-indent: 20px each-line;
+	text-align: left;
+}
+
+.modal-highlight {
+	color: #cc6600;
+	font-weight: bold;
+}
+
+.bold-button {
+	font-weight: bold;
+	width: max-content;
+	background-color: #ffb6c8;
+	border-color: #ffb6c8;
+	color: #985264;
+}
+
+.bold-button:hover {
+	color: #dc7891;
+}
+
+body.dark .bold-button {
+	background-color: #470012;
+	border-color: #470012;
+	color: #ad677e;
+}
+
+body.dark .bold-button:hover {
+	color: #86233b;
+}
+
+.regular-button {
+	width: max-content;
+	background-color: #ffb6c8;
+	border-color: #ffb6c8;
+	color: #985264;
+}
+
+.regular-button:hover {
+	color: #dc7891;
+}
+
+body.dark .regular-button {
+	background-color: #470012;
+	border-color: #470012;
+	color: #ad677e;
+}
+
+body.dark .regular-button:hover {
+	color: #86233b;
+}
+
+.debug-button {
+	width: max-content;
+	background-color: #dd94a6;
+	border-color: #dd94a6;
+	color: #763042;
+}
+
+body.dark .debug-button {
+	background-color: #6d2235;
+	border-color: #6d2235;
+	color: #ce8899;
+}
+
+img {
+	width: 60%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }

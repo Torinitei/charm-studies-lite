@@ -10,14 +10,14 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
 		rel="stylesheet">
-	<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="image2/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-	<link rel="manifest" href="images/site.webmanifest">
-	<link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
-	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/icon-stuff/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/icon-stuff/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/icon-stuff/favicon-16x16.png">
+	<link rel="manifest" href="images/icon-stuff/site.webmanifest">
+	<link rel="mask-icon" href="images/icon-stuff/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="shortcut icon" href="images/icon-stuff/favicon.ico">
 	<meta name="msapplication-TileColor" content="#b91d47">
-	<meta name="msapplication-config" content="images/browserconfig.xml">
+	<meta name="msapplication-config" content="images/icon-stuff/browserconfig.xml">
 	<meta name="theme-color" content="#ffdeb8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -113,7 +113,7 @@
 				<h3>Progress:</h3>
 				<span class="notable" id="progress">0.0%</span>
 				<div class="custom"></div>
-				<button id="solve" onclick="pauseCharmTimer();">Finish Charm!</button>
+				<button id="solve" class="bold-button" onclick="pauseCharmTimer();">Finish Charm!</button>
 			</div>
 			<div class="control-group">
 				<h3>Settings</h3>
@@ -126,8 +126,7 @@ with dark mode being the luminous opposite.</span>
 					</label><br />
 					<input type="checkbox" id="easy" checked />
 					<label for="easy" class="tooltip" style="text-decoration: dotted underline;">Easy mode
-						<span class="tooltiptext">Toggles crossouts (which keep track of which columns/rows you've
-completed),
+						<span class="tooltiptext">Toggles crossouts (which keep track of which columns/rows you've completed),
 and toggles sums (which can be used for logical deduction).
 
 Highly recommended!</span>
@@ -149,14 +148,15 @@ Highly recommended!</span>
 				<span>charm size</span>
 			</div>
 			<div class="control-group">
-				<button id="new" onclick="resetCharmTimer();">New Charm &gt;</button>
+				<button id="new" class="bold-button" onclick="resetCharmTimer();">New Charm &gt;</button>
 				<div class="custom">
 					<h5>Charm ID</h5>
 					<input type="text" id="seed" readonly="readonly" />
 					<h5>Custom ID</h5>
 					<form id="customForm">
 						<input type="text" id="customSeed" />
-						<button type="submit" onclick="resetCharmTimer();" id="customGame">Custom Charm</button>
+						<button type="submit" onclick="resetCharmTimer();" class="regular-button" id="customGame">Custom
+							Charm</button>
 					</form>
 				</div>
 			</div>
@@ -291,8 +291,7 @@ The following characters aren't under their initial appearance games:
 as i haven't played the other games yet.
 This will be amended when i get around to that &lt;3
 
-*This is not a charm in the actual game.
-	but done for the sake of contiguity ^^
+*This is not a charm in the actual game, but done for the sake of contiguity ^^
 					</span></h3>
 				<form id="charm-gallery">
 					<select name="original-charms" id="original-charms">
@@ -355,12 +354,13 @@ This will be amended when i get around to that &lt;3
 
 						</optgroup>
 					</select>
-					<button type="submit" onclick="galleryReset();" id="galleryStudy">Study Charm~</button>
+					<button type="submit" onclick="galleryReset();" class="bold-button" id="galleryStudy">Study
+						Charm~</button>
 				</form>
 				<div class="custom"></div>
 				<h3>Debug</h3>
-				<button id="AAAAA" onclick="localStorage.clear(); location.reload();">Clear Storage</button>
-				<button id="statReset">Stat Reset</button>
+				<button class="debug-button" onclick="localStorage.clear(); location.reload();">Clear Storage</button>
+				<button class="debug-button" id="statReset">Stat Reset</button>
 			</div>
 		</div>
 		<div id="puzzle">if you're seeing this, something's gone wrong! please press the clear storage in the debug
@@ -370,14 +370,81 @@ This will be amended when i get around to that &lt;3
 		</div>
 	</div>
 	<div class="footer">
-		Randomly generated <a href="http://en.wikipedia.org/wiki/Nonogram" target="_blank">picross puzzles.</a> Original
-		designed and written by <a href="http://liouh.com/home/">Henry Liou</a>.
-		<br />Edited by <a href="https://torinitei.carrd.co/">Torinitei</a>. Themed after <a
-			href="https://nomnomnami.com/">NomNomNami's</a> <a href="https://nomnomnami.itch.io/charm-studies">Charm
-			Studies</a>.<br />
-		Left click tiles to paint, right click to cross out, middle click to mark (highlight). Drag to select multiple
-		at once.<br />
-		hi Lucian :3 (first watcher of charm studies lite repo)<br /><br />
+
+		<button class="regular-button" id="credits">Credits</button>
+		<div id="credits-modal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">~ Credits ~</div>
+				<div class="modal-body">
+					Original designed and written by <a href="http://liouh.com/home/">Henry Liou</a>.<br />
+					Edited by <a href="https://torinitei.carrd.co/">Torinitei</a>.<br />
+					Themed after <a href="https://nomnomnami.com/">NomNomNami's</a> <a
+						href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>.<br /><br />
+
+					hi <a href="https://github.com/exaluc">Lucian</a> :3 (first watcher of charm studies lite repo)
+				</div>
+			</div>
+		</div>
+		<button class="regular-button" id="tutorial">Nami's Tutorial</button>
+		<div id="tutorial-modal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">~ Nami's Tutorial ~</div>
+				<div class="modal-body">
+					Charms can be solved with the magic of logic!<br />
+					The numbers on the sides represent consecutive painted tiles found in each line.<br />
+					<img src="images\modals\nami1.png">
+					When there are multiple numbers in a line, it means there must be at least one blank space between them,
+					like so:<br />
+					<img style="text-align: center;" src="images\modals\nami2.png">
+					Determine which tiles must be painted until the final picture is revealed!
+				</div>
+			</div>
+		</div>
+		<button class="regular-button" id="controls">Controls</button>
+		<div id="controls-modal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">Controls</div>
+				<div class="modal-body">
+					<span class="modal-highlight">Left Click</span><br />Paint<br /><br />
+					<span class="modal-highlight">Right Click</span><br />Cross Out<br /><br />
+					<span class="modal-highlight">Middle Click</span><br />Mark
+				</div>
+			</div>
+		</div>
+		<br /><br />
+		<script>
+			var creditsModal = document.getElementById("credits-modal");
+			var creditsButton = document.getElementById("credits");
+
+			var tutorialModal = document.getElementById("tutorial-modal");
+			var tutorialButton = document.getElementById("tutorial");
+
+			var controlsModal = document.getElementById("controls-modal");
+			var controlsButton = document.getElementById("controls");
+
+
+			creditsButton.onclick = function () {
+				creditsModal.style.display = "block";
+			}
+
+			tutorialButton.onclick = function () {
+				tutorialModal.style.display = "block";
+			}
+
+			controlsButton.onclick = function () {
+				controlsModal.style.display = "block";
+			}
+
+			window.onclick = function (event) {
+				if (event.target == creditsModal) {
+					creditsModal.style.display = "none";
+				} else if (event.target == tutorialModal) {
+					tutorialModal.style.display = "none";
+				} else if (event.target == controlsModal) {
+					controlsModal.style.display = "none";
+				}
+			}
+		</script>
 		<iframe class="player" type="text/html"
 			src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8"
 			width="320" height="180" title="Charm Studies OST ~ magical beats to study to ~" frameborder="0"
