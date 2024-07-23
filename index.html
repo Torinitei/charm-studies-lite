@@ -370,82 +370,235 @@ This will be amended when i get around to that &lt;3
 		</div>
 	</div>
 	<div class="footer">
+		<div id="modal-buttons">
+			<button class="regular-button" id="credits" data-modal="credits-modal">Credits</button>
+			<button class="regular-button" id="tutorial" data-modal="tutorial-modal">Nami's Tutorial</button>
+			<button class="regular-button" id="controls" data-modal="controls-modal">Controls</button>
+			<button class="regular-button" id="update-log" data-modal="update-log-modal">Update Log</button>
+		</div>
 
-		<button class="regular-button" id="credits">Credits</button>
-		<div id="credits-modal" class="modal">
-			<div class="modal-content">
-				<div class="modal-header">~ Credits ~</div>
-				<div class="modal-body">
-					Original designed and written by <a href="http://liouh.com/home/">Henry Liou</a>.<br />
-					Edited by <a href="https://torinitei.carrd.co/">Torinitei</a>.<br />
-					Themed after <a href="https://nomnomnami.com/">NomNomNami's</a> <a
-						href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>.<br /><br />
+		<div id="modals">
+			<div id="credits-modal" class="modal">
+				<div class="modal-content">
+					<div class="modal-header">~ Credits ~</div>
+					<div class="modal-body">
+						Original designed and written by <a href="http://liouh.com/home/">Henry Liou</a>.<br />
+						Edited by <a href="https://torinitei.carrd.co/">Torinitei</a>.<br />
+						Themed after <a href="https://nomnomnami.com/">NomNomNami's</a> <a
+							href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>.<br /><br />
 
-					hi <a href="https://github.com/exaluc">Lucian</a> :3 (first watcher of charm studies lite repo)
+						hi <a href="https://github.com/exaluc">Lucian</a> :3 (first watcher of charm studies lite repo)
+					</div>
 				</div>
 			</div>
-		</div>
-		<button class="regular-button" id="tutorial">Nami's Tutorial</button>
-		<div id="tutorial-modal" class="modal">
-			<div class="modal-content">
-				<div class="modal-header">~ Nami's Tutorial ~</div>
-				<div class="modal-body">
-					Charms can be solved with the magic of logic!<br />
-					The numbers on the sides represent consecutive painted tiles found in each line.<br />
-					<img src="images\modals\nami1.png">
-					When there are multiple numbers in a line, it means there must be at least one blank space between them,
-					like so:<br />
-					<img style="text-align: center;" src="images\modals\nami2.png">
-					Determine which tiles must be painted until the final picture is revealed!
+
+			<div id="tutorial-modal" class="modal">
+				<div class="modal-content">
+					<div class="modal-header">~ Nami's Tutorial ~</div>
+					<div class="modal-body">
+						Charms can be solved with the magic of logic!<br />
+						The numbers on the sides represent consecutive painted tiles found in each line.<br />
+						<img src="images\modals\nami1.png">
+						When there are multiple numbers in a line, it means there must be at least one blank space
+						between
+						them,
+						like so:<br />
+						<img style="text-align: center;" src="images\modals\nami2.png">
+						Determine which tiles must be painted until the final picture is revealed!
+					</div>
 				</div>
 			</div>
-		</div>
-		<button class="regular-button" id="controls">Controls</button>
-		<div id="controls-modal" class="modal">
-			<div class="modal-content">
-				<div class="modal-header">Controls</div>
-				<div class="modal-body">
-					<span class="modal-highlight">Left Click</span><br />Paint<br /><br />
-					<span class="modal-highlight">Right Click</span><br />Cross Out<br /><br />
-					<span class="modal-highlight">Middle Click</span><br />Mark
+
+			<div id="controls-modal" class="modal">
+				<div class="modal-content">
+					<div class="modal-header">Controls</div>
+					<div class="modal-body">
+						<span class="modal-highlight">Left Click</span><br />Paint<br /><br />
+						<span class="modal-highlight">Right Click</span><br />Cross Out<br /><br />
+						<span class="modal-highlight">Middle Click</span><br />Mark
+					</div>
+				</div>
+			</div>
+
+			<div id="update-log-modal" class="modal">
+				<div class="modal-content">
+					<div class="modal-header">~ Update Log ~</div>
+					<div class="modal-body">
+						<span class="modal-highlight">2024/07/23</span>
+						<ul>
+							<li>Footer replaced with modal buttons! <span class="smol">(Looks cleaner now :3)</span></li>
+							<li>Nami's original help/tutorial for charms added!</li>
+							<li>Controls modal added</li>
+							<li>Update log added!</li>
+						</ul>
+						<span class="modal-highlight smol">2024/07/22</span>
+						<ul>
+							<li>Text casing now matches that of the original Charm Studies</li>
+							<li>Charms now autocomplete when done perfectly!</li>
+							<li><span class="smol">...someone showed up? woah</span></li>
+						</ul><br />
+						<span class="modal-highlight">2024/07/19</span>
+						<ul>
+							<li>Implemented Progressive Web App support!</li>
+							<li>Added new charm, the Charm Studies icon!</li>
+						</ul><br />
+						<span class="modal-highlight smol">2024/07/17</span>
+						<ul>
+							<li>Small tooltip edit</li>
+						</ul><br />
+						<span class="modal-highlight">2024/07/16</span>
+						<ul>
+							<li>New and improved tooltips!</li>
+							<li>New charm, Vinegar! (under Astra's Garden for now)</li>
+							<li>Show/hide timer option added</li>
+						</ul><br />
+						<span class="modal-highlight">2024/07/14</span>
+						<ul>
+							<li>Charm selection now has the colours of each original series!</li>
+							<li>Perfect streak font size now increases with each power of 2 achieved <span
+									class="smol">(why? because it's funny :3)</span></li>
+						</ul><br />
+						<span class="modal-highlight smol">2024/07/06</span>
+						<ul>
+							<li>Added a button to reset statistics</li>
+							<li>Added to-do list to idea document</li>
+						</ul><br />
+						<span class="modal-highlight smol">2024/07/05</span>
+						<ul>
+							<li>Fix: Timer resets on all forms of charm starts</li>
+						</ul><br />
+						<span class="modal-highlight">2024/07/03</span>
+						<ul>
+							<li>Added charm time stat!</li>
+							<li>Added 3 charms, Astragalus of Starry Flowers, and Kamila and Eleni of Contract Demon!
+								<span class="smol">(side note: i forgot i added astra in the commit message-)</span>
+							</li>
+						</ul><br />
+						<span class="modal-highlight smol">2024/07/02</span>
+						<ul>
+							<li>Reimplemented row/column shadow on hover</li>
+						</ul><br />
+						<span class="modal-highlight">2024/07/01</span>
+						<ul>
+							<li>Added Pastille and Periwinkle charms~ &lt;3</li>
+							<li>Updated README again</li>
+						</ul><br />
+						<span class="modal-highlight">2024/06/30</span>
+						<ul>
+							<li>Added row/column sums! <span class="smol">(i'll be honest i added this because i was
+									tired
+									of doing it mentally for the larger boards)</span></li>
+							<li>Adjusted dark mode perfect gradient to be easier on the eyes</li>
+							<li>Inverted HERO and UNDERLING charms to be easier to play</li>
+						</ul><br />
+						<span class="modal-highlight">2024/06/29</span>
+						<ul>
+							<li>Added perfect streak and charm completion statistics!</li>
+							<li>Added Google Analytics tag <span class="smol">(i just wanted to see how many people
+									visited)</span></li>
+							<li>Added dark mode!</li>
+						</ul><br />
+						<span class="modal-highlight smol">2024/06/20</span>
+						<ul>
+							<li>Attempts to fix universal font <span class="smol">(yes i've somehow gotten this far and
+									struggled this much with making Nunito appear everywhere)</span></li>
+							<li>Puzzle alignment adjustments</li>
+						</ul><br />
+						<span class="modal-highlight">2024/06/19</span>
+						<ul>
+							<li>BAD END THEATER charms added!</li>
+							<li>Starry Flowers charm (game logo) added</li>
+							<li>Initial stats local storage set up</li>
+							<li>Debug section added <span class="smol">(to correct my mistakes ¯\_(ツ)_/¯)</span></li>
+						</ul><br />
+						<span class="modal-highlight">2024/06/18</span>
+						<ul>
+							<li>Added original charm gallery! <span class="smol">(please don't sue me nami)</span></li>
+							<li>Changed hints to be alternating colours to be authentic to the original <span
+									class="smol">and better</span> Charm Studies</li>
+						</ul><br />
+						<span class="modal-highlight smol">2024/06/16</span>
+						<ul>
+							<li>Removed rainbow.gif <span class="smol">(pretty much it aside from failed
+									attempts)</span>
+							</li>
+						</ul><br />
+						<span class="modal-highlight">2024/06/15</span>
+						<ul>
+							<li>Prepared to add statistics into game</li>
+							<li>Additional ideas put into document</li>
+							<li>Optional cross out cell styles made</li>
+							<li>Perfect charm hints adjusted to be slightly transparent as to be influenced by gradient
+							</li>
+						</ul><br />
+						<span class="modal-highlight smol">2024/06/14</span><br />
+						<ul>
+							<li>Added middle click to highlight</li>
+							<li>Changed completion animation from rainbow GIF to custom linear gradient <span
+									class="smol">(inspired by some of
+									Nami's charecters! guess who :3)</span></li>
+						</ul><br />
+						<span class="modal-highlight smol">2024/06/13</span><br />
+						<ul>
+							<li>Added link to website (which was very much needed)</li>
+							<li>First implementation of session timer</li>
+							<li>Further attempts at implementing font <span class="smol">(notice a pattern? the struggle
+									was
+									real &gt;-&lt;)</span>
+							</li>
+						</ul><br />
+						<span class="modal-highlight">2024/06/12</span><br />
+						<ul>
+							<li>Second attempt at universal font implementation</li>
+							<li>Icons & webmanifest added</li>
+							<li>All files formatted, potential ideas document added <span class="smol">(and yes it's not
+									hidden on purpose)</span>
+							</li>
+						</ul><br />
+						<span class="modal-highlight smol">2024/06/11</span><br />
+						<ul>
+							<li>Slight style adjustment to crossed out cells and charm hints, reworked footer</li>
+							<li>README updated to suit project</li>
+							<li>First attempt at implementing font universally</li>
+						</ul><br />
+						<span class="modal-highlight">2024/06/10</span><br />
+						<ul>
+							<li>Removed dark mode (original was only light mode)</li>
+							<li>Added styles for cells on puzzle perfect completion</li>
+						</ul><br />
+						<span class="modal-highlight">2024/06/05</span><br />
+						<ul>
+							<li>First commit to Charm Studies lite!</li>
+							<li>Initial style adjustments</li>
+						</ul><br />
+					</div>
 				</div>
 			</div>
 		</div>
 		<br /><br />
 		<script>
-			var creditsModal = document.getElementById("credits-modal");
-			var creditsButton = document.getElementById("credits");
+			var modalButtons = document.getElementById("modal-buttons");
+			var modals = document.getElementsByClassName("modal");
 
-			var tutorialModal = document.getElementById("tutorial-modal");
-			var tutorialButton = document.getElementById("tutorial");
+			modalButtons.addEventListener("click", function (event) {
+				var target = event.target;
 
-			var controlsModal = document.getElementById("controls-modal");
-			var controlsButton = document.getElementById("controls");
+				if (target.tagName === "BUTTON") {
+					var modalId = target.getAttribute("data-modal");
+					var modal = document.getElementById(modalId);
 
-
-			creditsButton.onclick = function () {
-				creditsModal.style.display = "block";
-			}
-
-			tutorialButton.onclick = function () {
-				tutorialModal.style.display = "block";
-			}
-
-			controlsButton.onclick = function () {
-				controlsModal.style.display = "block";
-			}
+					if (modal) {
+						modal.style.display = "block";
+					}
+				}
+			});
 
 			window.onclick = function (event) {
-				if (event.target == creditsModal) {
-					creditsModal.style.display = "none";
-				} else if (event.target == tutorialModal) {
-					tutorialModal.style.display = "none";
-				} else if (event.target == controlsModal) {
-					controlsModal.style.display = "none";
+				if (event.target.classList.contains("modal")) {
+					event.target.style.display = "none";
 				}
-			}
+			};
 		</script>
-		last update: 04:46:30 2024/07/23
 		<iframe class="player" type="text/html"
 			src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8"
 			width="320" height="180" title="Charm Studies OST ~ magical beats to study to ~" frameborder="0"
