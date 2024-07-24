@@ -195,6 +195,11 @@ iframe {
 	color: #212c5a;
 }
 
+.group-syrup-and-the-ultimate-sweet {
+	background-color: #f7e7ff;
+	color: #353535;
+}
+
 .header {
 	clear: both;
 	width: 800px;
@@ -796,7 +801,7 @@ body.dark .modal {
 	border: 4px solid #a9736b;
 	border-radius: 5px;
 	width: fit-content;
-	max-width: 600px;
+	max-width: 950px;
 	text-align: center;
 	
 }
@@ -822,7 +827,6 @@ body.dark .modal-content {
 
 .modal-body { 
 	padding: 2px 16px;
-	text-indent: 20px each-line;
 	text-align: left;
 }
 
@@ -872,6 +876,18 @@ body.dark .regular-button {
 
 body.dark .regular-button:hover {
 	color: #86233b;
+}
+
+.footer-button {
+	width: max-content;
+	background-color: #ffb6c8;
+	color: #985264;
+	border: none;
+}
+
+.footer-button:hover {
+	background-color: #ffdeb8;
+	color: #985264;
 }
 
 .debug-button {
