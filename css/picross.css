@@ -890,6 +890,19 @@ body.dark .regular-button:hover {
 	color: #985264;
 }
 
+body.dark .footer-button {
+	background-color: #470012;
+	color: #ad677e;
+	border: none;
+}
+
+body.dark .footer-button:hover {
+	background-color: #472600;
+	color: #985264;
+}
+
+
+
 .debug-button {
 	width: max-content;
 	background-color: #dd94a6;
