@@ -389,7 +389,7 @@ $(function () {
 							[2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1],
 							[2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 						];
-						total = 127;
+						total = 128;
 						break;
 					case "Senna <3":
 						state = this.blankTemplate(15);
