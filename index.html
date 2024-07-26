@@ -211,7 +211,7 @@ Highly recommended!</span>
 					}
 
 					function startCharmTimer() {
-						if (document.getElementById("puzzle").classList.contains("complete")) {
+						if (document.getElementById("puzzle").classList.contains("perfect") && timerSeconds !== 0) {
 							pauseCharmTimer();
 							return;
 						}
