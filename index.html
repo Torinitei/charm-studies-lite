@@ -211,6 +211,11 @@ Highly recommended!</span>
 					}
 
 					function startCharmTimer() {
+						if (document.getElementById("puzzle").hasAttribute("complete")) {
+							pauseCharmTimer();
+							return;
+						}
+
 						if (timerSeconds === 60) {
 							timerSeconds = 0;
 							timerMinutes += 1;
@@ -434,6 +439,10 @@ This will be amended when I get around to that &lt;3
 				<div class="modal-content">
 					<div class="modal-header">~ Update Log ~</div>
 					<div class="modal-body">
+						<span class="modal-highlight smol">2024/07/26</span>
+						<ul>
+							<li>Fixed charm timer not pausing after autocompleting</li>
+						</ul><br />
 						<span class="modal-highlight">2024/07/24</span>
 						<ul>
 							<li>Added charms for Syrup and the Ultimate Sweet! Coming through Atelier Sweets, welcome
