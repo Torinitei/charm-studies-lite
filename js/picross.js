@@ -20,14 +20,11 @@ $(function () {
 				perfect: false,
 				seed: 0,
 				darkMode: false,
-				easyMode: true, // show crossouts & sums 
+				easyMode: true, // show crossouts
 				// stats
 				perfectStreak: 0,
 				charmsComplete: 0,
-				charmsPerfect: 0,
-				experience: 0,
-				charmExperience: 0,
-				charmMaxExperience: 0,
+				charmsPerfect: 0
 			};
 		},
 
@@ -36,33 +33,38 @@ $(function () {
 		},
 
 		save: function () {
-			if (!localStorageSupport()) return;
+			if (localStorageSupport()) {
+				localStorage['picross2.saveVersion'] = saveVersion;
 
-			const saveToLocalStorage = (key, value) => localStorage[key] = JSON.stringify(value);
-			const saveProperties = [
-				'dimensionWidth', 'dimensionHeight', 'state', 'hintsX', 'hintsY',
-				'guessed', 'total', 'complete', 'perfect', 'seed', 'darkMode', 'easyMode'
-			];
+				localStorage['picross2.dimensionWidth'] = JSON.stringify(this.get('dimensionWidth'));
+				localStorage['picross2.dimensionHeight'] = JSON.stringify(this.get('dimensionHeight'));
+				localStorage['picross2.state'] = JSON.stringify(this.get('state'));
+				localStorage['picross2.hintsX'] = JSON.stringify(this.get('hintsX'));
+				localStorage['picross2.hintsY'] = JSON.stringify(this.get('hintsY'));
+				localStorage['picross2.guessed'] = JSON.stringify(this.get('guessed'));
+				localStorage['picross2.total'] = JSON.stringify(this.get('total'));
+				localStorage['picross2.complete'] = JSON.stringify(this.get('complete'));
+				localStorage['picross2.perfect'] = JSON.stringify(this.get('perfect'));
+				localStorage['picross2.seed'] = JSON.stringify(this.get('seed'));
+				localStorage['picross2.darkMode'] = JSON.stringify(this.get('darkMode'));
+				localStorage['picross2.easyMode'] = JSON.stringify(this.get('easyMode'));
 
-			saveProperties.forEach(prop => saveToLocalStorage(`picross2.${prop}`, this.get(prop)));
+				let streakCheck = JSON.stringify(this.get('perfectStreak'));
+				let completeCheck = JSON.stringify(this.get('charmsComplete'));
+				let perfectCheck = JSON.stringify(this.get('charmsPerfect'));
 
-			const charmKeys = [
-				'perfectStreak', 'charmsComplete', 'charmsPerfect',
-				'experience', 'charmExperience', 'charmMaxExperience'
-			];
-
-			let resetNeeded = charmKeys.some(key => {
-				const value = this.get(key);
-				const storageKey = `charmStudiesLite.${key}`;
-				if (value === undefined || value === null) {
-					localStorage.setItem(storageKey, 0);
-					return true;
+				if (!(streakCheck && completeCheck && perfectCheck)) {
+					localStorage['charmStudiesLite.perfectStreak'] = 0;
+					localStorage['charmStudiesLite.charmsComplete'] = 0;
+					localStorage['charmStudiesLite.charmsPerfect'] = 0;
+					location.reload();
+				} else {
+					localStorage['charmStudiesLite.perfectStreak'] = streakCheck;
+					localStorage['charmStudiesLite.charmsComplete'] = completeCheck;
+					localStorage['charmStudiesLite.charmsPerfect'] = perfectCheck;
 				}
-				localStorage.setItem(storageKey, JSON.stringify(value));
-				return false;
-			});
 
-			if (resetNeeded) location.reload();
+			}
 		},
 
 		resume: function () {
@@ -87,10 +89,6 @@ $(function () {
 			var perfectStreak = JSON.parse(localStorage['charmStudiesLite.perfectStreak']);
 			var charmsComplete = JSON.parse(localStorage['charmStudiesLite.charmsComplete']);
 			var charmsPerfect = JSON.parse(localStorage['charmStudiesLite.charmsPerfect']);
-			var experience = JSON.parse(localStorage['charmStudiesLite.experience']);
-			var charmExperience = JSON.parse(localStorage['charmStudiesLite.charmExperience']);
-			var charmMaxExperience = JSON.parse(localStorage['charmStudiesLite.charmMaxExperience']);
-
 
 			this.set({
 				dimensionWidth: dimensionWidth,
@@ -107,10 +105,7 @@ $(function () {
 				darkMode: darkMode,
 				perfectStreak: perfectStreak,
 				charmsComplete: charmsComplete,
-				charmsPerfect: charmsPerfect,
-				experience: experience,
-				charmExperience: charmExperience,
-				charmMaxExperience: charmMaxExperience
+				charmsPerfect: charmsPerfect
 			});
 		},
 
@@ -1457,7 +1452,6 @@ $(function () {
 			$('#progress').removeClass('done');
 			this.changeDimensions(customSeed);
 			this.model.reset(customSeed);
-			this.calculateMaxExperience();
 			this.render();
 			this.showSeed();
 			document.getElementById("solve").disabled = false;
@@ -1686,162 +1680,6 @@ $(function () {
 			}
 		},
 
-		calculateMaxExperience: function () {
-			var state = this.model.get('state');
-
-			let charmWidth = Number(this.model.get('dimensionWidth'));
-			let charmHeight = Number(this.model.get('dimensionHeight'));
-			let dimensionAdjust = (((charmWidth + charmHeight) / 2) ** 2).toFixed(0); // exp multi based off size
-			let total = this.model.get('total');
-
-			var hintsX = this.model.get('hintsX');
-			var hintsY = this.model.get('hintsY');
-			var solutionX = this.model.getHintsX(state);
-
-			let totalComplexity = 0; // exp multi based off below
-			let sparseBias = 0; // give bonus to charms with few cells compared to more populated ones
-			let separationMulti; // consider rows/columns that have more than one hint number more complex
-			let pascalBias; // pascal's triangle - consider rows/columns that have the highest nCr to be most complex
-
-			for (var i = 0; i < hintsX.length; i++) {
-				pascalBias = 0;
-				separationMulti = 0;
-
-				let rowSum = hintsX[i].reduce((partialSum, a) => partialSum + a + 1, -1);
-				let rowMedian = Math.ceil(charmWidth / 2);
-				let rowSpaceDifference = Math.abs(rowSum - rowMedian);
-
-				if (rowSpaceDifference != 0 && rowSum > 0) { // check if not highest possibilities (nCr), if rowSum 0, no xp awarded
-					pascalBias = 1 + Math.abs(1 / (rowSum - rowMedian));
-				} else {
-					pascalBias = 2.5;
-				}
-
-				separationMulti = 1 + 1 / 2 * (hintsX[i].length - 1);	
-
-				totalComplexity += pascalBias * separationMulti;
-			}
-
-			for (var i = 0; i < hintsY.length; i++) {
-				pascalBias = 0;
-				separationMulti = 0;
-
-				let columnSum = hintsY[i].reduce((partialSum, a) => partialSum + a + 1, -1);
-				let columnMedian = Math.ceil(charmHeight / 2);
-				let columnSpaceDifference = Math.abs(columnSum - columnMedian);
-
-				if (columnSpaceDifference != 0 && columnSum > 0) { // check if not highest possibilities (nCr), if columnSum 0, no xp awarded
-					pascalBias = 1 + Math.abs(1 / (columnSum - columnMedian));
-				} else {
-					pascalBias = 2.5;
-				}
-
-				separationMulti = 1 + 1 / 2 * (hintsY[i].length - 1);
-				
-
-				totalComplexity += pascalBias * separationMulti;
-			}
-
-			let triangle = (charmWidth * charmHeight / 2) // stupid name but i love it too much to keep it
-			// triangle area = 1/2 bh
-
-			if (triangle > total) {
-				sparseBias = 1 + 0.01 * Math.abs(total - triangle)
-			} else {
-				sparseBias = 1 + 0.005 * Math.abs(total - triangle)
-			}
-
-			function round25(num) {
-				return Math.round(num / 25) * 25;
-			}
-			
-			let maxXP = round25(dimensionAdjust * totalComplexity * sparseBias); // round to nearest 25 because aesthetic idk
-
-			this.model.set({
-				charmMaxExperience: maxXP
-			});
-
-			this.calculateExperience();
-		},
-
-		calculateExperience: function () {
-			let charmWidth = Number(this.model.get('dimensionWidth'));
-			let charmHeight = Number(this.model.get('dimensionHeight'));
-			var state = this.model.get('state');
-
-			let progress = this.model.get('guessed') / this.model.get('total') * 100;
-			if (progress > 100) {
-				progress = 10;
-			}
-			progress = progress / 100;
-
-			let maxXP = this.model.get('charmMaxExperience');
-
-			// convert marks to crossses
-			let markedCells = new Array()
-			for (let y in state) {
-				for (let x = 0; x < state[y].length; x++) {
-					if (state[y][x] == 9) {
-						state[y][x] = 1;
-						markedCells.push([y, x])
-					}
-				}
-			}
-
-			var hintsX = this.model.get('hintsX');
-			var hintsY = this.model.get('hintsY');
-			var solutionX = this.model.getHintsX(state);
-			var solutionY = this.model.getHintsY(state);
-
-			let allRuns = 0,
-				incorrectRuns = 0;
-
-			// accuracy will be determined by imperfection finding
-
-			for (var i = 0; i < hintsX.length; i++) {
-				if (hintsX[i].length == 0) {
-					continue;
-				}
-				allRuns++;
-				if (hintsX[i].length !== solutionX[i].length) {
-					incorrectRuns++;
-					continue;
-				}
-				for (var j = 0; j < hintsX[i].length; j++) {
-					if (Math.abs(hintsX[i][j]) !== solutionX[i][j]) {
-						incorrectRuns++;
-						break;
-					}
-				}
-			}
-
-			for (var i = 0; i < hintsY.length; i++) {
-				if (hintsY[i].length == 0) {
-					continue;
-				}
-				allRuns++;
-				if (hintsY[i].length !== solutionY[i].length) {
-					incorrectRuns++;
-					continue;
-				}
-				for (var j = 0; j < hintsY[i].length; j++) {
-					if (Math.abs(hintsY[i][j]) !== solutionY[i][j]) {
-						incorrectRuns++;
-						break;
-					}
-				}
-			}
-
-			// reverting marked cells
-			markedCells.forEach(([y, x]) => state[y][x] = 9);
-			let accuracy = (allRuns - incorrectRuns) / allRuns;
-
-			let xp = Number((progress * accuracy) * maxXP).toFixed(0);
-			this.model.set({
-				charmExperience: xp
-			});
-		},
-
 		solve: function () {
 			if (this.model.get('complete')) {
 				return;
@@ -1923,24 +1761,15 @@ $(function () {
 			let perfVal = this.model.get('charmsPerfect');
 			let compVal = this.model.get('charmsComplete');
 			let strkVal = this.model.get('perfectStreak')
-
 			$('#perfectStreak').text(strkVal);
 			$('#perfectCharms').text(perfVal);
 			$('#completeCharms').text(compVal);
-
-			if (compVal == 0) { // no dividing by zero today
+			if (compVal == 0) {
 				pcRatio = 0;
 			} else {
 				pcRatio = 100 * perfVal / compVal;
 			}
-
 			$('#pcRatio').text(pcRatio.toFixed(1) + '%');
-
-			let xp = this.model.get('charmExperience');
-			let maxXP = this.model.get('charmMaxExperience');
-
-			$('#charm-exp').text(xp);
-			$('#max-charm-exp').text(maxXP);
 
 			if (this.model.get('complete')) {
 				$('#solve').prop('disabled', true);
@@ -2029,8 +1858,6 @@ $(function () {
 				fontSize: Math.ceil(200 / state[0].length),
 				borderWidth: Math.ceil(20 / state[0].length)
 			});
-
-			this.calculateExperience();
 		}
 	});
 
