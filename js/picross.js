@@ -1,11 +1,19 @@
 $(function () {
 
 	// localStorage save format versioning
-	var saveVersion = '2024.07.14';
+	const saveVersion = '2024.07.14';
 
-	var touchSupport = true;
+	const touchSupport = true;
 
-	var PuzzleModel = Backbone.Model.extend({
+	// experience constants
+	const expCalcConstant = 0.1;
+	const expCalcPower = 2;
+	const expCalcBase = 400;
+	const expCalcPrestigeFactor = 0.01;
+
+
+
+	let PuzzleModel = Backbone.Model.extend({
 
 		defaults: function () {
 			return {
@@ -20,11 +28,20 @@ $(function () {
 				perfect: false,
 				seed: 0,
 				darkMode: false,
-				easyMode: true, // show crossouts
-				// stats
+				easyMode: true,
+				// stats update
 				perfectStreak: 0,
 				charmsComplete: 0,
-				charmsPerfect: 0
+				charmsPerfect: 0,
+				// experience update
+				playerExperience: 0,
+				playerExperienceBuffer: 0,
+				playerPrestige: 0,
+				charmExperience: 0,
+				charmMaxExperience: 0,
+				autoPauseMode: true,
+				timerDisplayMode: true,
+				charmExhaustedID: "",
 			};
 		},
 
@@ -48,22 +65,19 @@ $(function () {
 				localStorage['picross2.seed'] = JSON.stringify(this.get('seed'));
 				localStorage['picross2.darkMode'] = JSON.stringify(this.get('darkMode'));
 				localStorage['picross2.easyMode'] = JSON.stringify(this.get('easyMode'));
-
-				let streakCheck = JSON.stringify(this.get('perfectStreak'));
-				let completeCheck = JSON.stringify(this.get('charmsComplete'));
-				let perfectCheck = JSON.stringify(this.get('charmsPerfect'));
-
-				if (!(streakCheck && completeCheck && perfectCheck)) {
-					localStorage['charmStudiesLite.perfectStreak'] = 0;
-					localStorage['charmStudiesLite.charmsComplete'] = 0;
-					localStorage['charmStudiesLite.charmsPerfect'] = 0;
-					location.reload();
-				} else {
-					localStorage['charmStudiesLite.perfectStreak'] = streakCheck;
-					localStorage['charmStudiesLite.charmsComplete'] = completeCheck;
-					localStorage['charmStudiesLite.charmsPerfect'] = perfectCheck;
-				}
-
+				// stats update
+				localStorage['charmStudiesLite.stats.perfectStreak'] = JSON.stringify(this.get('perfectStreak'));
+				localStorage['charmStudiesLite.stats.charmsComplete'] = JSON.stringify(this.get('charmsComplete'));
+				localStorage['charmStudiesLite.stats.charmsPerfect'] = JSON.stringify(this.get('charmsPerfect'));
+				// experience update
+				localStorage['charmStudiesLite.stats.EXP.playerExperience'] = JSON.stringify(this.get('playerExperience'));
+				localStorage['charmStudiesLite.stats.EXP.playerExperienceBuffer'] = JSON.stringify(this.get('playerExperienceBuffer'));
+				localStorage['charmStudiesLite.stats.EXP.playerPrestige'] = JSON.stringify(this.get('playerPrestige'));
+				localStorage['charmStudiesLite.stats.EXP.charmExperience'] = JSON.stringify(this.get('charmExperience'));
+				localStorage['charmStudiesLite.stats.EXP.charmMaxExperience'] = JSON.stringify(this.get('charmMaxExperience'));
+				localStorage['charmStudiesLite.timer.autoPauseMode'] = JSON.stringify(this.get('autoPauseMode'));
+				localStorage['charmStudiesLite.timer.timerDisplayMode'] = JSON.stringify(this.get('timerDisplayMode'));
+				localStorage['charmStudiesLite.stats.EXP.charmExhaustedID'] = JSON.stringify(this.get('charmExhaustedID'));
 			}
 		},
 
@@ -74,21 +88,31 @@ $(function () {
 				return;
 			}
 
-			var dimensionWidth = JSON.parse(localStorage['picross2.dimensionWidth']);
-			var dimensionHeight = JSON.parse(localStorage['picross2.dimensionHeight']);
-			var state = JSON.parse(localStorage['picross2.state']);
-			var hintsX = JSON.parse(localStorage['picross2.hintsX']);
-			var hintsY = JSON.parse(localStorage['picross2.hintsY']);
-			var guessed = JSON.parse(localStorage['picross2.guessed']);
-			var total = JSON.parse(localStorage['picross2.total']);
-			var complete = JSON.parse(localStorage['picross2.complete']);
-			var perfect = JSON.parse(localStorage['picross2.perfect']);
-			var seed = JSON.parse(localStorage['picross2.seed']);
-			var darkMode = JSON.parse(localStorage['picross2.darkMode']);
-			var easyMode = JSON.parse(localStorage['picross2.easyMode']);
-			var perfectStreak = JSON.parse(localStorage['charmStudiesLite.perfectStreak']);
-			var charmsComplete = JSON.parse(localStorage['charmStudiesLite.charmsComplete']);
-			var charmsPerfect = JSON.parse(localStorage['charmStudiesLite.charmsPerfect']);
+			let dimensionWidth = JSON.parse(localStorage['picross2.dimensionWidth']);
+			let dimensionHeight = JSON.parse(localStorage['picross2.dimensionHeight']);
+			let state = JSON.parse(localStorage['picross2.state']);
+			let hintsX = JSON.parse(localStorage['picross2.hintsX']);
+			let hintsY = JSON.parse(localStorage['picross2.hintsY']);
+			let guessed = JSON.parse(localStorage['picross2.guessed']);
+			let total = JSON.parse(localStorage['picross2.total']);
+			let complete = JSON.parse(localStorage['picross2.complete']);
+			let perfect = JSON.parse(localStorage['picross2.perfect']);
+			let seed = JSON.parse(localStorage['picross2.seed']);
+			let darkMode = JSON.parse(localStorage['picross2.darkMode']);
+			let easyMode = JSON.parse(localStorage['picross2.easyMode']);
+			// stats update
+			let perfectStreak = JSON.parse(localStorage['charmStudiesLite.stats.perfectStreak']);
+			let charmsComplete = JSON.parse(localStorage['charmStudiesLite.stats.charmsComplete']);
+			let charmsPerfect = JSON.parse(localStorage['charmStudiesLite.stats.charmsPerfect']);
+			// experience update
+			let playerExperience = JSON.parse(localStorage['charmStudiesLite.stats.EXP.playerExperience']);
+			let playerExperienceBuffer = JSON.parse(localStorage['charmStudiesLite.stats.EXP.playerExperienceBuffer']);
+			let playerPrestige = JSON.parse(localStorage['charmStudiesLite.stats.EXP.playerPrestige']);
+			let charmExperience = JSON.parse(localStorage['charmStudiesLite.stats.EXP.charmExperience']);
+			let charmMaxExperience = JSON.parse(localStorage['charmStudiesLite.stats.EXP.charmMaxExperience']);
+			let autoPauseMode = JSON.parse(localStorage['charmStudiesLite.timer.autoPauseMode']);
+			let timerDisplayMode = JSON.parse(localStorage['charmStudiesLite.timer.timerDisplayMode']);
+			let charmExhaustedID = JSON.parse(localStorage['charmStudiesLite.stats.EXP.charmExhaustedID']);
 
 			this.set({
 				dimensionWidth: dimensionWidth,
@@ -103,9 +127,19 @@ $(function () {
 				seed: seed,
 				easyMode: easyMode,
 				darkMode: darkMode,
+				// stats update 
 				perfectStreak: perfectStreak,
 				charmsComplete: charmsComplete,
-				charmsPerfect: charmsPerfect
+				charmsPerfect: charmsPerfect,
+				// experience update
+				playerExperience: playerExperience,
+				playerExperienceBuffer: playerExperienceBuffer,
+				playerPrestige: playerPrestige,
+				charmExperience: charmExperience,
+				charmMaxExperience: charmMaxExperience,
+				autoPauseMode: autoPauseMode,
+				timerDisplayMode: timerDisplayMode,
+				charmExhaustedID: charmExhaustedID
 			});
 		},
 
@@ -115,15 +149,15 @@ $(function () {
 
 		reset: function (customSeed) {
 
-			var seed = customSeed;
+			let seed = customSeed;
 			if (seed === undefined) {
 				seed = '' + new Date().getTime();
 			}
 			Math.seedrandom(seed);
 
-			var solution = [];
-			var state = [];
-			var total = 0;
+			let solution = [];
+			let state = [];
+			let total = 0;
 
 			// charm gallery generator
 			// failed to separate this into another function (cries)
@@ -1018,11 +1052,11 @@ $(function () {
 						break;
 				}
 			} else {
-				for (var i = 0; i < this.get('dimensionHeight'); i++) {
+				for (let i = 0; i < this.get('dimensionHeight'); i++) {
 					solution[i] = [];
 					state[i] = [];
-					for (var j = 0; j < this.get('dimensionWidth'); j++) {
-						var random = Math.ceil(Math.random() * 2);
+					for (let j = 0; j < this.get('dimensionWidth'); j++) {
+						let random = Math.ceil(Math.random() * 2);
 						solution[i][j] = random;
 						total += (random - 1);
 						state[i][j] = 0;
@@ -1030,15 +1064,15 @@ $(function () {
 				}
 			}
 
-			var hintsX = this.getHintsX(solution);
-			var hintsY = this.getHintsY(solution);
-			// state = solution;
+			let hintsX = this.getHintsX(solution);
+			let hintsY = this.getHintsY(solution);
+			// state = solution; // DEV TEST
 
 			this.set({
 				state: state,
 				hintsX: hintsX,
 				hintsY: hintsY,
-				guessed: 0, // total,
+				guessed: 0, // total, // DEV TEST
 				total: total,
 				complete: false,
 				perfect: false,
@@ -1050,12 +1084,12 @@ $(function () {
 		},
 
 		getHintsX: function (solution) {
-			var hintsX = [];
+			let hintsX = [];
 
-			for (var i = 0; i < this.get('dimensionHeight'); i++) {
-				var streak = 0;
+			for (let i = 0; i < this.get('dimensionHeight'); i++) {
+				let streak = 0;
 				hintsX[i] = [];
-				for (var j = 0; j < this.get('dimensionWidth'); j++) {
+				for (let j = 0; j < this.get('dimensionWidth'); j++) {
 					if (solution[i][j] < 2) {
 						if (streak > 0) {
 							hintsX[i].push(streak);
@@ -1074,12 +1108,12 @@ $(function () {
 		},
 
 		getHintsY: function (solution) {
-			var hintsY = [];
+			let hintsY = [];
 
-			for (var j = 0; j < this.get('dimensionWidth'); j++) {
-				var streak = 0;
+			for (let j = 0; j < this.get('dimensionWidth'); j++) {
+				let streak = 0;
 				hintsY[j] = [];
-				for (var i = 0; i < this.get('dimensionHeight'); i++) {
+				for (let i = 0; i < this.get('dimensionHeight'); i++) {
 					if (solution[i][j] < 2) {
 						if (streak > 0) {
 							hintsY[j].push(streak);
@@ -1098,8 +1132,8 @@ $(function () {
 		},
 
 		guess: function (x, y, guess) {
-			var state = this.get('state');
-			var guessed = this.get('guessed');
+			let state = this.get('state');
+			let guessed = this.get('guessed');
 
 			if (state[x][y] === 2) {
 				guessed--;
@@ -1125,17 +1159,17 @@ $(function () {
 		},
 
 		updateCrossouts: function (state, x, y) {
-			var hintsX = this.get('hintsX');
-			var hintsY = this.get('hintsY');
+			let hintsX = this.get('hintsX');
+			let hintsY = this.get('hintsY');
 
 			// cross out row hints
-			var filled = true;
-			var cellIndex = 0;
-			var hintIndex = 0;
+			let filled = true;
+			let cellIndex = 0;
+			let hintIndex = 0;
 			for (cellIndex; cellIndex < state[x].length;) {
 				if (state[x][cellIndex] === 2) {
 					if (hintIndex < hintsX[x].length) {
-						for (var i = 0; i < Math.abs(hintsX[x][hintIndex]); i++) {
+						for (let i = 0; i < Math.abs(hintsX[x][hintIndex]); i++) {
 							if (state[x][cellIndex] === 2) {
 								cellIndex++;
 							} else {
@@ -1159,7 +1193,7 @@ $(function () {
 			if (cellIndex < state[x].length || hintIndex < hintsX[x].length) {
 				filled = false;
 			}
-			for (var i = 0; i < hintsX[x].length; i++) {
+			for (let i = 0; i < hintsX[x].length; i++) {
 				hintsX[x][i] = Math.abs(hintsX[x][i]) * (filled ? -1 : 1);
 			}
 
@@ -1170,7 +1204,7 @@ $(function () {
 			for (cellIndex; cellIndex < state.length;) {
 				if (state[cellIndex][y] === 2) {
 					if (hintIndex < hintsY[y].length) {
-						for (var i = 0; i < Math.abs(hintsY[y][hintIndex]); i++) {
+						for (let i = 0; i < Math.abs(hintsY[y][hintIndex]); i++) {
 							if (cellIndex < state.length && state[cellIndex][y] === 2) {
 								cellIndex++;
 							} else {
@@ -1194,7 +1228,7 @@ $(function () {
 			if (cellIndex < state.length || hintIndex < hintsY[y].length) {
 				filled = false;
 			}
-			for (var i = 0; i < hintsY[y].length; i++) {
+			for (let i = 0; i < hintsY[y].length; i++) {
 				hintsY[y][i] = Math.abs(hintsY[y][i]) * (filled ? -1 : 1);
 			}
 
@@ -1208,8 +1242,8 @@ $(function () {
 		},
 
 		isPerfect: function () {
-			var perfect = true;
-			var state = this.get('state');
+			let perfect = true;
+			let state = this.get('state');
 
 			// convert marks to crossses
 			let markedCells = new Array()
@@ -1222,17 +1256,17 @@ $(function () {
 				}
 			}
 
-			var hintsX = this.get('hintsX');
-			var hintsY = this.get('hintsY');
-			var solutionX = this.getHintsX(state);
-			var solutionY = this.getHintsY(state);
+			let hintsX = this.get('hintsX');
+			let hintsY = this.get('hintsY');
+			let solutionX = this.getHintsX(state);
+			let solutionY = this.getHintsY(state);
 
-			for (var i = 0; i < hintsX.length; i++) {
+			for (let i = 0; i < hintsX.length; i++) {
 				if (hintsX[i].length !== solutionX[i].length) {
 					perfect = false;
 					break;
 				}
-				for (var j = 0; j < hintsX[i].length; j++) {
+				for (let j = 0; j < hintsX[i].length; j++) {
 					if (Math.abs(hintsX[i][j]) !== solutionX[i][j]) {
 						perfect = false;
 						break;
@@ -1240,12 +1274,12 @@ $(function () {
 				}
 			}
 
-			for (var i = 0; i < hintsY.length; i++) {
+			for (let i = 0; i < hintsY.length; i++) {
 				if (hintsY[i].length !== solutionY[i].length) {
 					perfect = false;
 					break;
 				}
-				for (var j = 0; j < hintsY[i].length; j++) {
+				for (let j = 0; j < hintsY[i].length; j++) {
 					if (Math.abs(hintsY[i][j]) !== solutionY[i][j]) {
 						perfect = false;
 						break;
@@ -1263,27 +1297,30 @@ $(function () {
 
 	});
 
-	var PuzzleView = Backbone.View.extend({
+	let PuzzleView = Backbone.View.extend({
 
 		el: $("body"),
 
 		events: function () {
 			if (touchSupport && 'ontouchstart' in document.documentElement) {
 				return {
-					"click #new": "newGame",
-					"click #solve": "solve",
+					"change #autoPause": "changeAutoPauseMode",
 					"change #dark": "changeDarkMode",
-					"click #galleryStudy": "galleryStudy",
-					"click #statReset": "statReset",
 					"change #easy": "changeEasyMode",
+					"change #showTimer": "changeTimerDisplayMode",
+					"click #galleryStudy": "galleryStudy",
+					"click #new": "newGame",
+					"click #prestigeExperience": "prestigeExperience",
+					"click #solve": "solve",
+					"click #statReset": "statReset",
 					"mousedown": "clickStart",
-					"mouseover td.cell": "mouseOver",
 					"mouseout td.cell": "mouseOut",
+					"mouseover td.cell": "mouseOver",
 					"mouseup": "clickEnd",
-					"touchstart td.cell": "touchStart",
-					"touchmove td.cell": "touchMove",
-					"touchend td.cell": "touchEnd",
 					"submit #customForm": "newCustom",
+					"touchend td.cell": "touchEnd",
+					"touchmove td.cell": "touchMove",
+					"touchstart td.cell": "touchStart",
 					"click #seed": function (e) {
 						e.currentTarget.select();
 					},
@@ -1296,15 +1333,18 @@ $(function () {
 				}
 			} else {
 				return {
-					"click #new": "newGame",
-					"click #solve": "solve",
+					"change #autoPause": "changeAutoPauseMode",
 					"change #dark": "changeDarkMode",
-					"click #galleryStudy": "galleryStudy",
-					"click #statReset": "statReset",
 					"change #easy": "changeEasyMode",
+					"change #showTimer": "changeTimerDisplayMode",
+					"click #galleryStudy": "galleryStudy",
+					"click #new": "newGame",
+					"click #prestigeExperience": "prestigeExperience",
+					"click #solve": "solve",
+					"click #statReset": "statReset",
 					"mousedown": "clickStart",
-					"mouseover td.cell": "mouseOver",
 					"mouseout td.cell": "mouseOut",
+					"mouseover td.cell": "mouseOver",
 					"mouseup": "clickEnd",
 					"submit #customForm": "newCustom",
 					"click #seed": function (e) {
@@ -1339,28 +1379,55 @@ $(function () {
 			} else {
 				$('#easy').removeAttr('checked');
 			}
+			if (this.model.get('timerDisplayMode')) {
+				$('#showTimer').attr('checked', 'checked');
+			} else {
+				$('#showTimer').removeAttr('checked');
+			}
+			if (this.model.get('autoPauseMode')) {
+				$('#autoPause').attr('checked', 'checked');
+			} else {
+				$('#autoPause').removeAttr('checked');
+			}
 			this.render();
 			this.showSeed();
 		},
 
-		changeDarkMode: function (e) {
-			var darkMode = $('#dark').attr('checked') !== undefined;
+		changeDarkMode: function () {
+			let darkMode = $('#dark').attr('checked') !== undefined;
 			this.model.set({
 				darkMode: darkMode
 			});
 			this.render();
 		},
 
-		changeEasyMode: function (e) {
-			var easyMode = $('#easy').attr('checked') !== undefined;
+		changeEasyMode: function () {
+			let easyMode = $('#easy').attr('checked') !== undefined;
 			this.model.set({
 				easyMode: easyMode
 			});
 			this.render();
 		},
 
+		changeTimerDisplayMode: function () {
+			let timerDisplayMode = $('#showTimer').attr('checked') !== undefined;
+			this.model.set({
+				timerDisplayMode: timerDisplayMode
+			});;
+			this.render();
+		},
+
+		changeAutoPauseMode: function () {
+			let autoPauseMode = $('autoPause').attr('checked') !== undefined;
+			this.model.set({
+				autoPauseMode: autoPauseMode
+			});;
+			this.render();
+		},
+
 		changeDimensions: function (e) {
 			let ogDim = $('#dimensions').val();
+			let dimSelect = document.getElementById("dimensions");
 			// charm gallery resizer
 			switch (e) {
 				default:
@@ -1372,7 +1439,7 @@ $(function () {
 				case "Spatial Magic":
 				case "Sweets!":
 				case "Love <3":
-					document.getElementById("dimensions").value = "5x5";
+					dimSelect.value = "5x5";
 					break;
 					// 10x10
 				case "Connection Magic":
@@ -1382,14 +1449,14 @@ $(function () {
 				case "Charm Book":
 				case "Cute Staff":
 				case "Charm Studies": // game logo
-					document.getElementById("dimensions").value = "10x10";
+					dimSelect.value = "10x10";
 					break;
 					// 15x15
 				case "Magic Circle":
 				case "Broomstick":
 				case "Senna <3":
 				case "Me!":
-					document.getElementById("dimensions").value = "15x15";
+					dimSelect.value = "15x15";
 					break;
 					/* NomNomNami - Other characters/works */
 					/* BAD END THEATER */
@@ -1413,15 +1480,15 @@ $(function () {
 				case "Gumdrop":
 				case "Butterscotch":
 				case "Toffee":
-					document.getElementById("dimensions").value = "30x30";
+					dimSelect.value = "30x30";
 			}
-			var dimensions = $('#dimensions').val();
+			let dimensions = $('#dimensions').val();
 			dimensions = dimensions.split('x');
 			this.model.set({
 				dimensionWidth: dimensions[0],
 				dimensionHeight: dimensions[1]
 			});
-			document.getElementById("dimensions").value = ogDim;
+			dimSelect.value = ogDim;
 		},
 
 		galleryStudy: function (e) {
@@ -1438,26 +1505,34 @@ $(function () {
 			e.preventDefault();
 
 			this.model.set({
+				// stat update
 				perfectStreak: 0,
 				charmsComplete: 0,
-				charmsPerfect: 0
+				charmsPerfect: 0,
+				playerExperience: 0,
+				playerExperienceBuffer: 0,
+				playerPrestige: 0,
 			});
 			this.render();
 		},
 
 		_newGame: function (customSeed) {
+			if (!this.model.isPerfect()) {
+				this.storeExperience();
+			}
 			$('#solve').prop('disabled', false);
+			$('#solve').text('Finish Charm!');
 			$('#puzzle').removeClass('complete');
 			$('#puzzle').removeClass('perfect');
 			$('#progress').removeClass('done');
 			this.changeDimensions(customSeed);
 			this.model.reset(customSeed);
+			this.calculateMaxExperience();
 			this.render();
 			this.showSeed();
-			document.getElementById("solve").disabled = false;
 		},
 
-		newGame: function (e) {
+		newGame: function () {
 			$('#customSeed').val('');
 			this._newGame();
 		},
@@ -1465,7 +1540,7 @@ $(function () {
 		newCustom: function (e) {
 			e.preventDefault();
 
-			var customSeed = $.trim($('#customSeed').val());
+			let customSeed = $.trim($('#customSeed').val());
 			if (customSeed.length) {
 				this._newGame(customSeed);
 			} else {
@@ -1474,7 +1549,7 @@ $(function () {
 		},
 
 		showSeed: function () {
-			var seed = this.model.get('seed');
+			let seed = this.model.get('seed');
 			$('#seed').val(seed);
 		},
 
@@ -1483,7 +1558,7 @@ $(function () {
 				return;
 			}
 
-			var target = $(e.target);
+			let target = $(e.target);
 
 			if (this.mouseMode != 0 || target.attr('data-x') === undefined || target.attr('data-y') === undefined) {
 				this.mouseMode = 0;
@@ -1513,9 +1588,9 @@ $(function () {
 		},
 
 		mouseOver: function (e) {
-			var target = $(e.currentTarget);
-			var endX = target.attr('data-x');
-			var endY = target.attr('data-y');
+			let target = $(e.currentTarget);
+			let endX = target.attr('data-x');
+			let endY = target.attr('data-y');
 			this.mouseEndX = endX;
 			this.mouseEndY = endY;
 
@@ -1529,34 +1604,34 @@ $(function () {
 				return;
 			}
 
-			var startX = this.mouseStartX;
-			var startY = this.mouseStartY;
+			let startX = this.mouseStartX;
+			let startY = this.mouseStartY;
 
 			if (startX === -1 || startY === -1) {
 				return;
 			}
 
-			var diffX = Math.abs(endX - startX);
-			var diffY = Math.abs(endY - startY);
+			let diffX = Math.abs(endX - startX);
+			let diffY = Math.abs(endY - startY);
 
 			if (diffX > diffY) {
 				$('td.cell[data-x=' + endX + ']').addClass('hoverLight');
-				var start = Math.min(startX, endX);
-				var end = Math.max(startX, endX);
-				for (var i = start; i <= end; i++) {
+				let start = Math.min(startX, endX);
+				let end = Math.max(startX, endX);
+				for (let i = start; i <= end; i++) {
 					$('td.cell[data-x=' + i + '][data-y=' + startY + ']').addClass('hover');
 				}
 			} else {
 				$('td.cell[data-y=' + endY + ']').addClass('hoverLight');
-				var start = Math.min(startY, endY);
-				var end = Math.max(startY, endY);
-				for (var i = start; i <= end; i++) {
+				let start = Math.min(startY, endY);
+				let end = Math.max(startY, endY);
+				for (let i = start; i <= end; i++) {
 					$('td.cell[data-x=' + startX + '][data-y=' + i + ']').addClass('hover');
 				}
 			}
 		},
 
-		mouseOut: function (e) {
+		mouseOut: function () {
 			if (this.mouseMode === 0) {
 				$('td.hover').removeClass('hover');
 				$('td.hoverLight').removeClass('hoverLight');
@@ -1568,7 +1643,7 @@ $(function () {
 				return;
 			}
 
-			var target = $(e.target);
+			let target = $(e.target);
 			switch (e.which) {
 				case 1:
 					// left click
@@ -1621,22 +1696,22 @@ $(function () {
 		},
 
 		clickArea: function (endX, endY, guess) {
-			var startX = this.mouseStartX;
-			var startY = this.mouseStartY;
+			let startX = this.mouseStartX;
+			let startY = this.mouseStartY;
 
 			if (startX === -1 || startY === -1) {
 				return;
 			}
 
-			var diffX = Math.abs(endX - startX);
-			var diffY = Math.abs(endY - startY);
+			let diffX = Math.abs(endX - startX);
+			let diffY = Math.abs(endY - startY);
 
 			if (diffX > diffY) {
-				for (var i = Math.min(startX, endX); i <= Math.max(startX, endX); i++) {
+				for (let i = Math.min(startX, endX); i <= Math.max(startX, endX); i++) {
 					this.model.guess(i, startY, guess);
 				}
 			} else {
-				for (var i = Math.min(startY, endY); i <= Math.max(startY, endY); i++) {
+				for (let i = Math.min(startY, endY); i <= Math.max(startY, endY); i++) {
 					this.model.guess(startX, i, guess);
 				}
 			}
@@ -1646,10 +1721,10 @@ $(function () {
 			if (this.model.get('complete')) {
 				return;
 			}
-			var target = $(e.target);
+			let target = $(e.target);
 			this.mouseStartX = this.mouseEndX = e.originalEvent.touches[0].pageX;
 			this.mouseStartY = this.mouseEndY = e.originalEvent.touches[0].pageY;
-			var that = this;
+			let that = this;
 			this.mouseMode = setTimeout(function () {
 				that.model.guess(target.attr('data-x'), target.attr('data-y'), 1);
 				that.render();
@@ -1672,7 +1747,7 @@ $(function () {
 				return;
 			}
 			clearTimeout(this.mouseMode);
-			var target = $(e.target);
+			let target = $(e.target);
 			if (Math.abs(this.mouseEndX - this.mouseStartX) < 10 && Math.abs(this.mouseEndY - this.mouseStartY) < 10) {
 				this.model.guess(target.attr('data-x'), target.attr('data-y'), 2);
 				this.render();
@@ -1680,17 +1755,379 @@ $(function () {
 			}
 		},
 
+		round25: function (num) {
+			return Math.round(num / 25) * 25;
+		},
+
+		calculateMaxExperience: function () {
+			let charmWidth = Number(this.model.get('dimensionWidth'));
+			let charmHeight = Number(this.model.get('dimensionHeight'));
+			let dimensionAdjust = (((charmWidth + charmHeight) / 2) ** 2).toFixed(0); // exp multi based off size
+			let total = this.model.get('total');
+
+			let hintsX = this.model.get('hintsX');
+			let hintsY = this.model.get('hintsY');
+
+			let totalComplexity = 0; // exp multi based off below
+			let sparseBias = 0; // give bonus to charms with few cells compared to more populated ones
+			let separationMulti; // consider rows/columns that have more than one hint number more complex
+			let pascalBias; // pascal's triangle - consider rows/columns that have the highest nCr to be most complex
+
+			for (let i = 0; i < hintsX.length; i++) {
+				pascalBias = 0;
+				separationMulti = 0;
+
+				let rowSum = hintsX[i].reduce((partialSum, a) => partialSum + a + 1, -1);
+				let rowMedian = Math.ceil(charmWidth / 2);
+				let rowSpaceDifference = Math.abs(rowSum - rowMedian);
+
+				if (rowSpaceDifference != 0 && rowSum > 0) { // check if not highest possibilities (nCr), if rowSum 0, no xp awarded
+					pascalBias = 1 + Math.abs(1 / (rowSum - rowMedian));
+				} else {
+					pascalBias = 2.5;
+				}
+
+				separationMulti = 1 + 1 / 2 * (hintsX[i].length - 1);
+
+				totalComplexity += pascalBias * separationMulti;
+			}
+
+			for (let i = 0; i < hintsY.length; i++) {
+				pascalBias = 0;
+				separationMulti = 0;
+
+				let columnSum = hintsY[i].reduce((partialSum, a) => partialSum + a + 1, -1);
+				let columnMedian = Math.ceil(charmHeight / 2);
+				let columnSpaceDifference = Math.abs(columnSum - columnMedian);
+
+				if (columnSpaceDifference != 0 && columnSum > 0) { // check if not highest possibilities (nCr), if columnSum 0, no xp awarded
+					pascalBias = 1 + Math.abs(1 / (columnSum - columnMedian));
+				} else {
+					pascalBias = 2.5;
+				}
+
+				separationMulti = 1 + 1 / 2 * (hintsY[i].length - 1);
+
+
+				totalComplexity += pascalBias * separationMulti;
+			}
+
+			let triangle = (charmWidth * charmHeight / 2) // stupid name but i love it too much to keep it
+			// triangle area = 1/2 bh
+
+			if (triangle > total) {
+				sparseBias = 1 + 0.01 * Math.abs(total - triangle)
+			} else {
+				sparseBias = 1 + 0.005 * Math.abs(total - triangle)
+			}
+
+			let formulaXP = dimensionAdjust * totalComplexity * sparseBias;
+			if (this.model.get('seed') == this.model.get('charmExhaustedID')) { // disincentivise repeating charms in a row
+				formulaXP /= 4;
+			}
+			let maxXP = this.round25(formulaXP); // round to nearest 25 because aesthetic idk
+
+			this.model.set({
+				charmMaxExperience: maxXP
+			});
+
+			this.calculateExperience();
+		},
+
+		calculateExperience: function () {
+			let state = this.model.get('state');
+
+			let progress = this.model.get('guessed') / this.model.get('total') * 100;
+			if (progress > 100) { // punish over 100% progress
+				progress = 10;
+			}
+			progress = progress / 100;
+
+			let maxXP = this.model.get('charmMaxExperience');
+			if (!maxXP) { // solves 
+				this.calculateMaxExperience();
+				maxXP = this.model.get('charmMaxExperience');
+			}
+
+			// convert marks to crossses
+			let markedCells = new Array()
+			for (let y in state) {
+				for (let x = 0; x < state[y].length; x++) {
+					if (state[y][x] == 9) {
+						state[y][x] = 1;
+						markedCells.push([y, x])
+					}
+				}
+			}
+
+			let hintsX = this.model.get('hintsX');
+			let hintsY = this.model.get('hintsY');
+			let solutionX = this.model.getHintsX(state);
+			let solutionY = this.model.getHintsY(state);
+
+			let allRuns = 0,
+				incorrectRuns = 0;
+
+			// accuracy will be determined by imperfection finding
+
+			for (let i = 0; i < hintsX.length; i++) {
+				if (hintsX[i].length == 0) {
+					continue;
+				}
+				allRuns++;
+				if (hintsX[i].length !== solutionX[i].length) {
+					incorrectRuns++;
+					continue;
+				}
+				for (let j = 0; j < hintsX[i].length; j++) {
+					if (Math.abs(hintsX[i][j]) !== solutionX[i][j]) {
+						incorrectRuns++;
+						break;
+					}
+				}
+			}
+
+			for (let i = 0; i < hintsY.length; i++) {
+				if (hintsY[i].length == 0) {
+					continue;
+				}
+				allRuns++;
+				if (hintsY[i].length !== solutionY[i].length) {
+					incorrectRuns++;
+					continue;
+				}
+				for (let j = 0; j < hintsY[i].length; j++) {
+					if (Math.abs(hintsY[i][j]) !== solutionY[i][j]) {
+						incorrectRuns++;
+						break;
+					}
+				}
+			}
+			// reverting marked cells
+			markedCells.forEach(([y, x]) => state[y][x] = 9);
+			let accuracy = (allRuns - incorrectRuns) / allRuns;
+
+			let xp = this.round25((progress * accuracy) * maxXP);
+			this.model.set({
+				charmExperience: xp
+			});
+		},
+
+		expToLv: function (experience) {
+			let playerPrestige = this.model.get('playerPrestige');
+
+			function nthRoot(n, expression) {
+				if (expression < 0 && n % 2 != 1) return NaN; // Not well defined
+				return (expression < 0 ? -1 : 1) * Math.pow(Math.abs(expression), 1 / n);
+			}
+
+			let result = Math.floor(expCalcConstant * nthRoot(expCalcPower, (nthRoot((1 + (expCalcPrestigeFactor * playerPrestige)), experience) - expCalcBase))); // inverse of lvToExp (thanks maths class)
+			if (Number.isNaN(result)) {
+				result = 0;
+			} else if (result >= 100) {
+				return "MAX";
+			} else if (this.lvToExp(result + 1) == experience) { // fix: achieving exact amount of xp needed when prestige > 0 would not level up
+				result += 1;
+			}
+			return result;
+		},
+
+		nFormatter: function (num, digits = 1) {
+			const lookup = [{
+					value: 1,
+					symbol: ""
+				},
+				{
+					value: 1e3,
+					symbol: "k"
+				},
+				{
+					value: 1e6,
+					symbol: "M"
+				},
+				{
+					value: 1e9,
+					symbol: "B"
+				},
+				{ // realistically who will get this far
+					value: 1e12,
+					symbol: "T"
+				},
+				{
+					value: 1e15,
+					symbol: "Qd"
+				}, // would do more but unsafe integer past this point
+				// also it would take 570 millenia by perfecting a 30x30 every two hours without stopping but uhhhhh
+				// nobody tryna prestige 166 right
+				//       right
+			];
+			const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
+			const item = lookup.findLast(item => num >= item.value);
+			return item ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol) : "0";
+		},
+
+		lvToExp: function (level) {
+			let playerPrestige = this.model.get('playerPrestige');
+			result = this.round25((expCalcBase + (level / expCalcConstant) ** expCalcPower) ** (1 + (expCalcPrestigeFactor * playerPrestige)))
+			return result; // redundant 
+		},
+
+		storeExperience: function () {
+			let progress = this.model.get('guessed') / this.model.get('total') * 100;
+			let currentXPBuffer = this.model.get('playerExperienceBuffer');
+			let charmExperience = this.model.get('charmExperience');
+
+			if (progress > 100) { // punish over 100% progress
+				progress = 10;
+			}
+			progress = progress / 100;
+
+			progressAdjust = progress + 0.15; // reward players who only give up late, still punishing to players who give up early
+			progressAdjust = progressAdjust > 1 ? 1 : progressAdjust; // don't allow give up bonus to exceed 100%
+
+			let newXPbuffer = this.round25((charmExperience * progressAdjust) + currentXPBuffer);
+			this.model.set({
+				playerExperienceBuffer: newXPbuffer
+			});
+		},
+
+		applyExperience: function () {
+			this.storeExperience();
+			let currentXP = this.model.get('playerExperience');
+			let xpBuffer = this.model.get('playerExperienceBuffer');
+
+			let newXP = currentXP + xpBuffer;
+			this.model.set({
+				playerExperience: newXP,
+				playerExperienceBuffer: 0
+			});
+
+			this.styleExperience();
+		},
+
+		stylePrestige: function (nextLevelExperience) {
+			let playerPrestige = this.model.get('playerPrestige');
+
+			function romanize(num) {
+				if (isNaN(num))
+					return NaN;
+				if (num == 0)
+					return "-";
+				let digits = String(+num).split(""),
+					key = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
+						"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
+						"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"
+					],
+					roman = "",
+					i = 3;
+				while (i--)
+					roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+				return Array(+digits.join("") + 1).join("M") + roman;
+			}
+
+			$('#prestige').text(romanize(playerPrestige));
+
+			if (nextLevelExperience == "MAX") {
+				$('#prestigeExperience').prop('disabled', false);
+			} else {
+				$('#prestigeExperience').prop('disabled', true);
+			}
+		},
+
+		prestigeExperience: function () {
+			let playerPrestige = this.model.get('playerPrestige');
+
+			this.model.set({
+				playerExperience: 0,
+				playerExperienceBuffer: 0,
+				playerPrestige: (playerPrestige + 1),
+			});
+
+			this.stylePrestige();
+			this.styleExperience();
+		},
+
+		styleExperience: function () {
+			let playerExperience = this.model.get('playerExperience');
+			let level = this.expToLv(playerExperience);
+			let nextLevelExperience;
+			if (level == "MAX") {
+				nextLevelExperience = "MAX";
+			} else {
+				nextLevelExperience = this.lvToExp(level + 1);
+			}
+
+			let bufferedExperience = this.model.get('playerExperienceBuffer');
+
+			this.stylePrestige(nextLevelExperience);
+			// let title = {IMPLEMENT PLEASE};
+
+			function nFormatter(num, digits = 2) {
+				const lookup = [{
+						value: 1,
+						symbol: ""
+					},
+					{
+						value: 1e3,
+						symbol: "k"
+					},
+					{
+						value: 1e6,
+						symbol: "M"
+					},
+					{
+						value: 1e9,
+						symbol: "B"
+					},
+					{ // realistically who will get this far
+						value: 1e12,
+						symbol: "T"
+					},
+					{
+						value: 1e15,
+						symbol: "Qd"
+					}, // would do more but unsafe integer past this point
+					// also it would take 570 millenia by perfecting a 30x30 every two hours without stopping but uhhhhh
+					// nobody tryna prestige 166 right
+					//       right
+				];
+				const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
+				const item = lookup.findLast(item => num >= item.value);
+				return item ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol) : "0";
+			}
+
+			playerExperience = nFormatter(playerExperience);
+			if (nextLevelExperience != "MAX") {
+				nextLevelExperience = nFormatter(nextLevelExperience);
+			}
+			bufferedExperience = nFormatter(bufferedExperience);
+
+			$('#playerLevel').text(level);
+			$('#currentXP').text(playerExperience);
+			$('#nextXP').text(nextLevelExperience);
+			$('#bufferedXP').text(bufferedExperience);
+
+			let charmXPVal = this.model.get('charmExperience');
+			let charmMaxXPVal = this.model.get('charmMaxExperience');
+
+			charmXPVal = nFormatter(charmXPVal, 1);
+			charmMaxXPVal = nFormatter(charmMaxXPVal, 1);
+
+			$('#charm-exp').text(charmXPVal);
+			$('#charm-max-exp').text(charmMaxXPVal);
+		},
+
 		solve: function () {
 			if (this.model.get('complete')) {
 				return;
 			}
 
-			document.getElementById("solve").disabled = true;
-			var state = this.model.get('state');
-			var hintsX = this.model.get('hintsX');
-			var hintsY = this.model.get('hintsY');
+			$('#solve').prop('disabled', true);
+			let state = this.model.get('state');
+			let hintsX = this.model.get('hintsX');
+			let hintsY = this.model.get('hintsY');
 
-			var perfect = this.model.isPerfect();
+			let perfect = this.model.isPerfect();
 
 			// convert perfect empties to crossses
 			for (let y in state) {
@@ -1701,23 +2138,33 @@ $(function () {
 				}
 			}
 
+			let charmsPerfect, perfectStreak;
+
 			if (perfect) {
-				var thisCharmsPerfect = this.model.get('charmsPerfect') + 1;
-				var thisPerfectStreak = this.model.get('perfectStreak') + 1;
+				charmsPerfect = this.model.get('charmsPerfect') + 1;
+				perfectStreak = this.model.get('perfectStreak') + 1;
 			} else {
-				var thisCharmsPerfect = this.model.get('charmsPerfect');
-				var thisPerfectStreak = 0;
+				charmsPerfect = this.model.get('charmsPerfect');
+				perfectStreak = 0;
 			}
-			var thisCharmsComplete = this.model.get('charmsComplete') + 1;
+
+			let thisCharmsComplete = this.model.get('charmsComplete') + 1;
+
+			let charmExhaustedID = this.model.get('seed');
+
 			this.model.set({
 				complete: true,
 				perfect: perfect,
 				hintsX: hintsX,
 				hintsY: hintsY,
-				perfectStreak: thisPerfectStreak,
-				charmsPerfect: thisCharmsPerfect,
-				charmsComplete: thisCharmsComplete
+				perfectStreak: perfectStreak,
+				charmsPerfect: charmsPerfect,
+				charmsComplete: thisCharmsComplete,
+				charmExhaustedID: charmExhaustedID
 			});
+
+			this.calculateExperience();
+			this.applyExperience();
 
 			this.render();
 		},
@@ -1730,7 +2177,7 @@ $(function () {
 			} // don't display sum if row/column complete
 
 			if (space == dimension) { // full row/column can be filled, one possibility
-				return '<strong class="smol full tooltip right">' + space + '<span class="tooltiptext">can complete row/column!</span>' + '</strong>';
+				return '<strong class="smol full tooltip right">' + space + '<span class="tooltiptext">Can complete row/column!</span>' + '</strong>';
 			}
 
 			let isPartial = false;
@@ -1742,14 +2189,14 @@ $(function () {
 			});
 
 			if (isPartial) { // part of row/column can be filled, multiple possibilities
-				return '<strong class="smol partial tooltip right">' + space + '<span class="tooltiptext">can partially complete row/column.</span>' + '</strong>';
+				return '<strong class="smol partial tooltip right">' + space + '<span class="tooltiptext">Can partially complete row/column.</span>' + '</strong>';
 			}
 
 			return '<strong class="smol">' + space + '</strong>'
 		},
 
 		render: function () {
-			var progress = this.model.get('guessed') / this.model.get('total') * 100;
+			let progress = this.model.get('guessed') / this.model.get('total') * 100;
 			$('#progress').text(progress.toFixed(1) + '%');
 
 			if (this.model.get('darkMode')) {
@@ -1758,6 +2205,7 @@ $(function () {
 				$('body').removeClass('dark');
 			}
 
+			// stats update
 			let perfVal = this.model.get('charmsPerfect');
 			let compVal = this.model.get('charmsComplete');
 			let strkVal = this.model.get('perfectStreak')
@@ -1771,21 +2219,29 @@ $(function () {
 			}
 			$('#pcRatio').text(pcRatio.toFixed(1) + '%');
 
+			// experience update
+			this.calculateExperience();
+			this.styleExperience();
+
 			if (this.model.get('complete')) {
 				$('#solve').prop('disabled', true);
+				$('#solve').text('Not quite...')
 				$('#puzzle').addClass('complete');
 				if (this.model.get('perfect')) {
 					$('#progress').addClass('done');
+					$('#solve').text('You did it!')
 					$('#puzzle').addClass('perfect');
 				}
 			}
 
-			var state = this.model.get('state');
-			var hintsX = this.model.get('hintsX');
-			var hintsY = this.model.get('hintsY');
+			// document.getElementById('xp-meter').style.width = progress + "%";
 
-			var hintsXText = [];
-			var hintsYText = [];
+			let state = this.model.get('state');
+			let hintsX = this.model.get('hintsX');
+			let hintsY = this.model.get('hintsY');
+
+			let hintsXText = [];
+			let hintsYText = [];
 
 			let xSpace = 0;
 			let ySpace = 0;
@@ -1793,9 +2249,9 @@ $(function () {
 			let charmHeight = this.model.get('dimensionHeight');
 
 			if (this.model.get('easyMode') || this.model.get('complete')) {
-				for (var i = 0; i < hintsX.length; i++) {
+				for (let i = 0; i < hintsX.length; i++) {
 					hintsXText[i] = [];
-					for (var j = 0; j < hintsX[i].length; j++) {
+					for (let j = 0; j < hintsX[i].length; j++) {
 						if (hintsX[i][j] < 0) {
 							hintsXText[i][j] = '<em>' + Math.abs(hintsX[i][j]) + '</em>';
 						} else {
@@ -1805,9 +2261,9 @@ $(function () {
 					xSpace = hintsX[i].reduce((acc, cur) => acc + cur, hintsX[i].length - 1);
 					hintsXText[i].push(this.charmSum(hintsX[i], xSpace, charmWidth));
 				}
-				for (var i = 0; i < hintsY.length; i++) {
+				for (let i = 0; i < hintsY.length; i++) {
 					hintsYText[i] = [];
-					for (var j = 0; j < hintsY[i].length; j++) {
+					for (let j = 0; j < hintsY[i].length; j++) {
 						if (hintsY[i][j] < 0) {
 							hintsYText[i][j] = '<em>' + Math.abs(hintsY[i][j]) + '</em>';
 						} else {
@@ -1818,15 +2274,15 @@ $(function () {
 					hintsYText[i].push(this.charmSum(hintsY[i], ySpace, charmHeight));
 				}
 			} else {
-				for (var i = 0; i < hintsX.length; i++) {
+				for (let i = 0; i < hintsX.length; i++) {
 					hintsXText[i] = [];
-					for (var j = 0; j < hintsX[i].length; j++) {
+					for (let j = 0; j < hintsX[i].length; j++) {
 						hintsXText[i][j] = '<strong>' + Math.abs(hintsX[i][j]) + '</strong>';
 					}
 				}
-				for (var i = 0; i < hintsY.length; i++) {
+				for (let i = 0; i < hintsY.length; i++) {
 					hintsYText[i] = [];
-					for (var j = 0; j < hintsY[i].length; j++) {
+					for (let j = 0; j < hintsY[i].length; j++) {
 						hintsYText[i][j] = '<strong>' + Math.abs(hintsY[i][j]) + '</strong>';
 					}
 				}
@@ -1834,15 +2290,15 @@ $(function () {
 
 			document.getElementById("perfectStreak").style.fontSize = (15 + Math.floor(Math.log2(this.model.get('perfectStreak') + 1))).toString() + "px"
 
-			var html = '<table>';
+			let html = '<table>';
 			html += '<tr><td class="key"></td>';
-			for (var i = 0; i < state[0].length; i++) {
+			for (let i = 0; i < state[0].length; i++) {
 				html += '<td class="key top">' + hintsYText[i].join('<br/>') + '</td>';
 			}
 			html += '</tr>';
-			for (var i = 0; i < state.length; i++) {
+			for (let i = 0; i < state.length; i++) {
 				html += '<tr><td class="key left">' + hintsXText[i].join('') + '</td>';
-				for (var j = 0; j < state[0].length; j++) {
+				for (let j = 0; j < state[0].length; j++) {
 					html += '<td class="cell s' + Math.abs(state[i][j]) + '" data-x="' + i + '" data-y="' + j + '"></td>';
 				}
 				html += '</tr>';
@@ -1851,7 +2307,7 @@ $(function () {
 
 			$('#puzzle').html(html);
 
-			var side = (600 - (state[0].length * 5)) / state[0].length;
+			let side = (600 - (state[0].length * 5)) / state[0].length;
 			$('#puzzle td.cell').css({
 				width: side,
 				height: side,
