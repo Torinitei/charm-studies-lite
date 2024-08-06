@@ -182,9 +182,9 @@ NOTE: This is also triggered by clicking on the OST video:
 			<div class="control-group">
 				<button id="new" class="bold-button" onclick="resetCharmTimer();">New Charm &gt;</button>
 				<div class="custom">
-					<h5>Charm ID</h5>
+					<label for="seed">Charm ID</label>
 					<input type="text" id="seed" aria-label="Charm ID" readonly="readonly" />
-					<h5>Custom ID</h5>
+					<label for="customSeed">Custom ID</label>
 					<form id="customForm">
 						<input type="text" id="customSeed" aria-label="Custom ID" />
 						<button type="submit" onclick="resetCharmTimer();" class="regular-button" id="customGame">Custom
@@ -526,12 +526,12 @@ This will be amended when I get around to that &lt;3
 					<div class="modal-body">
 						Charms can be solved with the magic of logic!<br />
 						The numbers on the sides represent consecutive painted tiles found in each line.<br />
-						<img src="images\modal-images\nami1.png">
+						<img loading="lazy" src="images\modal-images\nami1.png">
 						When there are multiple numbers in a line, it means there must be at least one blank space
 						between
 						them,
 						like so:<br />
-						<img src="images\modal-images\nami2.png">
+						<img loading="lazy" src="images\modal-images\nami2.png">
 						Determine which tiles must be painted until the final picture is revealed!
 					</div>
 				</div>
@@ -897,33 +897,33 @@ This will be amended when I get around to that &lt;3
 						you
 						can
 						paint the cells they share.<br />
-						<img src="images\modal-images\tori simple box 1.png"><br />
+						<img loading="lazy" src="images\modal-images\tori simple box 1.png"><br />
 
 						This only applies when the cells are shared with the same block (different runs of cells do not
 						count):<br />
-						<img src="images\modal-images\tori simple box 2.png"><br />
+						<img loading="lazy" src="images\modal-images\tori simple box 2.png"><br />
 
 						<span class="modal-highlight">Simple spaces</span><br />
 						When a clue is complete, you can surround it with spaces. Additionally, if runs of cells can't
 						touch a
 						cell (due to an anchor of some sort), those can be crossed out.<br />
-						<img src="images\modal-images\tori simple space.png"><br />
+						<img loading="lazy" src="images\modal-images\tori simple space.png"><br />
 
 						<span class="modal-highlight">Forcing</span><br />
 						Crossed out cells have their importance - a space in an uncompleted row/column can force a large
 						run to
 						one side or the other. Additionally, a gap too small for any run of cells can be crossed out.
-						<img src="images\modal-images\tori forcing.png"><br />
+						<img loading="lazy" src="images\modal-images\tori forcing.png"><br />
 
 						<span class="modal-highlight">Glue</span><br />
 						A painted cell which is closer to the border than the length of the cell run can act as glue.
 						This
 						means
 						that the run will be forced forward.
-						<img src="images\modal-images\tori glue 1.png"><br />
+						<img loading="lazy" src="images\modal-images\tori glue 1.png"><br />
 
 						A crossed out cell can also act as a border:
-						<img src="images\modal-images\tori glue 2.png"><br />
+						<img loading="lazy" src="images\modal-images\tori glue 2.png"><br />
 
 						<span class="modal-highlight">Joins and splits</span><br />
 						Runs of cells can be joined if splitting the runs by crossing out the cells inbetween would
@@ -932,7 +932,7 @@ This will be amended when I get around to that &lt;3
 						little space.
 						Conversely, runs of cells can be split if painting the cells between would result in a run too
 						large.
-						<img src="images\modal-images\tori join split.png"><br />
+						<img loading="lazy" src="images\modal-images\tori join split.png"><br />
 
 						<span class="modal-highlight">Mathematical approach</span><br />
 						Doing this technique is a shortcut to the others listed above! That's your reward for going all
@@ -965,13 +965,13 @@ This will be amended when I get around to that &lt;3
 								intersect (simple spaces).
 							</li>
 						</ol><br />
-						<img src="images\modal-images\tori mathematical approach 1.png"><br />
+						<img loading="lazy" src="images\modal-images\tori mathematical approach 1.png"><br />
 						If you're using easy mode (highly recommended by the way), the sum for each row/column is
 						calculated for you, and
 						will be highlighted blue to show if you can partially paint the row/column, or green to entirely
 						paint the
 						row/column.<br />
-						<img src="images\modal-images\tori mathematical approach 2.png"><br />
+						<img loading="lazy" src="images\modal-images\tori mathematical approach 2.png"><br />
 						This will take some of the computation off your shoulders!<br /><br />
 
 						<span class="modal-highlight"></span>That's it from me~<br />Now go paint some charms!</span>

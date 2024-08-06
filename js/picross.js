@@ -1,7 +1,7 @@
 $(function () {
 
 	// localStorage save format versioning
-	const saveVersion = '2024.07.14';
+	const saveVersion = '2024.08.06';
 
 	const touchSupport = true;
 
