@@ -1108,13 +1108,13 @@ $(function () {
 
 			let hintsX = this.getHintsX(solution);
 			let hintsY = this.getHintsY(solution);
-			state = solution; // DEV TEST
+			// state = solution; // DEV TEST
 
 			this.set({
 				state: state,
 				hintsX: hintsX,
 				hintsY: hintsY,
-				guessed: total, // DEV TEST
+				guessed: 0, // total, // DEV TEST
 				total: total,
 				complete: false,
 				perfect: false,
