@@ -14,12 +14,12 @@
     ],
     "icons": [
         {
-            "src": "images/icon-stuff/android-chrome-192x192.png",
+            "src": "android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "images/icon-stuff/favicon-32x32.png",
+            "src": "favicon-32x32.png",
             "sizes": "32x32",
             "type": "image/png"
         }
@@ -37,7 +37,7 @@
     "start_url": "/charm-studies-lite/",
     "screenshots": [
         {
-            "src": "images/icon-stuff/the hat.png",
+            "src": "the hat.png",
             "sizes": "1739x1335",
             "type": "image/png",
             "form_factor": "wide",
@@ -46,7 +46,7 @@
             "platform": "windows"
         },
         {
-            "src": "images/icon-stuff/this game is so made for mobile.png",
+            "src": "this game is so made for mobile.png",
             "sizes": "1170x1393",
             "type": "image/png",
             "form_factor": "narrow",
