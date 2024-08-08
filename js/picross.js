@@ -203,7 +203,10 @@ $(function () {
 				"Syrup",
 				"Gumdrop",
 				"Butterscotch",
-				"Toffee"
+				"Toffee",
+				/* Indie Crossovers */
+				/* In Stars and Time */
+				"Siffrin"
 
 			];
 			let inCharmGallery = originalCharms.includes(seed);
@@ -1050,6 +1053,45 @@ $(function () {
 						];
 						total = 682;
 						break;
+						/* Indie Crossovers */
+						/* In Stars and Time */
+					case "Siffrin":
+						state = this.blankTemplate(30);
+						solution = [
+							[1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+							[1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2],
+							[1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1, 2, 2, 2, 2],
+							[2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2],
+							[2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+							[2, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+							[2, 2, 2, 1, 2, 2, 2, 2, 1, 1, 1, 2, 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+							[2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+							[2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 1, 2, 1, 1, 2, 1, 1, 1, 2, 2, 2, 2, 2],
+							[2, 2, 2, 1, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 1, 1, 2, 2, 2, 2, 2],
+							[2, 2, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2],
+							[2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 2, 2, 2],
+							[2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2],
+							[2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1, 2],
+							[2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+							[1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2],
+							[1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2],
+							[1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1],
+							[1, 2, 2, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2, 1, 1],
+							[1, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1],
+							[1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1]
+						];
+						total = 666; // ooo scary
+						break;
+
 				}
 			} else {
 				for (let i = 0; i < this.get('dimensionHeight'); i++) {
@@ -1066,13 +1108,13 @@ $(function () {
 
 			let hintsX = this.getHintsX(solution);
 			let hintsY = this.getHintsY(solution);
-			// state = solution; // DEV TEST
+			state = solution; // DEV TEST
 
 			this.set({
 				state: state,
 				hintsX: hintsX,
 				hintsY: hintsY,
-				guessed: 0, // total, // DEV TEST
+				guessed: total, // DEV TEST
 				total: total,
 				complete: false,
 				perfect: false,
@@ -1480,6 +1522,9 @@ $(function () {
 				case "Gumdrop":
 				case "Butterscotch":
 				case "Toffee":
+					/* Indie Crossovers */
+					/* In Stars and Time */
+				case "Siffrin":
 					dimSelect.value = "30x30";
 			}
 			let dimensions = $('#dimensions').val();
@@ -2096,16 +2141,62 @@ $(function () {
 				return item ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol) : "0";
 			}
 
+			function lvToTitle(level) {
+				let title = 0;
+				if (level == 0) {
+					title = "Clueless Cassia"; // 0
+				} else if (level == "MAX") {
+					title = "True Logician"; // 100
+				} else {
+					const perFiveLevelsTitles = {
+						// beginner
+						0: "Charms 101 Student", // beginner class
+						1: "Desk Sleeper", // what cassia always ends up doing
+						2: "Graduate-to-be", // in alignment with cassia's goals
+						3: "Connection Capturer", // connection magic charm + cassia wants to have a connection with senna
+						4: "Amateur Illusionist", // illusion magic, taught in charms II
+						
+						// intermediate
+						5: "Adept Abstractor", // abstractor is profession who analyses data, hence analysing charms to solve them
+						6: "Intermediate Imbuer", // charms imbue an object with magic
+						7: "Charmed Individual", // "lucky individual" + "charmed life" - senna
+						8: "Concentrated Learner", // "places with a high concentration of magic" - senna
+						9: "Random Resolver", // "these questions are completely random..." -  senna
+						
+						// pro
+						10: "Reliable Authority", // "reliable as a friend" - cassia
+						11: "Diligent Tutor", // senna tutors to the best of her ability
+						12: "Fluent Painter", // "fluid" - hence fluent, pillars of magic
+						13: "Proficient Artist", // cassia bought into the myth that witch hair length improves proficiency
+						14: "Arithmagic Ace", // senna's favourite class, see also Random Resolver
+						
+						// virtuous
+						15: "Wise Witch", // senna's favoured familiar - owls, often seen as wise
+						16: "Spell Scholar", // senna wants (or rather needs) scholarships for her figwood entry
+						17: "Charm Extraordinaire", // no reference
+						18: "Figwood Prodigy", // figwood - top magic school for witches
+						19: "Infinite Intellect", // "i do not have endless time" - infinite is synonym of endless
+					};
+
+					lvFiveIncrement = Math.floor(level / 5);
+					title = perFiveLevelsTitles[lvFiveIncrement];
+				}
+				return title;
+			}
+
 			playerExperience = nFormatter(playerExperience);
 			if (nextLevelExperience != "MAX") {
 				nextLevelExperience = nFormatter(nextLevelExperience);
 			}
 			bufferedExperience = nFormatter(bufferedExperience);
 
+			let playerTitle = lvToTitle(level);
+
 			$('#playerLevel').text(level);
 			$('#currentXP').text(playerExperience);
 			$('#nextXP').text(nextLevelExperience);
 			$('#bufferedXP').text(bufferedExperience);
+			$('#XPTitle').text(playerTitle);
 
 			let charmXPVal = this.model.get('charmExperience');
 			let charmMaxXPVal = this.model.get('charmMaxExperience');

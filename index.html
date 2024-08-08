@@ -15,11 +15,11 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="images/icon-stuff/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="images/icon-stuff/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="images/icon-stuff/favicon-16x16.png">
-	<link rel="manifest" href="images/icon-stuff/site.webmanifest">
+	<link rel="manifest" href="site.webmanifest">
 	<link rel="mask-icon" href="images/icon-stuff/safari-pinned-tab.svg" color="#5bbad5">
 	<link rel="shortcut icon" href="images/icon-stuff/favicon.ico">
 	<meta name="msapplication-TileColor" content="#b91d47">
-	<meta name="msapplication-config" content="images/icon-stuff/browserconfig.xml">
+	<meta name="msapplication-config" content="browserconfig.xml">
 	<meta name="theme-color" content="#ffdeb8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -126,8 +126,8 @@ which is determined by the size and individual complexity of the charm.</span></
 					><span class="smol">+<span id="bufferedXP">xx</span><span
 							class="tooltiptext">If you give up partway through a charm (hit New Charm before you solve),
 a portion of your experience is stored in a buffer.
-This is given to you the next time you solve a charm (perfect or not).</span></span></span><!-- &ensp;
-					<span id="xp-title" class="highlight" style="font-style: italic;">Title</span> -->
+This is given to you the next time you solve a charm (perfect or not).</span></span></span>&ensp;
+					<span id="XPTitle" class="highlight" style="font-style: italic;">Title</span> 
 			</div>
 		</div>
 		<div class="controls">
@@ -398,7 +398,12 @@ The following characters aren't under their initial appearance games:
 	Vinegar
 This will be amended when I get around to that &lt;3
 
-*This is not a charm in the actual game, but done for the sake of contiguity ^^
+Indie Crossovers:
+	Charms featuring non-Nami works!
+	Indies unite ♫
+
+
+*not in the original charm gallery.
 					</span></h3>
 				<form id="charm-gallery">
 					<select name="original-charms" id="original-charms" aria-label="Charm Gallery">
@@ -466,6 +471,9 @@ This will be amended when I get around to that &lt;3
 							<option value="Toffee">Toffee</option>
 						</optgroup>
 
+						<option disabled label="Indie Crossovers ^w^" class="charm-header"></option>
+						<optgroup label="In Stars and Time" class="group-crossover-in-stars-and-time">In Stars and Time
+							<option value="Siffrin">Siffrin</option>
 						</optgroup>
 					</select>
 					<button type="submit" onclick="galleryReset();" class="bold-button" id="galleryStudy">Study
@@ -552,6 +560,18 @@ This will be amended when I get around to that &lt;3
 				<div class="modal-content">
 					<div class="modal-header">~ Update Log ~</div>
 					<div class="modal-body">
+						<span class="modal-highlight">2024/08/08 ~ Indie Crossovers??</span><br />
+						<span class="update-categories">
+							<category>Charms</category>
+							<category>Style</category>
+						</span>
+						<ul>
+							<li class="modal-highlight">That's right! Characters from other magic dimensions have been summoned, and are beginning to appear as charms! <span class="smol">(the primary focus will always be on Nami works though :3)</span></li>
+							<li>Now in this loop of studying, give a round of applause for Siffrin of In Stars and Time!</li>
+							<li>New style for ISAT charms in Charm Gallery Select</li>
+							<li>Under the hood restructuring of CSS to make colours more easily variable (this will pave the way for custom themes in the future!)</li>
+						</ul><br />
+
 						<span class="modal-highlight">2024/08/06 ~ The Biggest Update Yet ♫</span><br />
 						<span class="update-categories">
 							<category>Gameplay</category>
