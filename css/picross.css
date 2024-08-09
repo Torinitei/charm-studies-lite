@@ -410,6 +410,7 @@ body.dark #progress.done {
 
 body.dark #puzzle td.cell {
 	background-color: var(--universal-black);
+	color: var(--universal-white);
 	/* border: 2px solid var(--charm-stripe-2-dark); */
 }
 
@@ -722,7 +723,7 @@ body.dark select hr {
 #puzzle td.cell {
 	background-color: var(--universal-white);
 	border: 2px solid var(--light-charm-stripe-2);
-	color: var(--light-charm-stripe-2);
+	color: var(--universal-black);
 	content: "";
 	text-align: center;
 	vertical-align: middle;
@@ -767,11 +768,15 @@ body.dark select hr {
 }
 */
 #puzzle td.cell.s1::after {
-	content: "\d7";
+	content: "\d7"; /* this is the cross */
 	color: var(--light-charm-stripe-2);
 	font-size: 1.4em;
 	text-align: center;
 	vertical-align: middle;
+}
+
+#puzzle td.cell.s1.hidden-content::after {
+	content: none; /* this hides the cross */
 }
 
 #puzzle td.cell.s2 {
@@ -860,6 +865,7 @@ body.dark select hr {
 }
 
 #puzzle.complete td.cell.s1 {
+	color: var(--light-charm-stripe-2);
 	background-color: var(--universal-light-grey);
 }
 
