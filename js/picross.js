@@ -1305,7 +1305,7 @@ console.log(allhintsY)
 
 			let hintsX = this.getHintsX(solution);
 			let hintsY = this.getHintsY(solution);
-			// state = solution; // DEV TEST
+			// state = solution; // DEV TEST (cries)
 
 			this.set({
 				state: state,
