@@ -55,10 +55,10 @@
 	--universal-prestige-background: #ff972f;;
 	--universal-prestige-border: #cc6600;;
 	--universal-button-text: #ad677e;;
-	
+
 }
 
-@keyframes gradient {	
+@keyframes gradient {
 	0% {
 		background-position: 0% 50%;
 	}
@@ -161,7 +161,7 @@ a:hover {
 	text-align: left;
 }
 
-.control-group h3 {
+.control-group h2 {
 	color: var(--universal-black);
 	font-size: 15px;
 	font-weight: bold;
@@ -532,7 +532,7 @@ body.dark .control-group {
 	color: #baa397;
 }
 
-body.dark .control-group h3 {
+body.dark .control-group h2 {
 	color: var(--universal-light-grey);
 }
 
@@ -618,8 +618,8 @@ body.dark .tooltip:after {
 	border-color: transparent var(--dark-text) transparent transparent;
 }
 
-body.dark .update-categories > category {
-	background-color: #10101088;	
+body.dark .category {
+	background-color: #10101088;
 }
 
 body.dark a {
@@ -768,7 +768,8 @@ body.dark select hr {
 }
 */
 #puzzle td.cell.s1::after {
-	content: "\d7"; /* this is the cross */
+	content: "\d7";
+	/* this is the cross */
 	color: var(--light-charm-stripe-2);
 	font-size: 1.4em;
 	text-align: center;
@@ -776,7 +777,8 @@ body.dark select hr {
 }
 
 #puzzle td.cell.s1.hidden-content::after {
-	content: none; /* this hides the cross */
+	content: none;
+	/* this hides the cross */
 }
 
 #puzzle td.cell.s2 {
@@ -788,8 +790,7 @@ body.dark select hr {
 }
 
 #puzzle td.cell:nth-child(5n + 1) {
-	border-right: 2px solid var(--dark-charm-stripe-2);
-	;
+	border-right: 2px solid var(--dark-charm-stripe-2);;
 }
 
 #puzzle td.key {
@@ -837,18 +838,15 @@ body.dark select hr {
 }
 
 #puzzle td:nth-child(5n + 1) {
-	border-right: 2px solid var(--dark-charm-stripe-2);
-	;
+	border-right: 2px solid var(--dark-charm-stripe-2);;
 }
 
 #puzzle tr:nth-child(5n + 1) td {
-	border-bottom: 2px solid var(--dark-charm-stripe-2);
-	;
+	border-bottom: 2px solid var(--dark-charm-stripe-2);;
 }
 
 #puzzle tr:nth-child(5n + 2) td {
-	border-top: 2px solid var(--dark-charm-stripe-2);
-	;
+	border-top: 2px solid var(--dark-charm-stripe-2);;
 }
 
 #puzzle tr:nth-child(even):not(:first-child) td.key.left {
@@ -1021,7 +1019,7 @@ html {
 	margin-left: 15px;
 
 	/* basic styles */
-	white-space: pre-wrap;
+	white-space: pre-line;
 	width: max-content;
 	padding: 10px;
 	border: 2px solid var(--light-sidebar-border);
@@ -1062,12 +1060,16 @@ html {
 	display: block;
 }
 
-.update-categories > category {
+.category {
 	background-color: var(--universal-category-background);
 	width: fit-content;
 	font-size: 80%;
 	padding-left: 5px;
 	padding-right: 5px;
+}
+
+.category.smol {
+	font-size: 70%;
 }
 
 button:disabled {

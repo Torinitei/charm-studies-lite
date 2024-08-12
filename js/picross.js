@@ -127,7 +127,7 @@ $(function () {
 				seed: seed,
 				easyMode: easyMode,
 				darkMode: darkMode,
-				// stats update 
+				// stats update
 				perfectStreak: perfectStreak,
 				charmsComplete: charmsComplete,
 				charmsPerfect: charmsPerfect,
@@ -199,6 +199,7 @@ $(function () {
 				"Eleni",
 				/* Astra's Garden */
 				"Vinegar",
+				"Cassava",
 				/* Syrup and the Ultimate Sweet */
 				"Syrup",
 				"Gumdrop",
@@ -726,7 +727,7 @@ $(function () {
 							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2],
 							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
 							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
-						]
+						];
 						total = 603;
 						break;
 					case "Periwinkle":
@@ -910,6 +911,42 @@ $(function () {
 							[1, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 						];
 						total = 464;
+						break;
+					case "Cassava":
+						state = this.blankTemplate(30);
+						solution = [
+							[2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1],
+							[1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1],
+							[1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1],
+							[2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2],
+							[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1],
+							[1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+							[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2],
+							[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2],
+							[1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+							[1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2],
+							[1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2],
+							[1, 2, 2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 2, 2],
+							[2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2],
+							[2, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2],
+							[2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+							[2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+							[1, 2, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+							[2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+							[1, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2],
+							[2, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2],
+							[2, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2],
+							[1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 2, 2, 2],
+							[1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1],
+							[1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1],
+							[1, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1],
+							[1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1],
+							[2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1],
+							[2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2],
+							[2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1],
+							[2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1]
+						];
+						total = 435;
 						break;
 						/* Syrup and the Ultimate Sweet */
 					case "Syrup":
@@ -1268,13 +1305,13 @@ console.log(allhintsY)
 
 			let hintsX = this.getHintsX(solution);
 			let hintsY = this.getHintsY(solution);
-			// state = solution; // DEV TEST
+			state = solution; // DEV TEST
 
 			this.set({
 				state: state,
 				hintsX: hintsX,
 				hintsY: hintsY,
-				guessed: 0, // total, // DEV TEST
+				guessed: total, // DEV TEST
 				total: total,
 				complete: false,
 				perfect: false,
@@ -1448,12 +1485,12 @@ console.log(allhintsY)
 			let state = this.get('state');
 
 			// convert marks to crossses
-			let markedCells = new Array()
-			for (let y in state) {
+			let markedCells = [];
+			for (let y = 0; y < state.length; y++) {
 				for (let x = 0; x < state[y].length; x++) {
 					if (state[y][x] == 9) {
 						state[y][x] = 1;
-						markedCells.push([y, x])
+						markedCells.push([y, x]);
 					}
 				}
 			}
@@ -1532,7 +1569,7 @@ console.log(allhintsY)
 					"contextmenu": function (e) {
 						e.preventDefault();
 					}
-				}
+				};
 			} else {
 				return {
 					"change #autoPause": "changeAutoPauseMode",
@@ -1558,7 +1595,7 @@ console.log(allhintsY)
 					"contextmenu": function (e) {
 						e.preventDefault();
 					}
-				}
+				};
 			}
 		},
 
@@ -1615,7 +1652,7 @@ console.log(allhintsY)
 			let timerDisplayMode = $('#showTimer').attr('checked') !== undefined;
 			this.model.set({
 				timerDisplayMode: timerDisplayMode
-			});;
+			});
 			this.render();
 		},
 
@@ -1623,7 +1660,7 @@ console.log(allhintsY)
 			let autoPauseMode = $('autoPause').attr('checked') !== undefined;
 			this.model.set({
 				autoPauseMode: autoPauseMode
-			});;
+			});
 			this.render();
 		},
 
@@ -1677,6 +1714,7 @@ console.log(allhintsY)
 				case "Eleni":
 					/* Astra's Garden */
 				case "Vinegar":
+				case "Cassava":
 					/* Syrup and the Ultimate Sweet */
 				case "Syrup":
 				case "Gumdrop":
@@ -1703,7 +1741,7 @@ console.log(allhintsY)
 		galleryStudy: function (e) {
 			e.preventDefault();
 
-			selectedCharm = document.getElementById("original-charms").value;
+			let selectedCharm = document.getElementById("original-charms").value;
 			if (selectedCharm !== "default") {
 				this._newGame(selectedCharm);
 				document.getElementById("original-charms").value = "default";
@@ -1863,16 +1901,16 @@ console.log(allhintsY)
 			let diffY = Math.abs(endY - startY);
 
 			if (diffX > diffY) {
-				$('td.cell[data-x=' + endX + '][data-y=' + startY + ']').remove('hidden-content')
-				$('td.cell[data-x=' + endX + '][data-y=' + startY + ']').text('')
+				$('td.cell[data-x=' + endX + '][data-y=' + startY + ']').remove('hidden-content');
+				$('td.cell[data-x=' + endX + '][data-y=' + startY + ']').text('');
 				if ($('td.cell[data-x=' + endX + '][data-y=' + startY + ']').hasClass('hidden-content')) {
-					$('td.cell[data-x=' + endX + '][data-y=' + startY + ']').removeClass('hidden-content')
+					$('td.cell[data-x=' + endX + '][data-y=' + startY + ']').removeClass('hidden-content');
 				}
 			} else {
-				$('td.cell[data-x=' + startX + '][data-y=' + endY + ']').remove('hidden-content')
-				$('td.cell[data-x=' + startX + '][data-y=' + endY + ']').text('')
+				$('td.cell[data-x=' + startX + '][data-y=' + endY + ']').remove('hidden-content');
+				$('td.cell[data-x=' + startX + '][data-y=' + endY + ']').text('');
 				if ($('td.cell[data-x=' + startX + '][data-y=' + endY + ']').hasClass('hidden-content')) {
-					$('td.cell[data-x=' + startX + '][data-y=' + endY + ']').removeClass('hidden-content')
+					$('td.cell[data-x=' + startX + '][data-y=' + endY + ']').removeClass('hidden-content');
 				}
 			}
 		},
@@ -2051,13 +2089,13 @@ console.log(allhintsY)
 				totalComplexity += pascalBias * separationMulti;
 			}
 
-			let triangle = (charmWidth * charmHeight / 2) // stupid name but i love it too much to keep it
+			let triangle = (charmWidth * charmHeight / 2); // stupid name but i love it too much to keep it
 			// triangle area = 1/2 bh
 
 			if (triangle > total) {
-				sparseBias = 1 + 0.01 * Math.abs(total - triangle)
+				sparseBias = 1 + 0.01 * Math.abs(total - triangle);
 			} else {
-				sparseBias = 1 + 0.005 * Math.abs(total - triangle)
+				sparseBias = 1 + 0.005 * Math.abs(total - triangle);
 			}
 
 			let formulaXP = dimensionAdjust * totalComplexity * sparseBias;
@@ -2083,18 +2121,18 @@ console.log(allhintsY)
 			progress = progress / 100;
 
 			let maxXP = this.model.get('charmMaxExperience');
-			if (!maxXP) { // solves 
+			if (!maxXP) { // solves
 				this.calculateMaxExperience();
 				maxXP = this.model.get('charmMaxExperience');
 			}
 
 			// convert marks to crossses
-			let markedCells = new Array()
-			for (let y in state) {
+			let markedCells = [];
+			for (let y = 0; y < state.length; y++) {
 				for (let x = 0; x < state[y].length; x++) {
 					if (state[y][x] == 9) {
 						state[y][x] = 1;
-						markedCells.push([y, x])
+						markedCells.push([y, x]);
 					}
 				}
 			}
@@ -2207,8 +2245,8 @@ console.log(allhintsY)
 
 		lvToExp: function (level) {
 			let playerPrestige = this.model.get('playerPrestige');
-			result = this.round25((expCalcBase + (level / expCalcConstant) ** expCalcPower) ** (1 + (expCalcPrestigeFactor * playerPrestige)))
-			return result; // redundant 
+			let result = this.round25((expCalcBase + (level / expCalcConstant) ** expCalcPower) ** (1 + (expCalcPrestigeFactor * playerPrestige)));
+			return result; // redundant
 		},
 
 		storeExperience: function () {
@@ -2221,7 +2259,7 @@ console.log(allhintsY)
 			}
 			progress = progress / 100;
 
-			progressAdjust = progress + 0.15; // reward players who only give up late, still punishing to players who give up early
+			let progressAdjust = progress + 0.15; // reward players who only give up late, still punishing to players who give up early
 			progressAdjust = progressAdjust > 1 ? 1 : progressAdjust; // don't allow give up bonus to exceed 100%
 
 			let newXPbuffer = this.round25((charmExperience * progressAdjust) + currentXPBuffer);
@@ -2288,7 +2326,7 @@ console.log(allhintsY)
 				return prestigeTitle + "";
 			}
 
-			
+
 			$('#prestige').text(romanize(playerPrestige));
 			$('#prestigeTitle').text(prestigeToTitle(playerPrestige));
 
@@ -2378,21 +2416,21 @@ console.log(allhintsY)
 						2: "Graduate-to-be", // in alignment with cassia's goals
 						3: "Connection Capturer", // connection magic charm + cassia wants to have a connection with senna
 						4: "Amateur Illusionist", // illusion magic, taught in charms II
-						
+
 						// intermediate
 						5: "Adept Abstractor", // abstractor is profession who analyses data, hence analysing charms to solve them
 						6: "Intermediate Imbuer", // charms imbue an object with magic
 						7: "Charmed Individual", // "lucky individual" + "charmed life" - senna
 						8: "Concentrated Learner", // "places with a high concentration of magic" - senna
 						9: "Random Resolver", // "these questions are completely random..." -  senna
-						
+
 						// pro
 						10: "Reliable Authority", // "reliable as a friend" - cassia
 						11: "Diligent Tutor", // senna tutors to the best of her ability
 						12: "Fluent Painter", // "fluid" - hence fluent, pillars of magic
 						13: "Proficient Artist", // cassia bought into the myth that witch hair length improves proficiency
 						14: "Arithmagic Ace", // senna's favourite class, see also Random Resolver
-						
+
 						// virtuous
 						15: "Wise Witch", // senna's favoured familiar - owls, often seen as wise
 						16: "Spell Scholar", // senna wants (or rather needs) scholarships for her figwood entry
@@ -2401,7 +2439,7 @@ console.log(allhintsY)
 						19: "Infinite Intellect", // "i do not have endless time" - infinite is synonym of endless
 					};
 
-					lvFiveIncrement = Math.floor(level / 5);
+					let lvFiveIncrement = Math.floor(level / 5);
 					title = perFiveLevelsTitles[lvFiveIncrement];
 				}
 				return title;
@@ -2444,7 +2482,7 @@ console.log(allhintsY)
 			let perfect = this.model.isPerfect();
 
 			// convert perfect empties to crossses
-			for (let y in state) {
+			for (let y = 0; y < state.length; y++) {
 				for (let x = 0; x < state[y].length; x++) {
 					if (state[y][x] == 0 && perfect) {
 						state[y][x] = 1;
@@ -2476,7 +2514,6 @@ console.log(allhintsY)
 				charmsComplete: thisCharmsComplete,
 				charmExhaustedID: charmExhaustedID
 			});
-
 			this.calculateExperience();
 			this.applyExperience();
 
@@ -2484,8 +2521,8 @@ console.log(allhintsY)
 		},
 
 		charmSum: function (hints, space, dimension) {
-			html = "";
-			dimension = Number(dimension)
+			let html = "";
+			dimension = Number(dimension);
 			if (space <= 0) {
 				return;
 			} // don't display sum if row/column complete
@@ -2506,7 +2543,7 @@ console.log(allhintsY)
 				return '<strong class="smol partial tooltip right">' + space + '<span class="tooltiptext">Can partially complete row/column.</span>' + '</strong>';
 			}
 
-			return '<strong class="smol">' + space + '</strong>'
+			return '<strong class="smol">' + space + '</strong>';
 		},
 
 		render: function () {
@@ -2522,10 +2559,11 @@ console.log(allhintsY)
 			// stats update
 			let perfVal = this.model.get('charmsPerfect');
 			let compVal = this.model.get('charmsComplete');
-			let strkVal = this.model.get('perfectStreak')
+			let strkVal = this.model.get('perfectStreak');
 			$('#perfectStreak').text(strkVal);
 			$('#perfectCharms').text(perfVal);
 			$('#completeCharms').text(compVal);
+			let pcRatio;
 			if (compVal == 0) {
 				pcRatio = 0;
 			} else {
@@ -2539,11 +2577,11 @@ console.log(allhintsY)
 
 			if (this.model.get('complete')) {
 				$('#solve').prop('disabled', true);
-				$('#solve').text('Not quite...')
+				$('#solve').text('Not quite...');
 				$('#puzzle').addClass('complete');
 				if (this.model.get('perfect')) {
 					$('#progress').addClass('done');
-					$('#solve').text('You did it!')
+					$('#solve').text('You did it!');
 					$('#puzzle').addClass('perfect');
 				}
 			}
@@ -2602,7 +2640,7 @@ console.log(allhintsY)
 				}
 			}
 
-			document.getElementById("perfectStreak").style.fontSize = (15 + Math.floor(Math.log2(this.model.get('perfectStreak') + 1))).toString() + "px"
+			document.getElementById("perfectStreak").style.fontSize = (15 + Math.floor(Math.log2(this.model.get('perfectStreak') + 1))).toString() + "px";
 
 			let html = '<table>';
 			html += '<tr><td class="key"></td>';
@@ -2639,7 +2677,7 @@ console.log(allhintsY)
 
 function localStorageSupport() {
 	try {
-		return 'localStorage' in window && window['localStorage'] !== null;
+		return 'localStorage' in window && window.localStorage !== null;
 	} catch (e) {
 		return false;
 	}

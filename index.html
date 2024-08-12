@@ -4,20 +4,18 @@
 <head>
 	<title>Charm Studies lite</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="css/picross.css" />
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="preload"
-		href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
-		as="style"
-		onload="this.onload=null;this.rel='stylesheet'">
-	<link rel="apple-touch-icon" sizes="180x180" href="images/icon-stuff/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="images/icon-stuff/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="images/icon-stuff/favicon-16x16.png">
-	<link rel="manifest" href="images/icon-stuff/site.webmanifest">
-	<link rel="mask-icon" href="images/icon-stuff/safari-pinned-tab.svg" color="#5bbad5">
-	<link rel="shortcut icon" href="images/icon-stuff/favicon.ico">
+	<link type="text/css" href="css/reset.css" rel="stylesheet">
+	<link type="text/css" href="css/picross.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com" rel="preconnect">
+	<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+		rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link href="images/icon-stuff/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+	<link type="image/png" href="images/icon-stuff/favicon-32x32.png" rel="icon" sizes="32x32">
+	<link type="image/png" href="images/icon-stuff/favicon-16x16.png" rel="icon" sizes="16x16">
+	<link href="images/icon-stuff/site.webmanifest" rel="manifest">
+	<link href="images/icon-stuff/safari-pinned-tab.svg" rel="mask-icon" color="#5bbad5">
+	<link href="images/icon-stuff/favicon.ico" rel="shortcut icon">
 	<meta name="msapplication-TileColor" content="#b91d47">
 	<meta name="msapplication-config" content="images/icon-stuff/browserconfig.xml">
 	<meta name="theme-color" content="#ffdeb8">
@@ -25,7 +23,6 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<meta name="viewport" content="width=device-width">
 	<meta name="description" content="Online picross variant themed after NomNomNami's Charm Studies!">
-	<meta http-equiv="cache-control" content="no-cache">
 </head>
 
 <body onfocus="toggleTimer();" onblur="toggleTimer();">
@@ -112,24 +109,23 @@
 				<button class="regular-button" id="prestigeExperience" disabled>Prestige!</button>
 				<span class="modal-highlight tooltip">Prestige
 					<span class="tooltiptext smol">Prestiging can only be done at Level 100 (MAX).
-Reset your levels and have a tougher experience curve!
-If you're this dedicated to studying charms, why not go for a second round, right?
-Maybe you'll even impress Senna! Maybe.</span>
+						Reset your levels and have a tougher experience curve!
+						If you're this dedicated to studying charms, why not go for a second round, right?
+						Maybe you'll even impress Senna! Maybe.</span>
 				</span> <span class="modal-highlight" id="prestige">–</span>&ensp;
 
 				<span class="highlight">Level <span id="playerLevel">x</span></span>
-				&emsp;<span class="tooltip"
-					>XP<span class="tooltiptext smol">You gain experience for each charm you do.
-Accuracy and progression award you a proportion of the maximum XP for that charm,
-which is determined by the size and individual complexity of the charm.</span></span>&ensp;
-					<span id="currentXP">xxx</span>/<span id="nextXP">xxx</span> <span class="tooltip"
-					><span class="smol">+<span id="bufferedXP">xx</span><span
-							class="tooltiptext">If you give up partway through a charm (hit New Charm before you solve),
-a portion of your experience is stored in a buffer.
-This is given to you the next time you solve a charm (perfect or not).</span></span></span>&ensp;
+				&emsp;<span class="tooltip">XP<span class="tooltiptext smol">You gain experience for each charm you do.
+						Accuracy and progression award you a proportion of the maximum XP for that charm,
+						which is determined by the size and individual complexity of the charm.</span></span>&ensp;
+				<span id="currentXP">xxx</span>/<span id="nextXP">xxx</span> <span class="tooltip"><span
+						class="smol">+<span id="bufferedXP">xx</span><span class="tooltiptext">If you give up partway through a charm (hit New Charm before you solve),
+							a portion of your experience is stored in a buffer.
+							This is given to you the next time you solve a charm (perfect or not).
+				</span></span></span>&ensp;
 				<span id="cosmetic-title" style="width: fit-content(800px);">
-					<span id="prestigeTitle" class="modal-highlight" style="font-style: italic;">Prestige Title </span>
-					<span id="XPTitle" class="highlight" style="font-style: italic;">Title</span>
+					<span class="modal-highlight" id="prestigeTitle" style="font-style: italic;"></span>
+					<span class="highlight" id="XPTitle" style="font-style: italic;"></span>
 				</span>
 			</div>
 		</div>
@@ -138,33 +134,35 @@ This is given to you the next time you solve a charm (perfect or not).</span></s
 				Charm Studies lite
 			</h1>
 			<div class="control-group">
-				<h3>Progress:</h3>
+				<h2>Progress:</h2>
 				<span class="notable" id="progress">0.0%</span>
 				<div class="custom"></div>
-				<button id="solve" class="bold-button" onclick="pauseCharmTimer(true);">Finish Charm!</button> <!-- argument disables show/hide box temporarily -->
+				<button class="bold-button" id="solve" onclick="pauseCharmTimer(true);">Finish Charm!</button>
+				<!-- argument disables show/hide box temporarily -->
 			</div>
 			<div class="control-group">
-				<h3>Settings</h3>
+				<h2>Settings</h2>
 				<div class="control-section">
-					<input type="checkbox" id="dark" />
-					<label for="dark" class="tooltip" >◐ Dark mode
+					<input id="dark" type="checkbox">
+					<label class="tooltip" for="dark">◐ Dark mode
 						<span class="tooltiptext">Switches between light and dark mode!
-Light theme takes the original charm studies colour scheme,
-with dark mode being the luminous opposite.</span>
-					</label><br />
-					<input type="checkbox" id="easy" checked />
-					<label for="easy" class="tooltip" >✾ Easy mode
+							Light theme takes the original charm studies colour scheme,
+							with dark mode being the luminous opposite.</span>
+					</label><br>
+					<input id="easy" type="checkbox" checked>
+					<label class="tooltip" for="easy">✾ Easy mode
 						<span class="tooltiptext">Toggles crossouts (which keep track of which columns/rows you've completed),
-and toggles sums (which can be used for logical deduction).
+							and toggles sums (which can be used for logical deduction).
 
-Highly recommended!</span>
-					</label><br />
-					<input type="checkbox" id="autoPause" checked />
-					<label for="autoPause" class="tooltip">❚❚ Auto-pause
-						<span class="tooltiptext">Auto-pauses the charm when you switch windows or tab out.
+							Highly recommended!</span>
+					</label><br>
+					<input id="autoPause" type="checkbox" checked>
+					<label class="tooltip" for="autoPause">❚❚ Auto-pause
+						<span class="tooltiptext">Auto-pauses the charm when you switch windows, tab out, or interact with the OST.
+							Click on anywhere else on the page, or manually unpause, to solve this.
 
-NOTE: This is also triggered by clicking on the OST video:
-	Click on anywhere else on the page, or manually unpause, to solve this.</span>
+							NOTE: Does not work on the Progressive Web App.
+						</span>
 					</label>
 				</div>
 				<select id="dimensions" aria-label="charm size">
@@ -183,14 +181,14 @@ NOTE: This is also triggered by clicking on the OST video:
 				<span>charm size</span>
 			</div>
 			<div class="control-group">
-				<button id="new" class="bold-button" onclick="resetCharmTimer();">New Charm &gt;</button>
+				<button class="bold-button" id="new" onclick="resetCharmTimer();">New Charm &gt;</button>
 				<div class="custom">
 					<label for="seed">Charm ID</label>
-					<input type="text" id="seed" aria-label="Charm ID" readonly="readonly" />
+					<input id="seed" type="text" aria-label="Charm ID" readonly="readonly">
 					<label for="customSeed">Custom ID</label>
 					<form id="customForm">
-						<input type="text" id="customSeed" aria-label="Custom ID" />
-						<button type="submit" onclick="resetCharmTimer();" class="regular-button" id="customGame">Custom
+						<input id="customSeed" type="text" aria-label="Custom ID">
+						<button class="regular-button" id="customGame" type="submit" onclick="resetCharmTimer();">Custom
 							Charm</button>
 					</form>
 				</div>
@@ -199,24 +197,25 @@ NOTE: This is also triggered by clicking on the OST video:
 		<div class="stats">
 			<h1 class="title">Stats</h1>
 			<div class="control-group">
-				<h3>Time:</h3>
-				<button style="display: contents;" class="regular-button" id="pause-timer"
+				<h2>Time:</h2>
+				<button class="regular-button" id="pause-timer" style="display: contents;"
 					onclick="toggleTimer('via manual button');">❚❚</button>
 				<script>
 					let timerPlaying = true;
 					let priorPauseMode = "";
 
-					function toggleTimer(pauseMode="via auto-pause") {
+					function toggleTimer(pauseMode = "via auto-pause") {
 						let puzzle = document.getElementById('puzzle');
 						let pauseCheckbox = document.getElementById('autoPause')
 
-						if (puzzle.classList.contains('complete') ||(!pauseCheckbox.checked && pauseMode == "via auto-pause")) {
+						if (puzzle.classList.contains('complete') || (!pauseCheckbox.checked && pauseMode == "via auto-pause")) {
 							return;
 						} // don't pause if charm complete, don't allow automatic pausing if auto-pause turned off
 
 						if (!priorPauseMode) { // on first pause (either by autopause or click)
 							priorPauseMode = pauseMode;
-						} else if (priorPauseMode != pauseMode && pauseMode != "via manual button") { // can't automatically unpause if last pause was manual, but can manually override auto-pause (if needed)
+						} else if (priorPauseMode != pauseMode && pauseMode !=
+							"via manual button") { // can't automatically unpause if last pause was manual, but can manually override auto-pause (if needed)
 							return;
 						} else {
 							priorPauseMode = ""; // reset when unpaused
@@ -247,8 +246,8 @@ NOTE: This is also triggered by clicking on the OST video:
 				</script>
 				<span class="stat" id="charmTimer">=^.^=</span>
 				<div class="control-section" style="padding: 3px 0 0 3px;">
-					<input type="checkbox" id="showTimer" checked />
-					<label for="showTimer">(┘)</span> Show timer</label>
+					<input id="showTimer" type="checkbox" checked>
+					<label for="showTimer">(┘) Show timer</label>
 				</div>
 				<script>
 					var charmClearTime, timerTenths, timerSeconds, timerMinutes, charmTenths, charmSecs, charmMins;
@@ -293,7 +292,8 @@ NOTE: This is also triggered by clicking on the OST video:
 					}
 
 					function playCharmTimer() {
-						if (document.getElementById("puzzle").classList.contains("perfect") && timerTenths !== 0) { // make sure timer pauses at 0.1 at least
+						if (document.getElementById("puzzle").classList.contains("perfect") && timerTenths !==
+							0) { // make sure timer pauses at 0.1 at least
 							pauseCharmTimer();
 							return;
 						}
@@ -331,7 +331,7 @@ NOTE: This is also triggered by clicking on the OST video:
 						charmClearTime = setTimeout(playCharmTimer, 100);
 					}
 
-					function pauseCharmTimer(disableBox=false) {
+					function pauseCharmTimer(disableBox = false) {
 						let stopCharmTime = charmMins + charmSecs; // + charmTenths;
 						let showTimerBox = document.getElementById("showTimer")
 
@@ -371,58 +371,56 @@ NOTE: This is also triggered by clicking on the OST video:
 					}
 				</script>
 				<div class="custom"></div>
-				<h3>Streak:</h3>
+				<h2>Streak:</h2>
 				<span class="stat" id="perfectStreak">x</span>
 				<div class="custom"></div>
 
-				<h3>Perfect Charms:</h3>
+				<h2>Perfect Charms:</h2>
 				<span class="stat"><span class="stat" id="perfectCharms">x</span>/<span class="stat"
 						id="completeCharms">x</span> (<span class="stat" id="pcRatio">xx.x%</span>)</span>
 
 				<div class="custom"></div>
-				<h3>Charm XP:</h3>
-				<span id="charm-exp" class="stat">x</span>/<span id="charm-max-exp" class="stat">x</span> XP
+				<h2>Charm XP:</h2>
+				<span class="stat" id="charm-exp">x</span>/<span class="stat" id="charm-max-exp">x</span> XP
 			</div>
 			<h1 class="title">Other</h1>
 			<div class="control-group">
-				<h3 class="tooltip" >Charm Gallery<span
-						class="tooltiptext">Nami's Charms:
-	The original charms in Charm Studies!
-	Go play it, Nami's games are amazing!! (link in footer)
+				<h2 class="tooltip">Charm Gallery<span class="tooltiptext">Nami's Charms:
+						The original charms in Charm Studies!
+						Go play it, Nami's games are amazing!! (link in footer)
 
-Other Nami Works:
-	Charms derived from artworks in Nami's games,
-	with minor edits here and there.
-	All of these are 30x30, so be prepared~
+						Other Nami Works:
+						Charms derived from artworks in Nami's games,
+						with minor edits here and there.
+						All of these are 30x30, so be prepared~
 
-The following characters aren't under their initial appearance games:
-	Pastille
-	Periwinkle
-	Vinegar
-This will be amended when I get around to that &lt;3
+						The following characters aren't under their initial appearance games:
+						Pastille
+						Periwinkle
+						Vinegar
+						This will be amended when I get around to that &lt;3
 
-Indie Crossovers:
-	Charms featuring non-Nami works!
-	Indies unite ♫
+						Indie Crossovers:
+						Charms featuring non-Nami works!
+						Indies unite ♫
 
 
-*not in the original charm gallery.
-					</span></h3>
+						*not in the original charm gallery.
+					</span></h2>
 				<form id="charm-gallery">
-					<select name="original-charms" id="original-charms" aria-label="Charm Gallery">
+					<select id="original-charms" name="original-charms" aria-label="Charm Gallery">
 						<option hidden disabled selected value="default">Select Charm</option>
-						<optgroup hidden></optgroup>
-						<option disabled class="charm-header" label="Nami's Charms!"></option>
-						<optgroup label="5x5" class="group-nami-charms">
+						<option class="charm-header" disabled label="Nami's Charms!"></option>
+						<optgroup class="group-nami-charms" label="5x5">
 							<option value="Astral Magic">Astral Magic</option>
-							<option values="Temporal Magic">Temporal Magic</option>
+							<option value="Temporal Magic">Temporal Magic</option>
 							<option value="Spatial Magic">Spatial Magic</option>
 							<option value="Sweets!">Sweets!</option>
 							<option value="Love &lt;3">Love &lt;3</option>
 						</optgroup>
 
 
-						<optgroup label="10x10" class="group-nami-charms">
+						<optgroup class="group-nami-charms" label="10x10">
 							<option value="Connection Magic">Connection Magic</option>
 							<option value="Illusion Magic">Illusion Magic</option>
 							<option value="Growth Magic">Growth Magic</option>
@@ -433,16 +431,15 @@ Indie Crossovers:
 						</optgroup>
 
 
-						<optgroup label="15x15" class="group-nami-charms">
+						<optgroup class="group-nami-charms" label="15x15">
 							<option value="Magic Circle">Magic Circle</option>
 							<option value="Broomstick">Broomstick</option>
 							<option value="Senna &lt;3">Senna &lt;3</option>
 							<option value="Me!">Me!</option>
 						</optgroup>
-						</optgroup>
 
-						<option disabled label="Other Nami Works &lt;3" class="charm-header"></option>
-						<optgroup label="BAD END THEATER" class="group-bad-end-theater">
+						<option class="charm-header" disabled label="Other Nami Works &lt;3"></option>
+						<optgroup class="group-bad-end-theater" label="BAD END THEATER">
 							<option value="HERO">HERO</option>
 							<option value="MAIDEN">MAIDEN</option>
 							<option value="UNDERLING">UNDERLING</option>
@@ -450,32 +447,32 @@ Indie Crossovers:
 							<option value="TRAGEDY">TRAGEDY</option>
 						</optgroup>
 
-						<optgroup label="Starry Flowers" class="group-starry-flowers">
+						<optgroup class="group-starry-flowers" label="Starry Flowers">
 							<option value="Starry Flowers">Starry Flowers (icon)</option>
 							<option value="Pastille">Pastille</option>
 							<option value="Periwinkle">Periwinkle</option>
 							<option value="Astragalus">Astragalus</option>
 						</optgroup>
 
-						<optgroup label="Contract Demon" class="group-contract-demon">
+						<optgroup class="group-contract-demon" label="Contract Demon">
 							<option value="Kamila">Kamila</option>
 							<option value="Eleni">Eleni</option>
 						</optgroup>
 
-						<optgroup label="Astra's Garden" class="group-astras-garden">Astra's Garden
+						<optgroup class="group-astras-garden" label="Astra's Garden">
 							<option value="Vinegar">Vinegar</option>
+							<option value="Cassava">Cassava</option>
 						</optgroup>
 
-						<optgroup label="Syrup and the Ultimate Sweet" class="group-syrup-and-the-ultimate-sweet">Syrup
-							and the Ultimate Sweet
+						<optgroup class="group-syrup-and-the-ultimate-sweet" label="Syrup and the Ultimate Sweet">
 							<option value="Syrup">Syrup</option>
 							<option value="Gumdrop">Gumdrop</option>
 							<option value="Butterscotch">Butterscotch</option>
 							<option value="Toffee">Toffee</option>
 						</optgroup>
 
-						<option disabled label="Indie Crossovers ^w^" class="charm-header"></option>
-						<optgroup label="In Stars and Time" class="group-crossover-in-stars-and-time">In Stars and Time
+						<option class="charm-header" disabled label="Indie Crossovers ^w^"></option>
+						<optgroup class="group-crossover-in-stars-and-time" label="In Stars and Time">
 							<option value="Siffrin">Siffrin</option>
 							<option value="Mirabelle">Mirabelle</option>
 							<option value="Isabeau">Isabeau</option>
@@ -483,24 +480,25 @@ Indie Crossovers:
 							<option value="Bonnie">Bonnie</option>
 						</optgroup>
 					</select>
-					<button type="submit" onclick="galleryReset();" class="bold-button" id="galleryStudy">Study
+					<button class="bold-button" id="galleryStudy" type="submit" onclick="galleryReset();">Study
 						Charm~</button>
 				</form>
 				<div class="custom"></div>
-				<h3>Debug</h3>
+				<h2>Debug</h2>
 				<button class="debug-button" onclick="localStorage.clear(); location.reload();">Clear Storage</button>
 				<button class="debug-button" id="statReset">Stat Reset</button>
 			</div>
 		</div>
 		<div id="puzzle">
-			<div id="oopsies">If you're seeing this, something's gone wrong! Please press the clear storage button in the
+			<div id="oopsies">If you're seeing this, something's gone wrong! Please press the clear storage button in
+				the
 				debug
-				section.<br />Unfortunately, this resets board and stat progression, sorry (&gt;.&lt;)
-				<br /><br />This may happen on your first time loading the website, since new internal features were added,
+				section.<br>Unfortunately, this resets board and stat progression, sorry (&gt;.&lt;)
+				<br><br>This may happen on your first time loading the website, since new internal features were added,
 				which the original site doesn't load by default, don't be alarmed if so.
 			</div>
 		</div>
-		<div style="display: none" id="pause-message">Charm Paused
+		<div id="pause-message" style="display: none">Charm Paused
 			<span id="pause-mode">(due to defocus)</span>
 		</div>
 	</div>
@@ -514,20 +512,20 @@ Indie Crossovers:
 		</div>
 
 		<div id="modals">
-			<div id="credits-modal" class="modal">
+			<div class="modal" id="credits-modal">
 				<div class="modal-content">
 					<div class="modal-header">~ Credits ~</div>
 					<div class="modal-body">
 						Original designed and written by <a href="http://liouh.com/home/">Henry Liou</a>. <a
 							class="modal-highlight" href="https://www.paypal.com/paypalme/liouh">Buy them a
-							coffee!</a><br />
-						Edited by <a href="https://torinitei.carrd.co/">Torinitei</a>.<br />
+							coffee!</a><br>
+						Edited by <a href="https://torinitei.carrd.co/">Torinitei</a>.<br>
 						Themed after <a href="https://nomnomnami.com/">NomNomNami</a>'s <a
 							href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>. <a
 							class="modal-highlight" href="https://www.patreon.com/nomnomnami">Support her amazing
-							works!</a><br /><br />
+							works!</a><br><br>
 
-						<span class="modal-highlight">Special Thanks</span><br />
+						<span class="modal-highlight">Special Thanks</span><br>
 						<a href="https://www.youtube.com/channel/UCoyphXvpFSIXOSoHzHrqM7A">Siffrin</a>, for inspiring
 						and encouraging me
 						to make this website!
@@ -535,75 +533,87 @@ Indie Crossovers:
 				</div>
 			</div>
 
-			<div id="tutorial-modal" class="modal">
+			<div class="modal" id="tutorial-modal">
 				<div class="modal-content">
 					<div class="modal-header">~ Nami's Tutorial ~</div>
 					<div class="modal-body">
-						Charms can be solved with the magic of logic!<br />
-						The numbers on the sides represent consecutive painted tiles found in each line.<br />
-						<img loading="lazy" src="images\modal-images\nami1.png">
+						Charms can be solved with the magic of logic!<br>
+						The numbers on the sides represent consecutive painted tiles found in each line.<br>
+						<img src="images/modal-images/nami1.png" alt="An image of a charm row, with hint 3."
+							loading="lazy">
 						When there are multiple numbers in a line, it means there must be at least one blank space
 						between
 						them,
-						like so:<br />
-						<img loading="lazy" src="images\modal-images\nami2.png">
+						like so:<br>
+						<img src="images/modal-images/nami2.png" alt="An image of a charm row, with hints 2, 2."
+							loading="lazy">
 						Determine which tiles must be painted until the final picture is revealed!
 					</div>
 				</div>
 			</div>
 
-			<div id="controls-modal" class="modal">
+			<div class="modal" id="controls-modal">
 				<div class="modal-content">
 					<div class="modal-header">Controls</div>
 					<div class="modal-body">
-						<span class="modal-highlight">Left Click/Tap</span><br />Paint<br /><br />
-						<span class="modal-highlight">Right Click/Hold</span><br />Cross Out<br /><br />
-						<span class="modal-highlight">Middle Click</span><br />Mark
+						<span class="modal-highlight">Left Click/Tap</span><br>Paint<br><br>
+						<span class="modal-highlight">Right Click/Hold</span><br>Cross Out<br><br>
+						<span class="modal-highlight">Middle Click</span><br>Mark
 					</div>
 				</div>
 			</div>
 
-			<div id="update-log-modal" class="modal">
+			<div class="modal" id="update-log-modal">
 				<div class="modal-content">
 					<div class="modal-header">~ Update Log ~</div>
 					<div class="modal-body">
+						<span class="modal-highlight">2024/08/12 ~ Good morning!</span><br>
+						<span class="category">Charms</span>
+						<span class="category">Quality of Life</span>
+						<ul>
+							<li>Added new charm! Shout through the doors for Cassava of Astra's Garden!</li>
+							<li>Cleaned up HTML, JS, and CSS to comply more with lints and standards</li>
+						</ul><br>
+
 						<span class="modal-highlight smol">2024/08/11</span>
-						<span class="update-categories">
-							<category>Gameplay</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Gameplay</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
-							<li>Updated following charms to be more playable: Starry Flowers, Eleni, Butterscotch, Isabeau <span class="smol">(somebody PLEASE get me to playtest charms next time)</span></li>
-						</ul><br />
+							<li>Updated following charms to be more playable: Starry Flowers, Eleni, Butterscotch,
+								Isabeau <span class="smol">(somebody PLEASE get me to playtest charms next time)</span>
+							</li>
+						</ul><br>
 
-						<span class="modal-highlight">2024/08/08 ~ Indie Crossovers??</span><br />
-						<span class="update-categories">
-							<category>Charms</category>
-							<category>Gameplay</category>
-							<category>Style</category>
-						</span>
+						<span class="modal-highlight">2024/08/08 ~ Indie Crossovers??</span><br>
+						<span class="category">Charms</span>
+						<span class="category">Gameplay</span>
+						<span class="category">Style</span>
 						<ul>
-							<li class="modal-highlight">That's right! Characters from other magic dimensions have been summoned, and are beginning to appear as charms! <span class="smol">(the primary focus will always be on Nami works though :3)</span></li>
-							<li>Now in this loop of studying, give a round of applause for the In Stars and Time party! Craft a greeting for Siffrin, Mirabelle, Isabeau, Odile, and Bonnie!</li>
+							<li class="modal-highlight">That's right! Characters from other magic dimensions have been
+								summoned, and are beginning to appear as charms! <span class="smol">(the primary focus
+									will always be on Nami works though :3)</span></li>
+							<li>Now in this loop of studying, give a round of applause for the In Stars and Time party!
+								Craft a greeting for Siffrin, Mirabelle, Isabeau, Odile, and Bonnie!</li>
 							<li>New style for ISAT charms in Charm Gallery Select</li>
-							<li>Under the hood restructuring of CSS to make colours more easily variable (this will pave the way for custom themes in the future!)</li>
+							<li>Under the hood restructuring of CSS to make colours more easily variable (this will pave
+								the way for custom themes in the future!)</li>
 							<li>Each prestige now has a special title!</li>
-							<li><span class="modal-highlight">EXPERIMENTAL:</span> Dragging cells will now show you the total you've dragged!</li>
-						</ul><br />
+							<li><span class="modal-highlight">EXPERIMENTAL:</span> Dragging cells will now show you the
+								total you've dragged!</li>
+						</ul><br>
 
-						<span class="modal-highlight">2024/08/06 ~ The Biggest Update Yet ♫</span><br />
-						<span class="update-categories">
-							<category>Gameplay</category>
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight">2024/08/06 ~ The Biggest Update Yet ♫</span><br>
+						<span class="category">Gameplay</span>
+						<span class="category">Style</span>
+						<span class="category">Quality of Life</span>
 						<ul>
 							<li class="modal-highlight">Currently on holiday! Updates will be sparse.</li>
 							<li>Added an experience system!</li>
 							<li>Made many optimisations to HTML as per Lighthouse suggestions</li>
 							<li>Added charm manual and auto-pausing!</li>
 							<li>Timer now works on 100ms cycles, meaning more responsiveness</li>
-							<li>Timer now maintains hidden status on charm complete, remaining faithful to original Charm Studies</li>
+							<li>Timer now maintains hidden status on charm complete, remaining faithful to original
+								Charm Studies</li>
 							<li>Added symbols for each toggle</li>
 							<li>Added special thanks to the person who encouraged me to do this all ^w^</li>
 							<li>Update log reworked! Categories added to all posts, and titles to key ones :3</li>
@@ -611,22 +621,18 @@ Indie Crossovers:
 							<li>Reworked Charm Studies lite exclusive local storage saving and keys!</li>
 							<li>Reworked JS to upgrade all instances of var to let or const!</li>
 							<li>Adjusted element widths to match main container width</li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/07/26</span>
-						<span class="update-categories smol">
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Fixed charm timer not pausing after autocompleting</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/07/24 ~ Syrup and the Ultimate Sweet!</span><br />
-						<span class="update-categories">
-							<category>Charms</category>
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight">2024/07/24 ~ Syrup and the Ultimate Sweet!</span><br>
+						<span class="category">Charms</span>
+						<span class="category">Style</span>
+						<span class="category">Quality of Life</span>
 						<ul>
 							<li>Added charms for Syrup and the Ultimate Sweet! Coming through Atelier Sweets, welcome
 								Syrup, Gumdrop, Butterscotch, and Toffee ^w^</li>
@@ -643,227 +649,187 @@ Indie Crossovers:
 							<li>Made dark mode style for modal buttons <span class="smol">(because i forgot)</span></li>
 							<li>Fixed Broomstick total to match</li>
 							<li>Error text now matches casing of original Charm Studies</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/07/23 ~ Info boards ^w^</span><br />
-						<span class="update-categories">
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight">2024/07/23 ~ Info boards ^w^</span><br>
+						<span class="category">Style</span>
+						<span class="category">Quality of Life</span>
 						<ul>
 							<li>Footer replaced with modal buttons! <span class="smol">(Looks cleaner now :3)</span>
 							</li>
 							<li>Nami's original help/tutorial for charms added!</li>
 							<li>Controls modal added</li>
 							<li>Update log added!</li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/07/22</span>
-						<span class="update-categories smol">
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Style</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Text casing now matches that of the original Charm Studies</li>
 							<li>Charms now autocomplete when done perfectly!</li>
 							<li><span class="smol">...someone showed up? woah</span></li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/07/19 ~ PWA support!</span><br />
-						<span class="update-categories">
-							<category>Charms</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight">2024/07/19 ~ PWA support!</span><br>
+						<span class="category">Charms</span>
+						<span class="category">Quality of Life</span>
 						<ul>
 							<li>Implemented Progressive Web App support!</li>
 							<li>Added new charm, the Charm Studies icon!</li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/07/17</span>
-						<span class="update-categories smol">
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Small tooltip edit</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/07/16 ~ Vinegar is here!</span><br />
-						<span class="update-categories">
-							<category>Charms</category>
-							<category>Gameplay</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight">2024/07/16 ~ Vinegar is here!</span><br>
+						<span class="category">Charms</span>
+						<span class="category">Gameplay</span>
+						<span class="category">Quality of Life</span>
 						<ul>
 							<li>New and improved tooltips!</li>
 							<li>New charm added, say hi to Vinegar! (under Astra's Garden for now)</li>
 							<li>Show/hide timer option added</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/07/14 ~ Charms are even more pretty now~ </span><br />
-						<span class="update-categories">
-							<category>Style</category>
-						</span>
+						<span class="modal-highlight">2024/07/14 ~ Charms are even more pretty now~ </span><br>
+						<span class="category">Style</span>
 						<ul>
 							<li>Charm selection now has the colours of each original series!</li>
 							<li>Perfect streak font size now increases with each power of 2 achieved <span
 									class="smol">(why? because it's funny :3)</span></li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/07/06</span>
-						<span class="update-categories smol">
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Added a button to reset statistics</li>
 							<li>Added to-do list to idea document</li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/07/05</span>
-						<span class="update-categories smol">
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Timer resets on all forms of charm starts</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/07/03 ~ Contract Demon + Astra :3</span><br />
-						<span class="update-categories">
-							<category>Charms</category>
-							<category>Gameplay</category>
-						</span>
+						<span class="modal-highlight">2024/07/03 ~ Contract Demon + Astra :3</span><br>
+						<span class="category">Charms</span>
+						<span class="category">Gameplay</span>
 						<ul>
 							<li>Added charm time stat!</li>
 							<li>Added 3 charms! Introducing Astragalus of Starry Flowers, and Kamila and Eleni of
 								Contract Demon!
 								<span class="smol">(side note: i forgot i added astra in the commit message-)</span>
 							</li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/07/02</span>
-						<span class="update-categories smol">
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Reimplemented row/column shadow on hover</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/07/01 ~ Starry Flowers &lt;3</span><br />
-						<span class="update-categories">
-							<category>Charms</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight">2024/07/01 ~ Starry Flowers &lt;3</span><br>
+						<span class="category">Charms</span>
+						<span class="category">Quality of Life</span>
 						<ul>
 							<li>Starry Flowers charms added! Bring out your bouquets for Pastille and Periwinkle~ &lt;3
 							</li>
 							<li>Updated README again</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/06/30 ~ Summation!</span><br />
-						<span class="update-categories">
-							<category>Gameplay</category>
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight">2024/06/30 ~ Summation!</span><br>
+						<span class="category">Gameplay</span>
+						<span class="category">Style</span>
+						<span class="category">Quality of Life</span>
 						<ul>
 							<li>Added row/column sums! <span class="smol">(i'll be honest i added this because i was
 									tired
 									of doing it mentally for the larger boards)</span></li>
 							<li>Adjusted dark mode perfect gradient to be easier on the eyes</li>
 							<li>Inverted HERO and UNDERLING charms to be easier to play</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/06/29 ~ Statistics Part 1!</span><br />
-						<span class="update-categories">
-							<category>Gameplay</category>
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight">2024/06/29 ~ Statistics Part 1!</span><br>
+						<span class="category">Gameplay</span>
+						<span class="category">Style</span>
+						<span class="category">Quality of Life</span>
 						<ul>
 							<li>Added perfect streak and charm completion statistics!</li>
 							<li>Added Google Analytics tag <span class="smol">(i just wanted to see how many people
 									visited)</span></li>
 							<li>Added dark mode!</li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/06/20</span>
-						<span class="update-categories smol">
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Style</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Attempts to fix universal font <span class="smol">(yes i've somehow gotten this far and
 									struggled this much with making Nunito appear everywhere)</span></li>
 							<li>Puzzle alignment adjustments</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/06/19 ~ BAD END THEATER arrival!</span><br />
-						<span class="update-categories">
-							<category>Charms</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight">2024/06/19 ~ BAD END THEATER arrival!</span><br>
+						<span class="category">Charms</span>
+						<span class="category">Quality of Life</span>
 						<ul>
 							<li>BAD END THEATER charms added! Coming up to the stage, HERO, MAIDEN, UNDERLING, OVERLORD,
 								and TRAGEDY!</li>
 							<li>Starry Flowers charm (game logo) added</li>
 							<li>Initial stats local storage set up</li>
-							<li>Debug section added <span class="smol">(to correct my mistakes ¯\_(ツ)_/¯)</span></li>
-						</ul><br />
+							<li>Debug section added <span class="smol">(to correct my mistakes ¯/_(ツ)_/¯)</span></li>
+						</ul><br>
 
-						<span class="modal-highlight">2024/06/18 ~ Charms!</span><br />
-						<span class="update-categories">
-							<category>Charms</category>
-							<category>Style</category>
-						</span>
+						<span class="modal-highlight">2024/06/18 ~ Charms!</span><br>
+						<span class="category">Charms</span>
+						<span class="category">Style</span>
 						<ul>
 							<li>Added original charm gallery! <span class="smol">(please don't sue me nami)</span></li>
 							<li>Changed hints to be alternating colours to be authentic to the original <span
 									class="smol">and better</span> Charm Studies</li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/06/16</span>
-						<span class="update-categories smol">
-							<category>Charms</category>
-							<category>Gameplay</category>
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Charms</span>
+						<span class="category smol">Gameplay</span>
+						<span class="category smol">Style</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Removed rainbow GIF <span class="smol">(pretty much it aside from failed
 									attempts)</span>
 							</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/06/15</span><br />
-						<span class="update-categories">
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight smol">2024/06/15</span>
+						<span class="category smol">Style</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Prepared to add statistics into game</li>
 							<li>Additional ideas put into document</li>
 							<li>Optional cross out cell styles made</li>
 							<li>Perfect charm hints adjusted to be slightly transparent as to be influenced by gradient
 							</li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/06/14 ~ Colours &lt;3</span>
-						<span class="update-categories">
-							<category>Gameplay</category>
-							<category>Style</category>
-						</span>
+						<span class="category smol">Gameplay</span>
+						<span class="category smol">Style</span>
 						<ul>
 							<li>Added middle click to highlight</li>
 							<li>Changed completion animation from rainbow GIF to custom linear gradient <span
 									class="smol">(inspired by some of
 									Nami's charecters! guess who :3)</span></li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/06/13 ~ Playtime! </span>
-						<span class="update-categories smol">
-							<category>Gameplay</category>
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Gameplay</span>
+						<span class="category smol">Style</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Added link to website (which was very much needed)</li>
 							<li>First implementation of session timer</li>
@@ -871,111 +837,102 @@ Indie Crossovers:
 									was
 									real &gt;-&lt;)</span>
 							</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/06/12</span><br />
-						<span class="update-categories">
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="modal-highlight">2024/06/12</span><br>
+						<span class="category">Style</span>
+						<span class="category">Quality of Life</span>
 						<ul>
 							<li>Second attempt at universal font implementation</li>
 							<li>Icons & webmanifest added</li>
-							<li>All files formatted, potential 	ideas document added <span class="smol">(and yes it's not
+							<li>All files formatted, potential ideas document added <span class="smol">(and yes it's not
 									hidden on purpose)</span>
 							</li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/06/11</span>
-						<span class="update-categories smol">
-							<category>Style</category>
-							<category>Quality of Life</category>
-						</span>
+						<span class="category smol">Style</span>
+						<span class="category smol">Quality of Life</span>
 						<ul>
 							<li>Slight style adjustment to crossed out cells and charm hints, reworked footer</li>
 							<li>README updated to suit project</li>
 							<li>First attempt at implementing font universally</li>
-						</ul><br />
+						</ul><br>
 
 						<span class="modal-highlight smol">2024/06/10</span>
-						<span class="update-categories smol">
-							<category>Style</category>
-						</span>
+						<span class="category smol">Style</span>
 						<ul>
 							<li>Removed dark mode (original was only light mode)</li>
 							<li>Added styles for cells on puzzle perfect completion</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">2024/06/05 ~ First commit to Charm Studies lite! </span><br />
-						<span class="update-categories">
-							<category>Style</category>
-						</span>
+						<span class="modal-highlight">2024/06/05 ~ First commit to Charm Studies lite! </span><br>
+						<span class="category">Style</span>
 						<ul>
 							<li>Initial style adjustments</li>
-						</ul><br />
+						</ul><br>
 
-						<span class="modal-highlight">You've reached the end!<br />Have a cookie :3 🍪</span>
+						<span class="modal-highlight">You've reached the end!<br>Have a cookie :3 🍪</span>
 					</div>
 				</div>
 			</div>
 
-			<div id="tori-tips-modal" class="modal">
+			<div class="modal" id="tori-tips-modal">
 				<div class="modal-content">
 					<div class="modal-header">~ Tori's Tips ~</div>
 					<div class="modal-body">
-						Hey there! Tori, Charm Studies lite dev here.<br />
-						Here are some patterns that you can spot to help you paint these charms!<br />
+						Hey there! Tori, Charm Studies lite dev here.<br>
+						Here are some patterns that you can spot to help you paint these charms!<br>
 
 						Adapted from <a href="https://en.wikipedia.org/wiki/Nonogram#Solution_techniques">Wikipedia's
 							nonogram
-							completion
-							techniques</a>.<br /><br />
+							solution
+							techniques</a>.<br><br>
 
-						<span class="modal-highlight">Simple boxes</span><br />
+						<span class="modal-highlight">Simple boxes</span><br>
 						With a run of cells, if there is an intersect between the leftmost and rightmost permutations,
 						you
 						can
-						paint the cells they share.<br />
-						<img loading="lazy" src="images\modal-images\tori simple box 1.png"><br />
-
+						paint the cells they share.<br>
+						<img src="images/modal-images/tori-simple-box-1.png" alt="" loading="lazy"><br>
 						This only applies when the cells are shared with the same block (different runs of cells do not
-						count):<br />
-						<img loading="lazy" src="images\modal-images\tori simple box 2.png"><br />
+						count):<br>
+						<img src="images/modal-images/tori-simple-box-2.png" alt="" loading="lazy"><br>
 
-						<span class="modal-highlight">Simple spaces</span><br />
+						<span class="modal-highlight">Simple spaces</span><br>
 						When a clue is complete, you can surround it with spaces. Additionally, if runs of cells can't
 						touch a
-						cell (due to an anchor of some sort), those can be crossed out.<br />
-						<img loading="lazy" src="images\modal-images\tori simple space.png"><br />
+						cell (due to an anchor of some sort), those can be crossed out.<br>
+						<img src="images/modal-images/tori-simple-space.png" alt="" loading="lazy"><br>
 
-						<span class="modal-highlight">Forcing</span><br />
+						<span class="modal-highlight">Forcing</span><br>
 						Crossed out cells have their importance - a space in an uncompleted row/column can force a large
 						run to
 						one side or the other. Additionally, a gap too small for any run of cells can be crossed out.
-						<img loading="lazy" src="images\modal-images\tori forcing.png"><br />
+						<img src="images/modal-images/tori-forcing.png" alt="" loading="lazy"><br>
 
-						<span class="modal-highlight">Glue</span><br />
+						<span class="modal-highlight">Glue</span><br>
 						A painted cell which is closer to the border than the length of the cell run can act as glue.
 						This
 						means
 						that the run will be forced forward.
-						<img loading="lazy" src="images\modal-images\tori glue 1.png"><br />
+						<img src="images/modal-images/tori-glue-1.png" alt="" loading="lazy"><br>
 
 						A crossed out cell can also act as a border:
-						<img loading="lazy" src="images\modal-images\tori glue 2.png"><br />
+						<img src="images/modal-images/tori-glue-2.png" alt="" loading="lazy"><br>
 
-						<span class="modal-highlight">Joins and splits</span><br />
+						<span class="modal-highlight">Joins and splits</span><br>
 						Runs of cells can be joined if splitting the runs by crossing out the cells inbetween would
 						result
 						in too
 						little space.
 						Conversely, runs of cells can be split if painting the cells between would result in a run too
 						large.
-						<img loading="lazy" src="images\modal-images\tori join split.png"><br />
+						<img src="images/modal-images/tori-join-split.png" alt="" loading="lazy"><br>
 
-						<span class="modal-highlight">Mathematical approach</span><br />
+						<span class="modal-highlight">Mathematical approach</span><br>
 						Doing this technique is a shortcut to the others listed above! That's your reward for going all
-						the way down here :3<br />
+						the way down here :3<br>
 						Here's how to manually work this out:
 						<ol>
 							<li>Add the clues together, plus 1 for each space between (6 + 2 + 3 = 6 + 1 + 2 + 1 + 3 =
@@ -993,37 +950,37 @@ Indie Crossovers:
 								cells
 								from whichever side you pick, for each clue, don't paint the difference, and then paint
 								the
-								guaranteed run.<br />
+								guaranteed run.<br>
 								For example, for [6, 2, 3], where the difference is 2, your guaranteed run values would
 								be
 								[4, 0,
-								1]. Leave the spaces between each run as normal.<br />
+								1]. Leave the spaces between each run as normal.<br>
 								<span class="modal-highlight">Alternatively</span>, mark from both sides and fill in
 								where
 								they
 								intersect (simple spaces).
 							</li>
-						</ol><br />
-						<img loading="lazy" src="images\modal-images\tori mathematical approach 1.png"><br />
+						</ol><br>
+						<img src="images/modal-images/tori-mathematical-approach-1.png" alt="" loading="lazy"><br>
 						If you're using easy mode (highly recommended by the way), the sum for each row/column is
 						calculated for you, and
 						will be highlighted blue to show if you can partially paint the row/column, or green to entirely
 						paint the
-						row/column.<br />
-						<img loading="lazy" src="images\modal-images\tori mathematical approach 2.png"><br />
-						This will take some of the computation off your shoulders!<br /><br />
+						row/column.<br>
+						<img src="images/modal-images/tori-mathematical-approach-2.png" alt="" loading="lazy"><br>
+						This will take some of the computation off your shoulders!<br><br>
 
-						<span class="modal-highlight"></span>That's it from me~<br />Now go paint some charms!</span>
+						<span class="modal-highlight">That's it from me~<br>Now go paint some charms!</span>
 					</div>
 				</div>
 			</div>
 		</div>
-		<br />
+		<br>
 		<script>
 			var footerInfoButtons = document.getElementById("footer-info-buttons");
 			var modals = document.getElementsByClassName("modal");
 
-			footerInfoButtons.addEventListener("click", function (event)  {
+			footerInfoButtons.addEventListener("click", function (event) {
 				var target = event.target;
 
 				if (target.tagName === "BUTTON") {
@@ -1042,17 +999,17 @@ Indie Crossovers:
 				}
 			};
 		</script>
-		<iframe class="player" type="text/html"
+		<iframe class="player"
 			src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8"
-			width="320" height="180" title="Charm Studies OST ~ magical beats to study to ~" frameborder="0"
-			allow="autoplay" loading="lazy">iframes are not supported by your browser.</p>
+			title="Charm Studies OST ~ magical beats to study to ~" width="320" height="180" allow="autoplay"
+			loading="lazy">
 		</iframe>
 	</div>
-	<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
-	<script type="text/javascript" src="js/underscore.js"></script>
-	<script type="text/javascript" src="js/backbone.js"></script>
-	<script type="text/javascript" src="js/seedrandom.js"></script>
-	<script type="text/javascript" src="js/picross.js"></script>
+	<script src="js/jquery-1.8.3.js"></script>
+	<script src="js/underscore.js"></script>
+	<script src="js/backbone.js"></script>
+	<script src="js/seedrandom.js"></script>
+	<script src="js/picross.js"></script>
 </body>
 
 </html>
