@@ -8,8 +8,7 @@
 	<link type="text/css" href="css/picross.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com" rel="preconnect">
 	<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
-		rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<link href="images/icon-stuff/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
 	<link type="image/png" href="images/icon-stuff/favicon-32x32.png" rel="icon" sizes="32x32">
 	<link type="image/png" href="images/icon-stuff/favicon-16x16.png" rel="icon" sizes="16x16">
@@ -105,6 +104,7 @@
 					clearTime = setTimeout("startWatch( )", 1000);
 				}
 			</script>
+			<span class="header modal-highlight" id="special-message" alt>Happy birthday Sif! Love ya &lt;3 /p <img id="special=image" src="images\Sif24.gif" width="100" height="100" style="width: auto; display: inline;"></span>
 			<div class="smol" id="experience-container">
 				<button class="regular-button" id="prestigeExperience" disabled>Prestige!</button>
 				<span class="modal-highlight tooltip">Prestige
@@ -118,8 +118,7 @@
 				&emsp;<span class="tooltip">XP<span class="tooltiptext smol">You gain experience for each charm you do.
 						Accuracy and progression award you a proportion of the maximum XP for that charm,
 						which is determined by the size and individual complexity of the charm.</span></span>&ensp;
-				<span id="currentXP">xxx</span>/<span id="nextXP">xxx</span> <span class="tooltip"><span
-						class="smol">+<span id="bufferedXP">xx</span><span class="tooltiptext">If you give up partway through a charm (hit New Charm before you solve),
+				<span id="currentXP">xxx</span>/<span id="nextXP">xxx</span> <span class="tooltip"><span class="smol">+<span id="bufferedXP">xx</span><span class="tooltiptext">If you give up partway through a charm (hit New Charm before you solve),
 							a portion of your experience is stored in a buffer.
 							This is given to you the next time you solve a charm (perfect or not).
 				</span></span></span>&ensp;
@@ -198,8 +197,7 @@
 			<h1 class="title">Stats</h1>
 			<div class="control-group">
 				<h2>Time:</h2>
-				<button class="regular-button" id="pause-timer" style="display: contents;"
-					onclick="toggleTimer('via manual button');">❚❚</button>
+				<button class="regular-button" id="pause-timer" style="display: contents;" onclick="toggleTimer('via manual button');">❚❚</button>
 				<script>
 					let timerPlaying = true;
 					let priorPauseMode = "";
@@ -338,7 +336,7 @@
 						showTimerBox.disabled = disableBox;
 
 						if (showTimerBox.checked) {
-							theCharmTimer.innerHTML = stopCharmTime; // + charmTenths;
+							theCharmTimer.innerHTML = stopCharmTime;
 						} else {
 							theCharmTimer.innerHTML = "=^.^="
 						}
@@ -376,8 +374,7 @@
 				<div class="custom"></div>
 
 				<h2>Perfect Charms:</h2>
-				<span class="stat"><span class="stat" id="perfectCharms">x</span>/<span class="stat"
-						id="completeCharms">x</span> (<span class="stat" id="pcRatio">xx.x%</span>)</span>
+				<span class="stat"><span class="stat" id="perfectCharms">x</span>/<span class="stat" id="completeCharms">x</span> (<span class="stat" id="pcRatio">xx.x%</span>)</span>
 
 				<div class="custom"></div>
 				<h2>Charm XP:</h2>
@@ -516,13 +513,10 @@
 				<div class="modal-content">
 					<div class="modal-header">~ Credits ~</div>
 					<div class="modal-body">
-						Original designed and written by <a href="http://liouh.com/home/">Henry Liou</a>. <a
-							class="modal-highlight" href="https://www.paypal.com/paypalme/liouh">Buy them a
+						Original designed and written by <a href="http://liouh.com/home/">Henry Liou</a>. <a class="modal-highlight" href="https://www.paypal.com/paypalme/liouh">Buy them a
 							coffee!</a><br>
 						Edited by <a href="https://torinitei.carrd.co/">Torinitei</a>.<br>
-						Themed after <a href="https://nomnomnami.com/">NomNomNami</a>'s <a
-							href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>. <a
-							class="modal-highlight" href="https://www.patreon.com/nomnomnami">Support her amazing
+						Themed after <a href="https://nomnomnami.com/">NomNomNami</a>'s <a href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>. <a class="modal-highlight" href="https://www.patreon.com/nomnomnami">Support her amazing
 							works!</a><br><br>
 
 						<span class="modal-highlight">Special Thanks</span><br>
@@ -539,14 +533,12 @@
 					<div class="modal-body">
 						Charms can be solved with the magic of logic!<br>
 						The numbers on the sides represent consecutive painted tiles found in each line.<br>
-						<img src="images/modal-images/nami1.png" alt="An image of a charm row, with hint 3."
-							loading="lazy">
+						<img src="images/modal-images/nami1.png" alt="An image of a charm row, with hint 3." loading="lazy">
 						When there are multiple numbers in a line, it means there must be at least one blank space
 						between
 						them,
 						like so:<br>
-						<img src="images/modal-images/nami2.png" alt="An image of a charm row, with hints 2, 2."
-							loading="lazy">
+						<img src="images/modal-images/nami2.png" alt="An image of a charm row, with hints 2, 2." loading="lazy">
 						Determine which tiles must be painted until the final picture is revealed!
 					</div>
 				</div>
@@ -699,8 +691,7 @@
 						<span class="category">Style</span>
 						<ul>
 							<li>Charm selection now has the colours of each original series!</li>
-							<li>Perfect streak font size now increases with each power of 2 achieved <span
-									class="smol">(why? because it's funny :3)</span></li>
+							<li>Perfect streak font size now increases with each power of 2 achieved <span class="smol">(why? because it's funny :3)</span></li>
 						</ul><br>
 
 						<span class="modal-highlight smol">2024/07/06</span>
@@ -790,8 +781,7 @@
 						<span class="category">Style</span>
 						<ul>
 							<li>Added original charm gallery! <span class="smol">(please don't sue me nami)</span></li>
-							<li>Changed hints to be alternating colours to be authentic to the original <span
-									class="smol">and better</span> Charm Studies</li>
+							<li>Changed hints to be alternating colours to be authentic to the original <span class="smol">and better</span> Charm Studies</li>
 						</ul><br>
 
 						<span class="modal-highlight smol">2024/06/16</span>
@@ -821,8 +811,7 @@
 						<span class="category smol">Style</span>
 						<ul>
 							<li>Added middle click to highlight</li>
-							<li>Changed completion animation from rainbow GIF to custom linear gradient <span
-									class="smol">(inspired by some of
+							<li>Changed completion animation from rainbow GIF to custom linear gradient <span class="smol">(inspired by some of
 									Nami's charecters! guess who :3)</span></li>
 						</ul><br>
 
@@ -894,32 +883,32 @@
 						you
 						can
 						paint the cells they share.<br>
-						<img src="images/modal-images/tori-simple-box-1.png" alt="" loading="lazy"><br>
+						<img src="images/modal-images/tori-simple-box-1.png" alt loading="lazy"><br>
 						This only applies when the cells are shared with the same block (different runs of cells do not
 						count):<br>
-						<img src="images/modal-images/tori-simple-box-2.png" alt="" loading="lazy"><br>
+						<img src="images/modal-images/tori-simple-box-2.png" alt loading="lazy"><br>
 
 						<span class="modal-highlight">Simple spaces</span><br>
 						When a clue is complete, you can surround it with spaces. Additionally, if runs of cells can't
 						touch a
 						cell (due to an anchor of some sort), those can be crossed out.<br>
-						<img src="images/modal-images/tori-simple-space.png" alt="" loading="lazy"><br>
+						<img src="images/modal-images/tori-simple-space.png" alt loading="lazy"><br>
 
 						<span class="modal-highlight">Forcing</span><br>
 						Crossed out cells have their importance - a space in an uncompleted row/column can force a large
 						run to
 						one side or the other. Additionally, a gap too small for any run of cells can be crossed out.
-						<img src="images/modal-images/tori-forcing.png" alt="" loading="lazy"><br>
+						<img src="images/modal-images/tori-forcing.png" alt loading="lazy"><br>
 
 						<span class="modal-highlight">Glue</span><br>
 						A painted cell which is closer to the border than the length of the cell run can act as glue.
 						This
 						means
 						that the run will be forced forward.
-						<img src="images/modal-images/tori-glue-1.png" alt="" loading="lazy"><br>
+						<img src="images/modal-images/tori-glue-1.png" alt loading="lazy"><br>
 
 						A crossed out cell can also act as a border:
-						<img src="images/modal-images/tori-glue-2.png" alt="" loading="lazy"><br>
+						<img src="images/modal-images/tori-glue-2.png" alt loading="lazy"><br>
 
 						<span class="modal-highlight">Joins and splits</span><br>
 						Runs of cells can be joined if splitting the runs by crossing out the cells inbetween would
@@ -928,7 +917,7 @@
 						little space.
 						Conversely, runs of cells can be split if painting the cells between would result in a run too
 						large.
-						<img src="images/modal-images/tori-join-split.png" alt="" loading="lazy"><br>
+						<img src="images/modal-images/tori-join-split.png" alt loading="lazy"><br>
 
 						<span class="modal-highlight">Mathematical approach</span><br>
 						Doing this technique is a shortcut to the others listed above! That's your reward for going all
@@ -961,13 +950,13 @@
 								intersect (simple spaces).
 							</li>
 						</ol><br>
-						<img src="images/modal-images/tori-mathematical-approach-1.png" alt="" loading="lazy"><br>
+						<img src="images/modal-images/tori-mathematical-approach-1.png" alt loading="lazy"><br>
 						If you're using easy mode (highly recommended by the way), the sum for each row/column is
 						calculated for you, and
 						will be highlighted blue to show if you can partially paint the row/column, or green to entirely
 						paint the
 						row/column.<br>
-						<img src="images/modal-images/tori-mathematical-approach-2.png" alt="" loading="lazy"><br>
+						<img src="images/modal-images/tori-mathematical-approach-2.png" alt loading="lazy"><br>
 						This will take some of the computation off your shoulders!<br><br>
 
 						<span class="modal-highlight">That's it from me~<br>Now go paint some charms!</span>
@@ -999,10 +988,7 @@
 				}
 			};
 		</script>
-		<iframe class="player"
-			src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8"
-			title="Charm Studies OST ~ magical beats to study to ~" width="320" height="180" allow="autoplay"
-			loading="lazy">
+		<iframe class="player" src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8" title="Charm Studies OST ~ magical beats to study to ~" width="320" height="180" allow="autoplay" loading="lazy">
 		</iframe>
 	</div>
 	<script src="js/jquery-1.8.3.js"></script>
