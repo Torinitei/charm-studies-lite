@@ -1,61 +1,63 @@
 :root {
 	/* vs regex to match any hex: #(\d|[a-f]){3,8} */
 	/* new regex to match values to change: #(\d|[a-f]){3,8}(?:.(?![a-f]|\d))(?!;) */
-	--dark-background: #86233b;;
-	--dark-charm-stripe-1: #381e00;;
-	--dark-charm-stripe-2: #470012;;
-	--dark-debug-text: #ce8899;;
-	--dark-debug: #6d2235;;
-	--dark-disabled: #101010;;
-	--dark-gradient-1: #5f7da1;;
-	--dark-gradient-2: #866d92;;
-	--dark-gradient-3: #a35b6d;;
-	--dark-gradient-4: #926d80;;
-	--dark-gradient-5: #a1815c;;
-	--dark-modal-header: #ff9933;;
-	--dark-panel-border: #945f57;;
-	--dark-panel: #472600;;
-	--dark-progress-done: #75ff75;;
-	--dark-sidebar-border: #e4b3af;;
-	--dark-sidebar: #ad6778;;
-	--dark-sum-complete: #75ff75;;
-	--dark-sum-partial: #57a2ff;;
-	--dark-text: #e4b3af;;
-	--dark-button-text: ad677e;;
+	--dark-background: #86233b;
+	--dark-charm-stripe-1: #381e00;
+	--dark-charm-stripe-2: #470012;
+	--dark-debug-text: #ce8899;
+	--dark-debug: #6d2235;
+	--dark-disabled: #101010;
+	--dark-gradient-1: #5f7da1;
+	--dark-gradient-2: #866d92;
+	--dark-gradient-3: #a35b6d;
+	--dark-gradient-4: #926d80;
+	--dark-gradient-5: #a1815c;
+	--dark-gradient-all: linear-gradient(90deg, var(--dark-gradient-1), var(--dark-gradient-2), var(--dark-gradient-3), var(--dark-gradient-4), var(--dark-gradient-5));
+	--dark-modal-header: #ff9933;
+	--dark-panel-border: #945f57;
+	--dark-panel: #472600;
+	--dark-progress-done: #75ff75;
+	--dark-sidebar-border: #e4b3af;
+	--dark-sidebar: #ad6778;
+	--dark-sum-complete: #75ff75;
+	--dark-sum-partial: #57a2ff;
+	--dark-text: #e4b3af;
+	--dark-button-text: ad677e;
 
-	--light-background: #dc7891;;
-	--light-charm-stripe-1: #ffe4c6;;
-	--light-charm-stripe-2: #ffb6c8;;
-	--light-debug-text: #763042;;
-	--light-debug: #dd94a6;;
-	--light-disabled: #efefef;;
-	--light-gradient-1: #bedbff;;
-	--light-gradient-2: #f3daff;;
-	--light-gradient-3: #ffb6c8;;
-	--light-gradient-4: #ffdaed;;
-	--light-gradient-5: #ffdeb8;;
-	--light-modal-header: #cc6600;;
-	--light-panel-border: #a9736b;;
-	--light-panel: #ffdeb8;;
-	--light-progress-done: #127a0a;;
-	--light-sidebar-border: #4e1e1b;;
-	--light-sidebar: #985264;;
-	--light-sum-complete: #080;;
-	--light-sum-partial: #004ca8;;
-	--light-text: #675145;;
+	--light-background: #dc7891;
+	--light-charm-stripe-1: #ffe4c6;
+	--light-charm-stripe-2: #ffb6c8;
+	--light-debug-text: #763042;
+	--light-debug: #dd94a6;
+	--light-disabled: #efefef;
+	--light-gradient-1: #bedbff;
+	--light-gradient-2: #f3daff;
+	--light-gradient-3: #ffb6c8;
+	--light-gradient-4: #ffdaed;
+	--light-gradient-5: #ffdeb8;
+	--light-gradient-all: linear-gradient(90deg, var(--light-gradient-1), var(--light-gradient-2), var(--light-gradient-3), var(--light-gradient-4), var(--light-gradient-5));
+	--light-modal-header: #cc6600;
+	--light-panel-border: #a9736b;
+	--light-panel: #ffdeb8;
+	--light-progress-done: #127a0a;
+	--light-sidebar-border: #4e1e1b;
+	--light-sidebar: #985264;
+	--light-sum-complete: #080;
+	--light-sum-partial: #004ca8;
+	--light-text: #675145;
 
-	--universal-black: #000;;
-	--universal-near-black: #111;;
-	--universal-category-background: #efefef88;;
-	--universal-light-grey: #eee;;
-	--universal-scrollbar-corner: #dc789144;;
-	--universal-separator: #ccc;;
-	--universal-white: #fff;;
-	--universal-modal-background: #ffb6c888;;
-	--universal-prestige-background: #ff972f;;
-	--universal-prestige-border: #cc6600;;
-	--universal-button-text: #ad677e;;
 
+	--universal-black: #000;
+	--universal-near-black: #111;
+	--universal-category-background: #efefef88;
+	--universal-light-grey: #eee;
+	--universal-scrollbar-corner: #dc789144;
+	--universal-separator: #ccc;
+	--universal-white: #fff;
+	--universal-modal-background: #ffb6c888;
+	--universal-prestige-background: #ff972f;
+	--universal-prestige-border: #cc6600;
+	--universal-button-text: #ad677e;
 }
 
 @keyframes gradient {
@@ -231,7 +233,7 @@ td {
 	border-radius: 10px;
 }
 
-.footer {
+footer {
 	clear: both;
 	width: 950px;
 	margin: 0 auto;
@@ -268,41 +270,62 @@ iframe {
 
 /* DO NOT MAKE THESE VARIABLES - STATIC FOR A REASON */
 .group-astras-garden {
-	background-color: #275a6b;;
-	color: #48ada8;;
+	background-color: #275a6b;
+
+	color: #48ada8;
+
 }
 
 .group-bad-end-theater {
-	background-color: #000;;
-	color: #fff;;
+	background-color: #000;
+
+	color: #fff;
+
 }
 
 .group-contract-demon {
-	background-color: #41001d;;
-	color: #c3234b;;
+	background-color: #41001d;
+
+	color: #c3234b;
+
 }
 
 .group-nami-charms {
-	background-color: #dc7891;;
-	color: #fff;;
+	background-color: #dc7891;
+
+	color: #fff;
+
 }
 
 .group-starry-flowers {
-	background-color: #9dbdfc;;
-	color: #212c5a;;
+	background-color: #9dbdfc;
+
+	color: #212c5a;
+
 }
 
 .group-syrup-and-the-ultimate-sweet {
-	background-color: #f7e7ff;;
-	color: #353535;;
+	background-color: #f7e7ff;
+
+	color: #353535;
+
 }
 
 .group-crossover-in-stars-and-time {
-	background-color: #fff;;
-	color: #000;;
+	background-color: #fff;
+
+	color: #000;
+
 }
 
-.header {
+.group-crossover-omori {
+	background-color: #fff;
+
+	color: #000;
+
+}
+
+header {
 	clear: both;
 	width: 950px;
 	margin: 0 auto;
@@ -475,7 +498,7 @@ body.dark #puzzle.complete td.cell.s1::after {
 }
 
 body.dark #puzzle.complete.perfect {
-	background: linear-gradient(90deg, var(--dark-gradient-1), var(--dark-gradient-2), var(--dark-gradient-3), var(--dark-gradient-4), var(--dark-gradient-5));
+	background: var(--dark-gradient-all);
 	background-size: 400% 400%;
 	animation: gradient 10s ease infinite;
 }
@@ -577,11 +600,13 @@ body.dark .modal-content {
 }
 
 body.dark .modal-header {
-	color: var(--dark-modal-header);;
+	color: var(--dark-modal-header);
+
 }
 
 body.dark .modal-highlight {
-	color: var(--dark-modal-header);;
+	color: var(--dark-modal-header);
+
 }
 
 body.dark .regular-button {
@@ -650,6 +675,8 @@ body.dark select hr {
 }
 
 #oopsies {
+	width: 600px;
+	height: 680px;
 	font-size: 25px;
 }
 
@@ -671,9 +698,10 @@ body.dark select hr {
 #pause-message {
 	margin-left: auto;
 	margin-right: auto;
-	height: 650px;
-	line-height: 650px;
+	height: 680px;
+	line-height: 680px;
 	font-size: 30px;
+	display: none;
 }
 
 #pause-mode {
@@ -713,7 +741,7 @@ body.dark select hr {
 	width: fit-content;
 	height: fit-content;
 	max-width: 600px;
-	max-height: 650px;
+	max-height: 680px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-end;
@@ -790,7 +818,8 @@ body.dark select hr {
 }
 
 #puzzle td.cell:nth-child(5n + 1) {
-	border-right: 2px solid var(--dark-charm-stripe-2);;
+	border-right: 2px solid var(--dark-charm-stripe-2);
+
 }
 
 #puzzle td.key {
@@ -838,15 +867,18 @@ body.dark select hr {
 }
 
 #puzzle td:nth-child(5n + 1) {
-	border-right: 2px solid var(--dark-charm-stripe-2);;
+	border-right: 2px solid var(--dark-charm-stripe-2);
+
 }
 
 #puzzle tr:nth-child(5n + 1) td {
-	border-bottom: 2px solid var(--dark-charm-stripe-2);;
+	border-bottom: 2px solid var(--dark-charm-stripe-2);
+
 }
 
 #puzzle tr:nth-child(5n + 2) td {
-	border-top: 2px solid var(--dark-charm-stripe-2);;
+	border-top: 2px solid var(--dark-charm-stripe-2);
+
 }
 
 #puzzle tr:nth-child(even):not(:first-child) td.key.left {
@@ -906,7 +938,7 @@ body.dark select hr {
 
 #puzzle.complete.perfect {
 	/* character references:         periwinkle,	astragalus, cassia,		pastille, 	senna	*/
-	background: linear-gradient(90deg, var(--light-gradient-1), var(--light-gradient-2), var(--light-gradient-3), var(--light-gradient-4), var(--light-gradient-5));
+	background: var(--light-gradient-all);
 	background-size: 400% 400%;
 	animation: gradient 10s ease infinite;
 	width: fit-content;
@@ -1076,4 +1108,122 @@ button:disabled {
 	background-color: var(--light-disabled);
 	border-color: var(--light-disabled);
 	color: var(--dark-disabled);
+}
+
+.achievement-container {
+	width: 850px;
+	text-align: left;
+	max-height: 110px;
+	color: var(--light-text);
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+
+body.dark .achievement-container {
+	color: var(--dark-text);
+}
+
+.achievement-container::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.achievement-icon {
+	float: left;
+	width: 100px;
+	height: 100px;
+	border: 5px double var(--dark-charm-stripe-2);
+	margin-right: 10px;
+	filter: grayscale(100%);
+	color: var(--light-text);
+	font-size: 30px;
+}
+
+.done>.achievement-icon {
+	filter: grayscale(0);
+}
+
+body.dark .achievement-icon {
+	border-color: var(--light-charm-stripe-1);
+}
+
+.achievement-title {
+	font-size: 21px;
+	color: var(--light-text);
+	font-weight: bold;
+}
+
+.done>.achievement-title {
+	color: var(--light-progress-done)
+}
+
+body.dark .done>.achievement-title {
+	color: var(--dark-progress-done)
+}
+
+body.dark .achievement-title {
+	color: var(--dark-text);
+}
+
+.achievement-subtext {
+	font-size: 15px;
+	color: #b89e93;
+	font-style: italic;
+}
+
+body.dark .achievement-subtext {
+	color: #6c5247;
+}
+
+#cosmetic-title {
+	width: fit-content(800px);
+}
+
+#XPTitle {
+	font-style: italic;
+}
+
+#prestigeTitle {
+	font-style: italic;
+}
+
+#pause-timer {
+	display: contents;
+}
+
+progress {
+	appearance: none;
+	-webkit-appearance: none;
+}
+
+::-webkit-progress-bar {
+	background-color: var(--light-sidebar);
+	border-radius: 5px;
+	border: 2px solid var(--light-sidebar-border);
+}
+
+body.dark ::-webkit-progress-bar {
+	background-color: var(--dark-sidebar);
+	border-color: var(--dark-sidebar-border);
+}
+
+::-webkit-progress-value {
+	background-color: var(--light-charm-stripe-2);
+}
+
+body.dark ::-webkit-progress-value {
+	background-color: var(--light-charm-stripe-1);
+}
+
+.done>.achievement-progress-status {
+	font-weight: bold;
+}
+
+.done> ::-webkit-progress-value {
+	background: var(--light-gradient-all);
+}
+
+body.dark .done> ::-webkit-progress-value {
+	background: var(--dark-gradient-all);
 }
