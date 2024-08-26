@@ -8,7 +8,8 @@
 	<link type="text/css" href="css/picross.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com" rel="preconnect">
 	<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+		rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<link href="images/icon-stuff/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
 	<link type="image/png" href="images/icon-stuff/favicon-32x32.png" rel="icon" sizes="32x32">
 	<link type="image/png" href="images/icon-stuff/favicon-16x16.png" rel="icon" sizes="16x16">
@@ -44,7 +45,8 @@
 				&emsp;<span class="tooltip">XP<span class="tooltiptext smol">You gain experience for each charm you do.
 						Accuracy and progression award you a proportion of the maximum XP for that charm,
 						which is determined by the size and individual complexity of the charm.</span></span>&ensp;
-				<span id="currentXP">xxx</span>/<span id="nextXP">xxx</span> <span class="tooltip"><span class="smol">+<span id="bufferedXP">xx</span><span class="tooltiptext">If you give up partway
+				<span id="currentXP">xxx</span>/<span id="nextXP">xxx</span> <span class="tooltip"><span
+						class="smol">+<span id="bufferedXP">xx</span><span class="tooltiptext">If you give up partway
 							through a charm (hit New Charm before you solve),
 							a portion of your experience is stored in a buffer.
 							This is given to you the next time you solve a charm (perfect or not).
@@ -118,7 +120,8 @@
 						<label for="customSeed">Custom ID</label>
 						<form id="customForm">
 							<input id="customSeed" type="text" aria-label="Custom ID">
-							<button class="regular-button" id="customGame" type="submit" onclick="resetCharmTimer();">Custom
+							<button class="regular-button" id="customGame" type="submit"
+								onclick="resetCharmTimer();">Custom
 								Charm</button>
 						</form>
 					</div>
@@ -128,8 +131,9 @@
 				<h1 class="title">Stats</h1>
 				<div class="control-group">
 					<h2>Time:</h2>
-					<button class="regular-button" id="pause-timer" onclick="toggleTimer('via manual button');">❚❚</button>
-					
+					<button class="regular-button" id="pause-timer"
+						onclick="toggleTimer('via manual button');">❚❚</button>
+
 					<span class="stat" id="charmTimer">=^.^=</span>
 					<div class="control-section" style="padding: 3px 0 0 3px;">
 						<input id="showTimer" type="checkbox" checked>
@@ -141,7 +145,8 @@
 					<div class="custom"></div>
 
 					<h2>Perfect Charms:</h2>
-					<span class="stat"><span class="stat" id="perfectCharms">x</span>/<span class="stat" id="completeCharms">x</span> (<span class="stat" id="pcRatio">xx.x%</span>)</span>
+					<span class="stat"><span class="stat" id="perfectCharms">x</span>/<span class="stat"
+							id="completeCharms">x</span> (<span class="stat" id="pcRatio">xx.x%</span>)</span>
 
 					<div class="custom"></div>
 					<h2>Charm XP:</h2>
@@ -348,20 +353,25 @@
 					<div class="modal-content">
 						<div class="modal-header">~ Credits ~</div>
 						<div class="modal-body">
-							Original designed and written by <a href="http://liouh.com/home/">Henry Liou</a>. <a class="modal-highlight" href="https://www.paypal.com/paypalme/liouh">Buy him a
+							Original designed and written by <a href="http://liouh.com/home/">Henry Liou</a>. <a
+								class="modal-highlight" href="https://www.paypal.com/paypalme/liouh">Buy him a
 								coffee!</a><br>
-							Edited on and further developed by <a href="https://torinitei.carrd.co/">Torinitei</a>. <a class="modal-highlight smol" href="https://www.youtube.com/watch?v=msMkeJTEGuU">(thank
+							Edited on and further developed by <a href="https://torinitei.carrd.co/">Torinitei</a>. <a
+								class="modal-highlight smol" href="https://www.youtube.com/watch?v=msMkeJTEGuU">(thank
 								you
 								so
 								much a-for-to playing my game)</a><br>
-							Themed after <a href="https://nomnomnami.com/">NomNomNami</a>'s <a href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>. <a class="modal-highlight" href="https://www.patreon.com/nomnomnami">Support her amazing
+							Themed after <a href="https://nomnomnami.com/">NomNomNami</a>'s <a
+								href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>. <a
+								class="modal-highlight" href="https://www.patreon.com/nomnomnami">Support her amazing
 								works!</a><br><br>
 
 							<span class="modal-highlight">Special Thanks</span><br>
 							<a href="https://www.youtube.com/channel/UCoyphXvpFSIXOSoHzHrqM7A">Sif</a>, for inspiring
 							and encouraging me
 							to make this website!<br>
-							Sudoku Crusher, for their <a href="https://www.sentohsharyoga.com/puzzle/nonogram/text/free_size">nonogram online
+							Sudoku Crusher, for their <a
+								href="https://www.sentohsharyoga.com/puzzle/nonogram/text/free_size">nonogram online
 								solver!</a>
 						</div>
 					</div>
@@ -373,12 +383,14 @@
 						<div class="modal-body">
 							Charms can be solved with the magic of logic!<br>
 							The numbers on the sides represent consecutive painted tiles found in each line.<br>
-							<img src="images/modal-images/nami1.png" alt="An image of a charm row, with hint 3." loading="lazy">
+							<img src="images/modal-images/nami1.png" alt="An image of a charm row, with hint 3."
+								loading="lazy">
 							When there are multiple numbers in a line, it means there must be at least one blank space
 							between
 							them,
 							like so:<br>
-							<img src="images/modal-images/nami2.png" alt="An image of a charm row, with hints 2, 2." loading="lazy">
+							<img src="images/modal-images/nami2.png" alt="An image of a charm row, with hints 2, 2."
+								loading="lazy">
 							Determine which tiles must be painted until the final picture is revealed!
 						</div>
 					</div>
@@ -389,6 +401,36 @@
 					<div class="modal-content">
 						<div class="modal-header">Update Log</div>
 						<div class="modal-body">
+							<span class="modal-highlight">2024/08/26 ~ Waiting for something to happen?</span><br>
+							<span class="category">Charms</span>
+							<span class="category smol">Quality of Life</span>
+							<span class="category">Style</span><br><br>
+
+							<span class="modal-highlight">...well. It's been a while, hasn't it?</span><br>
+							Charm Studies lite has been fun to work on. By no means am I planning on stopping any of
+							this, not nearly any time soon.
+							However, there's been a lot of technical debt that's built up over the course of this.<br>
+							There will most likely not be any updates for a long while after this. While the site in its
+							current state works, there's a lot of development shortcomings I want to try and overcome,
+							or at least mitigate.<br>
+							<span class="modal-highlight">A large portion of time will be spent on refactoring and
+								rewriting the code for
+								Charm Studies lite.</span>
+							While I cannot guarantee that it'll be successful even in the slightest, I want to try.
+							I will try fixing things here and there over time.<br>
+							<span class="modal-highlight">As my free time will significantly reduce soon, updates will be few and far between.</span><br>
+							Thank you for playing Charm Studies lite so far. I hope I won't let you down.<br><br>
+
+							With that being said, enjoy this update for the meantime:
+
+							<ul>
+								<li>Moving in from FARAWAY TOWN, say hello to the main characters of OMORI! Set a dreamy stage for SUNNY, AUBREY, KEL, HERO, BASIL, MARI, and of course, OMORI!</li>
+								<li>Added extra clarification for certain toggles and XP info</li>
+								<li>Minor style adjustments</li>
+								<li>Refactored charm gallery function as individual module</li>
+							</ul><br>
+
+
 							<span class="modal-highlight">2024/08/12 ~ Good morning~!</span><br>
 							<span class="category">Charms</span>
 							<span class="category">Quality of Life</span>
@@ -532,7 +574,8 @@
 							<span class="category">Style</span>
 							<ul>
 								<li>Charm selection now has the colours of each original series!</li>
-								<li>Perfect streak font size now increases with each power of 2 achieved <span class="smol">(why? because it's funny :3)</span></li>
+								<li>Perfect streak font size now increases with each power of 2 achieved <span
+										class="smol">(why? because it's funny :3)</span></li>
 							</ul><br>
 
 							<span class="modal-highlight smol">2024/07/06</span>
@@ -627,7 +670,8 @@
 							<ul>
 								<li>Added original charm gallery! <span class="smol">(please don't sue me nami)</span>
 								</li>
-								<li>Changed hints to be alternating colours to be authentic to the original <span class="smol">and better</span> Charm Studies</li>
+								<li>Changed hints to be alternating colours to be authentic to the original <span
+										class="smol">and better</span> Charm Studies</li>
 							</ul><br>
 
 							<span class="modal-highlight smol">2024/06/16</span>
@@ -658,7 +702,8 @@
 							<span class="category smol">Style</span>
 							<ul>
 								<li>Added middle click to highlight</li>
-								<li>Changed completion animation from rainbow GIF to custom linear gradient <span class="smol">(inspired by some of
+								<li>Changed completion animation from rainbow GIF to custom linear gradient <span
+										class="smol">(inspired by some of
 										Nami's charecters! guess who :3)</span></li>
 							</ul><br>
 
@@ -710,7 +755,8 @@
 								<li>Initial style adjustments</li>
 							</ul><br>
 
-							<span class="modal-highlight">You've reached the end!<br>Have a cookie :3 <a id="theCookieOfAllTime">🍪</a></span>
+							<span class="modal-highlight">You've reached the end!<br>Have a cookie :3 <a
+									id="theCookieOfAllTime">🍪</a></span>
 						</div>
 					</div>
 				</div>
@@ -722,7 +768,8 @@
 							Hey there! Tori, Charm Studies lite dev here.<br>
 							Here are some patterns that you can spot to help you paint these charms!<br>
 
-							Adapted from <a href="https://en.wikipedia.org/wiki/Nonogram#Solution_techniques">Wikipedia's
+							Adapted from <a
+								href="https://en.wikipedia.org/wiki/Nonogram#Solution_techniques">Wikipedia's
 								nonogram
 								solution
 								techniques</a>.<br><br>
@@ -830,7 +877,10 @@
 				</div>
 			</div>
 			<br>
-			<iframe class="player" src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8" title="Charm Studies OST ~ magical beats to study to ~" width="320" height="180" allow="autoplay" loading="lazy">
+			<iframe class="player"
+				src="https://www.youtube-nocookie.com/embed/N-plwzKHSc8?autoplay=1&loop=1&modestbranding=1&rel=0&iv_load_policy=3&fs=0&playlist=N-plwzKHSc8"
+				title="Charm Studies OST ~ magical beats to study to ~" width="320" height="180" allow="autoplay"
+				loading="lazy">
 			</iframe>
 		</footer>
 	</div>
