@@ -189,7 +189,7 @@ a:hover {
 
 .controls {
 	float: left;
-	height: 680px;
+	height: 700px;
 	width: 150px;
 	background-color: var(--light-sidebar);
 	border: 2px solid var(--light-sidebar-border);
@@ -676,7 +676,7 @@ body.dark select hr {
 
 #oopsies {
 	width: 600px;
-	height: 680px;
+	height: 700px;
 	font-size: 25px;
 }
 
@@ -688,7 +688,7 @@ body.dark select hr {
 
 .other {
 	float: right;
-	height: 680px;
+	height: 700px;
 	width: 150px;
 	background-color: var(--light-sidebar);
 	border: 2px solid var(--light-sidebar-border);
@@ -698,8 +698,8 @@ body.dark select hr {
 #pause-message {
 	margin-left: auto;
 	margin-right: auto;
-	height: 680px;
-	line-height: 680px;
+	height: 700px;
+	line-height: 700px;
 	font-size: 30px;
 	display: none;
 }
@@ -741,7 +741,7 @@ body.dark select hr {
 	width: fit-content;
 	height: fit-content;
 	max-width: 600px;
-	max-height: 680px;
+	max-height: 700px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-end;
@@ -1032,7 +1032,7 @@ body.dark td:has(> .smol.full) {
 
 .stats {
 	float: right;
-	height: 680px;
+	height: 700px;
 	width: 150px;
 	background-color: var(--light-sidebar);
 	border: 2px solid var(--light-sidebar-border);

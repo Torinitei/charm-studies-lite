@@ -62,6 +62,8 @@ $(function () {
 				autoPauseMode: true,
 				timerDisplayMode: true,
 				charmExhaustedID: "",
+				// optimisation update
+				noSumMode: false,
 				// achievements update
 				/* achievements: [] */
 			}
@@ -101,6 +103,8 @@ $(function () {
 				localStorage['charmStudiesLite.timer.autoPauseMode'] = JSON.stringify(this.get('autoPauseMode'));
 				localStorage['charmStudiesLite.timer.timerDisplayMode'] = JSON.stringify(this.get('timerDisplayMode'));
 				localStorage['charmStudiesLite.stats.EXP.charmExhaustedID'] = JSON.stringify(this.get('charmExhaustedID'));
+				// optimisations update
+				localStorage['charmStudiesLite.noSumMode'] = JSON.stringify(this.get('noSumMode'));
 				// achievements update
 				/* updateAchievementList.call(this);
 				localStorage['charmStudiesLite.achievements'] = JSON.stringify(this.get('achievements')); */
@@ -150,6 +154,8 @@ $(function () {
 			const autoPauseMode = JSON.parse(safeLocalStorage('charmStudiesLite.timer.autoPauseMode'));
 			const timerDisplayMode = JSON.parse(safeLocalStorage('charmStudiesLite.timer.timerDisplayMode'));
 			const charmExhaustedID = JSON.parse(safeLocalStorage('charmStudiesLite.stats.EXP.charmExhaustedID'));
+			// optimisations update
+			const noSumMode = JSON.parse(safeLocalStorage('charmStudiesLite.noSumMode'));
 			// achievements update
 			/* const achievements = JSON.parse(safeLocalStorage('charmStudiesLite.achievements')); */
 
@@ -180,6 +186,8 @@ $(function () {
 				autoPauseMode: autoPauseMode,
 				timerDisplayMode: timerDisplayMode,
 				charmExhaustedID: charmExhaustedID,
+				// optimisations update
+				noSumMode: noSumMode,
 				// achievements update
 				/* achievements: achievements */
 			});
@@ -414,6 +422,7 @@ $(function () {
 				"change #dark": "changeDarkMode",
 				"change #easy": "changeEasyMode",
 				"change #showTimer": "changeTimerDisplayMode",
+				"change #noSum": "changeNoSumMode",
 				/* "click #achievements": "achievementHandler", */
 				"click #customSeed": function (e) {
 					e.currentTarget.select();
@@ -494,6 +503,9 @@ $(function () {
 		},
 		changeTimerDisplayMode: function () {
 			this.updateMode('#showTimer', 'timerDisplayMode');
+		},
+		changeNoSumMode: function () {
+			this.updateMode('#noSum', 'noSumMode');
 		},
 
 		changeDimensions: function (seed) {
@@ -1201,6 +1213,7 @@ $(function () {
 			let charmHeight = this.model.get('dimensionHeight');
 
 			function processHints(hints, isEasyMode, dimension) {
+				let noSumMode = this.model.get('noSumMode');
 				return hints.map(hintArray => {
 					let processedHints = hintArray.map(value => {
 						if (isEasyMode || this.model.get('complete')) {
@@ -1212,7 +1225,9 @@ $(function () {
 
 					if (isEasyMode) {
 						let space = hintArray.reduce((acc, cur) => acc + cur, hintArray.length - 1);
-						processedHints.push(this.charmSum(hintArray, space, dimension));
+						if (!noSumMode) {
+							processedHints.push(this.charmSum(hintArray, space, dimension));
+						}
 					}
 					return processedHints;
 				});
