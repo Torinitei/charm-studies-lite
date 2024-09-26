@@ -4,25 +4,41 @@
 <head>
 	<title>Charm Studies lite</title>
 	<meta charset="utf-8">
-	<link type="text/css" href="css/reset.css" rel="stylesheet">
-	<link type="text/css" href="css/picross.css" rel="stylesheet">
+	<link rel="canonical" href="https://torinitei.github.io/charm-studies-lite">
+
+	<link type="text/css" href="css/reset.css" rel="preload" as="style" onload="this.rel='stylesheet'">
+	<link type="text/css" href="css/picross.css" rel="preload" as="style" onload="this.rel='stylesheet'">
+
 	<link href="https://fonts.googleapis.com" rel="preconnect">
 	<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
 		rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+	<link href="js/dependencies/jquery-3.7.1-min.js" rel="preload" as="script">
+	<link href="js/dependencies/underscore-umd-min.js" rel="preload" as="script">
+	<link href="js/dependencies/backbone-min.js" rel="preload" as="script">
+	<link href="js/dependencies/seedrandom-min.js" rel="preload" as="script">
+
+	<link crossorigin="anonymous" href="js/modules/utilities.js" rel="preload" as="script">
+	<link crossorigin="anonymous" href="js/modules/charmgallery.js" rel="preload" as="script">
+	<link crossorigin="anonymous" href="js/modules/achievementhandler.js" rel="preload" as="script">
+	<link crossorigin="anonymous" href="js/picross.js" rel="preload" as="script">
+
 	<link href="images/icon-stuff/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
 	<link type="image/png" href="images/icon-stuff/favicon-32x32.png" rel="icon" sizes="32x32">
 	<link type="image/png" href="images/icon-stuff/favicon-16x16.png" rel="icon" sizes="16x16">
 	<link href="images/icon-stuff/site.webmanifest" rel="manifest">
 	<link href="images/icon-stuff/safari-pinned-tab.svg" rel="mask-icon" color="#5bbad5">
 	<link href="images/icon-stuff/favicon.ico" rel="shortcut icon">
+
 	<meta name="msapplication-TileColor" content="#b91d47">
 	<meta name="msapplication-config" content="images/icon-stuff/browserconfig.xml">
 	<meta name="theme-color" content="#ffdeb8">
-	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 	<meta name="viewport" content="width=device-width">
-	<meta name="description" content="Online picross variant themed after NomNomNami's Charm Studies!">
+	<meta name="description" content="Online picross variant themed after NomnomNami's Charm Studies!">
 </head>
 
 <body onfocus="toggleTimer();" onblur="toggleTimer();">
@@ -46,8 +62,7 @@
 						Accuracy and progression award you a proportion of the maximum XP for that charm,
 						which is determined by the size and individual complexity of the charm.</span></span>&ensp;
 				<span id="currentXP">xxx</span>/<span id="nextXP">xxx</span> <span class="tooltip"><span
-						class="smol">+<span id="bufferedXP">xx</span><span class="tooltiptext">If you give up partway
-							through a charm (hit New Charm before you solve),
+						class="smol">+<span id="bufferedXP">xx</span><span class="tooltiptext">If you give up partway through a charm (hit New Charm before you solve),
 							a portion of your experience is stored in a buffer.
 							This is given to you the next time you solve a charm (perfect or not).
 						</span></span></span>&ensp;
@@ -79,7 +94,7 @@
 								with dark mode being the luminous opposite.</span>
 						</label><br>
 						<input id="easy" type="checkbox" checked>
-						<label class="tooltip" for="easy">✾ Easy mode
+						<label class="tooltip" for="easy">✿ Easy mode
 							<span class="tooltiptext">Toggles crossouts (which keep track of which columns/rows you've
 								completed),
 								and toggles sums (which can be used for logical deduction).
@@ -89,11 +104,10 @@
 						<input id="autoPause" type="checkbox" checked>
 						<label class="tooltip" for="autoPause">❚❚ Auto-pause
 							<span class="tooltiptext">Auto-pauses the charm when you switch windows, tab out, or
-								interact
-								with the OST.
+								interact with the OST.
 								Click on anywhere else on the page, or manually unpause, to solve this.
 
-								NOTE: Does not work on the Progressive Web App.
+								NOTE: PWA and non-Chromium browser users may have issues with this feature.
 							</span>
 						</label>
 					</div>
@@ -266,7 +280,6 @@
 					<h2>Debug</h2>
 					<button class="debug-button" onclick="localStorage.clear(); location.reload();">Clear
 						Storage</button>
-					<button class="debug-button" id="statReset">Stat Reset</button>
 				</div>
 			</div>
 			<div id="puzzle">
@@ -291,12 +304,12 @@
 				<button class="footer-button" id="credits" data-modal="credits-modal">Credits</button>
 				<button class="footer-button" id="tutorial" data-modal="tutorial-modal">Nami's Tutorial</button>
 				<button class="footer-button" id="update-log" data-modal="update-log-modal">Update Log</button>
+				<!-- <button class="footer-button" id="settings" data-modal="settings-modal">Settings</button> -->
 				<button class="footer-button" id="tori-tips" data-modal="tori-tips-modal">Tori's Tips</button>
 			</div>
 
 			<div id="modals">
-				<!--
-				<div class="modal" id="achievements-modal">
+				<!-- <div class="modal" id="achievements-modal">
 					<div class="modal-content">
 						<div class="modal-header">~ Achievements ~
 							<br><button class="regular-button" id="updateAchievements">Update Achievements</button>
@@ -335,8 +348,7 @@
 
 						</div>
 					</div>
-				</div>
-				-->
+				</div> -->
 
 				<div class="modal" id="controls-modal">
 					<div class="modal-content">
@@ -353,15 +365,16 @@
 					<div class="modal-content">
 						<div class="modal-header">~ Credits ~</div>
 						<div class="modal-body">
-							Original designed and written by <a href="http://liouh.com/home/">Henry Liou</a>. <a
+							<a href="https://liouh.com/picross/">Original</a> designed and written by <a href="http://liouh.com/home/">Henry
+								Liou</a>. <a
 								class="modal-highlight" href="https://www.paypal.com/paypalme/liouh">Buy him a
 								coffee!</a><br>
 							Edited on and further developed by <a href="https://torinitei.carrd.co/">Torinitei</a>. <a
-								class="modal-highlight smol" href="https://www.youtube.com/watch?v=msMkeJTEGuU">(thank
+								class="modal-highlig	ht smol" href="https://www.youtube.com/watch?v=msMkeJTEGuU">(thank
 								you
 								so
 								much a-for-to playing my game)</a><br>
-							Themed after <a href="https://nomnomnami.com/">NomNomNami</a>'s <a
+							Themed after and uses mechanics from <a href="https://nomnomnami.com/">NomnomNami</a>'s <a
 								href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>. <a
 								class="modal-highlight" href="https://www.patreon.com/nomnomnami">Support her amazing
 								works!</a><br><br>
@@ -384,13 +397,13 @@
 							Charms can be solved with the magic of logic!<br>
 							The numbers on the sides represent consecutive painted tiles found in each line.<br>
 							<img src="images/modal-images/nami1.png" alt="An image of a charm row, with hint 3."
-								loading="lazy">
+								width="550" height="130" loading="lazy">
 							When there are multiple numbers in a line, it means there must be at least one blank space
 							between
 							them,
 							like so:<br>
 							<img src="images/modal-images/nami2.png" alt="An image of a charm row, with hints 2, 2."
-								loading="lazy">
+								width="550" height="130" loading="lazy">
 							Determine which tiles must be painted until the final picture is revealed!
 						</div>
 					</div>
@@ -401,9 +414,31 @@
 					<div class="modal-content">
 						<div class="modal-header">Update Log</div>
 						<div class="modal-body">
+							<span class="modal-highlight">2024/09/26 ~ Optimisations!</span><br>
+							<span class="category">Gameplay</span>
+							<span class="category">Quality of Life</span>
+							<span class="category">Style</span><br><br>
+
+							<span class="modal-highlight">Optimisations have arrived! <span class="smol">(well at least some)</span></span>
+							<ul>
+								<li>Major reworking and refactoring to improve performance!</li>
+								<li>Dependencies updated and switched to their minified versions for faster loading times!</li>
+								<li>Cell selection count now only shows on first and last cell (for performance and aesthetics)</li>
+								<li>Buffed XP for charms with less than half the board filled (from &times;1.01/cell to &times;1.025/cell)</li>
+								<li>Reworked charm sums to no longer shift content when cells complete</li>
+								<li>Slight style changes to easy mode to more clearly distinguish meaningful hints</li>
+								<li>Preparations made for achievement system</li>
+							</ul><br>
+							<span class="modal-highlight">Current plans for the future:</span>
+							<ul>
+								<li>Further refactoring and modularising scripts</li>
+								<li>Adding more charms! OneShot being considered for next indie crossover :3</li>
+								<li>Implementation and continual addition of achievements</li>
+							</ul><br><br>
+
 							<span class="modal-highlight">2024/08/26 ~ Waiting for something to happen?</span><br>
 							<span class="category">Charms</span>
-							<span class="category smol">Quality of Life</span>
+							<span class="category">Quality of Life</span>
 							<span class="category">Style</span><br><br>
 
 							<span class="modal-highlight">...well. It's been a while, hasn't it?</span><br>
@@ -418,13 +453,15 @@
 								Charm Studies lite.</span>
 							While I cannot guarantee that it'll be successful even in the slightest, I want to try.
 							I will try fixing things here and there over time.<br>
-							<span class="modal-highlight">As my free time will significantly reduce soon, updates will be few and far between.</span><br>
+							<span class="modal-highlight">As my free time will significantly reduce soon, updates will
+								be few and far between.</span><br>
 							Thank you for playing Charm Studies lite so far. I hope I won't let you down.<br><br>
 
 							With that being said, enjoy this update for the meantime:
 
 							<ul>
-								<li>Moving in from FARAWAY TOWN, say hello to the main characters of OMORI! Set a dreamy stage for SUNNY, AUBREY, KEL, HERO, BASIL, MARI, and of course, OMORI!</li>
+								<li>Moving in from FARAWAY TOWN, say hello to the main characters of OMORI! Set a dreamy
+									stage for SUNNY, AUBREY, KEL, HERO, BASIL, MARI, and of course, OMORI!</li>
 								<li>Added extra clarification for certain toggles and XP info</li>
 								<li>Minor style adjustments</li>
 								<li>Refactored charm gallery function as individual module</li>
@@ -511,7 +548,7 @@
 										is
 										nice)</span></li>
 								<li>Reworked charm addition logs to be more special~</li>
-								<li>Added support links for Henry Liouh and NomNomNami in the credits (they both deserve
+								<li>Added support links for Henry Liouh and NomnomNami in the credits (they both deserve
 									it
 									go
 									give them money)</li>
@@ -543,7 +580,6 @@
 							<ul>
 								<li>Text casing now matches that of the original Charm Studies</li>
 								<li>Charms now autocomplete when done perfectly!</li>
-								<li><span class="smol">...someone showed up? woah</span></li>
 							</ul><br>
 
 							<span class="modal-highlight">2024/07/19 ~ PWA support!</span><br>
@@ -566,7 +602,7 @@
 							<span class="category">Quality of Life</span>
 							<ul>
 								<li>New and improved tooltips!</li>
-								<li>New charm added, say hi to Vinegar! (under Astra's Garden for now)</li>
+								<li>New charm added, be nice to Vinegar! (under Astra's Garden for now)</li>
 								<li>Show/hide timer option added</li>
 							</ul><br>
 
@@ -637,7 +673,7 @@
 							<ul>
 								<li>Added perfect streak and charm completion statistics!</li>
 								<li>Added Google Analytics tag <span class="smol">(i just wanted to see how many people
-										visited)</span></li>
+										visited, removed now)</span></li>
 								<li>Added dark mode!</li>
 							</ul><br>
 
@@ -660,7 +696,7 @@
 									and TRAGEDY!</li>
 								<li>Starry Flowers charm (game logo) added</li>
 								<li>Initial stats local storage set up</li>
-								<li>Debug section added <span class="smol">(to correct my mistakes ¯/_(ツ)_/¯)</span>
+								<li>Debug section added <span class="smol">(to correct my mistakes ¯\_(ツ)_/¯)</span>
 								</li>
 							</ul><br>
 
@@ -760,6 +796,22 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- <div class="modal" id="settings-modal">
+					<div class="modal-content">
+						<div class="modal-header">Settings</div>
+						<div class="modal-body">
+							<span class="modal-highlight">Save</span><br>
+							<button class="regular-button" id="exportSave">Export Save</button><br>
+							<span class="smol">localStorage will copy to clipboard! Save it somewhere.</span><br><br>
+							<form id="saveForm" autocomplete="off" onsubmit="return false">
+								<button class="regular-button" id="importSave">Import Save</button>
+								<input id="inputSave" type="text" aria-label="Save Data">
+							</form>
+							<span class="smol">Put your save text in the input above.</span><br>
+						</div>
+					</div>
+				</div> -->
 
 				<div class="modal" id="tori-tips-modal">
 					<div class="modal-content">
@@ -987,17 +1039,10 @@
 					'customGame'), document.getElementById('galleryStudy')
 			]; // disallow charm modify actions
 
-			if (timerPlaying) {
-				pauseCharmTimer();
-				pauseButton.innerHTML = "▶";
-				puzzle.style.display = "none";
-				pauseMessage.style.display = "block";
-			} else {
-				playCharmTimer();
-				pauseButton.innerHTML = "❚❚";
-				puzzle.style.display = "flex";
-				pauseMessage.style.display = "none";
-			}
+			(timerPlaying) ? pauseCharmTimer(): playCharmTimer();
+			pauseButton.innerHTML = (timerPlaying) ? "▶" : "❚❚";
+			puzzle.style.display = (timerPlaying) ? "none" : "flex";
+			pauseMessage.style.display = (timerPlaying) ? "block" : "none";
 
 			timerPlaying = !timerPlaying;
 			toggleButtons.forEach((button) => button.disabled = !button.disabled);
@@ -1149,12 +1194,14 @@
 			}
 		};
 	</script>
-	<script src="js/jquery-1.8.3.js"></script>
-	<script src="js/underscore.js"></script>
-	<script src="js/backbone.js"></script>
-	<script src="js/seedrandom.js"></script>
-	<script src="js/charmgallery.js" type="module"></script>
-	<script src="js/picross.js" type="module"></script>
+	<script src="js/dependencies/jquery-3.7.1-min.js" defer></script>
+	<script src="js/dependencies/underscore-umd-min.js" defer></script>
+	<script src="js/dependencies/backbone-min.js" defer></script>
+	<script src="js/dependencies/seedrandom-min.js" defer></script>
+	<script src="js/modules/utilities.js" type="module" defer></script>
+	<script src="js/modules/achievementhandler.js" type="module" defer></script>
+	<script src="js/modules/charmgallery.js" type="module" defer></script>
+	<script src="js/picross.js" type="module" defer></script>
 </body>
 
 </html>

@@ -22,7 +22,7 @@
 	--dark-sum-complete: #75ff75;
 	--dark-sum-partial: #57a2ff;
 	--dark-text: #e4b3af;
-	--dark-button-text: ad677e;
+	--dark-button-text: #ad677e;
 
 	--light-background: #dc7891;
 	--light-charm-stripe-1: #ffe4c6;
@@ -746,6 +746,7 @@ body.dark select hr {
 	flex-wrap: wrap;
 	justify-content: flex-end;
 	align-content: center;
+	will-change: auto;
 }
 
 #puzzle td.cell {
@@ -755,10 +756,11 @@ body.dark select hr {
 	content: "";
 	text-align: center;
 	vertical-align: middle;
+	font-weight: bold;
 }
 
 #puzzle td.cell.hover {
-	border: 3px solid #ff8a29;
+	border: 3px solid #ff8a29 !important;
 }
 
 
@@ -993,18 +995,34 @@ body.dark select hr {
 	width: 120px;
 }
 
+td:has(> .smol.partial) {
+	color: var(--light-sum-partial);
+}
+
+td:has(> .smol.full) {
+	color: var(--light-sum-complete);
+}
+
+body.dark td:has(> .smol.partial) {
+	color: var(--dark-sum-partial);
+}
+
+body.dark td:has(> .smol.full) {
+	color: var(--dark-sum-complete);
+}
+
 .smol {
 	font-size: 70%;
 }
 
 .smol.full {
-	color: var(--light-sum-complete);
 	text-decoration: underline;
 }
 
 .smol.partial {
-	color: var(--light-sum-partial);
+	text-decoration: dotted underline;
 }
+
 
 #solve {
 	width: 121.33px;

@@ -1,5 +1,24 @@
-// let me be clear when i say this changes
-import { findCharmInGallery } from "./charmgallery.js";
+import {
+	isCharminGallery,
+	getCharmSolveInformation,
+	getCharmDimensions,
+	testCharmPlayability
+} from "./modules/charmgallery.js";
+/* import {
+	checkAchievementCompletion,
+	renderAchievements,
+	updateAchievementList
+} from "./modules/achievementhandler.js"; */
+/* import {
+	exportSave,
+	importSave
+} from "./modules/saveload.js" */
+import {
+	round25,
+	nthRoot,
+	romanize,
+	nFormatter
+} from "./modules/utilities.js";
 
 $(function () {
 
@@ -13,7 +32,6 @@ $(function () {
 	const expCalcPower = 2;
 	const expCalcBase = 400;
 	const expCalcPrestigeFactor = 0.01;
-
 
 	let PuzzleModel = Backbone.Model.extend({
 
@@ -45,7 +63,7 @@ $(function () {
 				timerDisplayMode: true,
 				charmExhaustedID: "",
 				// achievements update
-				// achievements: []
+				/* achievements: [] */
 			}
 		},
 
@@ -53,10 +71,11 @@ $(function () {
 			this.on('change', this.save);
 		},
 
+		/*  >>> DO NOT OPTIMISE ZONE <<< */
 		save: function () {
 			if (localStorageSupport()) {
 				localStorage['picross2.saveVersion'] = saveVersion;
-
+ 
 				localStorage['picross2.dimensionWidth'] = JSON.stringify(this.get('dimensionWidth'));
 				localStorage['picross2.dimensionHeight'] = JSON.stringify(this.get('dimensionHeight'));
 				localStorage['picross2.state'] = JSON.stringify(this.get('state'));
@@ -83,8 +102,8 @@ $(function () {
 				localStorage['charmStudiesLite.timer.timerDisplayMode'] = JSON.stringify(this.get('timerDisplayMode'));
 				localStorage['charmStudiesLite.stats.EXP.charmExhaustedID'] = JSON.stringify(this.get('charmExhaustedID'));
 				// achievements update
-				// this.updateAchievementList();
-				// localStorage['charmStudiesLite.achievements'] = JSON.stringify(this.get('achievements'));
+				/* updateAchievementList.call(this);
+				localStorage['charmStudiesLite.achievements'] = JSON.stringify(this.get('achievements')); */
 			}
 		},
 
@@ -101,8 +120,8 @@ $(function () {
 				if (localStorage[saveKey] != 'undefined' && localStorage[saveKey] !== undefined) {
 					return localStorage[saveKey];
 				}
-				defaultKey = (saveKey.split(".")).at(-1);
-				newKey = JSON.stringify(defaults[defaultKey])
+				let defaultKey = (saveKey.split(".")).at(-1);
+				let newKey = JSON.stringify(defaults[defaultKey])
 				return newKey;
 			}
 
@@ -132,7 +151,7 @@ $(function () {
 			const timerDisplayMode = JSON.parse(safeLocalStorage('charmStudiesLite.timer.timerDisplayMode'));
 			const charmExhaustedID = JSON.parse(safeLocalStorage('charmStudiesLite.stats.EXP.charmExhaustedID'));
 			// achievements update
-			// const achievements = JSON.parse(safeLocalStorage('charmStudiesLite.achievements'));
+			/* const achievements = JSON.parse(safeLocalStorage('charmStudiesLite.achievements')); */
 
 
 			this.set({
@@ -161,96 +180,14 @@ $(function () {
 				autoPauseMode: autoPauseMode,
 				timerDisplayMode: timerDisplayMode,
 				charmExhaustedID: charmExhaustedID,
-				// achievements: achievements
+				// achievements update
+				/* achievements: achievements */
 			});
 		},
-
-		/* getDefaultAchievements: function () {
-			return [{
-					id: "achv-Welcome",
-					progress: "N/A",
-					completed: false
-				},
-				{
-					id: "achv-SweetTreat",
-					progress: "N/A",
-					completed: false
-				},
-				{
-					id: "achv-CharmsPerfect1",
-					progress: 0,
-					completed: false
-				}
-			]
-		}, */
-
-		/* getAchievementRequirements: function () {
-			return [{
-					id: "achv-Welcome",
-					types: ["automatic", "no-progressing"],
-					requirements: "... you're here, isn't that enough already-"
-				},
-				{
-					id: "achv-SweetTreat",
-					types: ["easter-egg", "no-progressing"],
-					requirements: "Have a sweet tooth :3"
-				},
-				{
-					id: "achv-CharmsPerfect1",
-					types: ["charms-perfect"],
-					requirements: 5
-				}
-			]
-		}, */
-		
-		/* checkAchievementCompletion: function () {
-			this.updateAchievementList();
-			let achievements = this.get('achievements');
-			let achievementRequirements = this.getAchievementRequirements();
-			achievements.forEach((achievement) => {
-				if (achievement.completed) { return; }
-
-				let requirement = achievementRequirements.find(req => req.id === achievement.id);
-				let checkStat;
-
-				if (requirement.types.includes("automatic")) {
-					achievement.completed = true;
-					return;
-				} else if (requirement.types.includes("charms-perfect")) {
-					checkStat = this.get("charmsPerfect")
-					achievement.progress = checkStat;
-					if (checkStat >= requirement.requirements) {
-						achievement.completed = true;
-					}
-				}
-			})
-			this.trigger('change');
-		}, */
-
-		/* updateAchievementList: function () {
-			let achievements = this.get('achievements');
-			let defaultAchievements = this.getDefaultAchievements();
-
-			if (achievements.length == defaultAchievements.length) {
-				return;
-			}
-
-			defaultAchievements.forEach((element) => {
-				if (!achievements.includes(element)) {
-					achievements.push(element);
-				}
-			});
-
-			this.set({
-				achievements: achievements
-			}, {
-				silent: true
-			});
-			this.trigger('change');
-		}, */
+		/*  >>> END OF DO NOT OPTIMISE ZONE <<< */
 
 		reset: function (customSeed) {
-			
+
 			let seed = customSeed;
 			if (seed === undefined) {
 				seed = '' + new Date().getTime();
@@ -260,80 +197,17 @@ $(function () {
 			let solution = [];
 			let state = [];
 			let total = 0;
+5
+			let charmHeight = this.get('dimensionHeight');
+			let charmWidth = this.get('dimensionWidth');
 
-			// charm gallery generator
-			// failed to separate this into another function (cries)
-			let originalCharms = [
-				/* NomNomNami - Charm Studies Originals */
-				// 5x5
-				"Astral Magic",
-				"Temporal Magic",
-				"Spatial Magic",
-				"Sweets!",
-				"Love <3",
-				// 10x10
-				"Connection Magic",
-				"Illusion Magic",
-				"Growth Magic",
-				"Kitty~",
-				"Charm Book",
-				"Cute Staff",
-				"Charm Studies", // game logo
-				// 15x15
-				"Magic Circle",
-				"Broomstick",
-				"Senna <3",
-				"Me!",
-				/* NomNomNami - Other characters/works */
-				/* BAD END THEATER */
-				"HERO",
-				"MAIDEN",
-				"UNDERLING",
-				"OVERLORD",
-				"TRAGEDY",
-				/* Starry Flowers */
-				"Starry Flowers",
-				"Pastille",
-				"Periwinkle",
-				"Astragalus",
-				/* Contract Demon */
-				"Kamila",
-				"Eleni",
-				/* Astra's Garden */
-				"Vinegar",
-				"Cassava",
-				/* Syrup and the Ultimate Sweet */
-				"Syrup",
-				"Gumdrop",
-				"Butterscotch",
-				"Toffee",
-				/* Indie Crossovers */
-				/* In Stars and Time */
-				"Siffrin",
-				"Mirabelle",
-				"Isabeau",
-				"Odile",
-				"Bonnie",
-				/* OMORI */
-				"SUNNY",
-				"AUBREY",
-				"KEL",
-				"OMORI/HERO",
-				"BASIL",
-				"MARI",
-				"OMORI",
-				/* Special */
-				"Sif24"
-			];
-
-			let inCharmGallery = originalCharms.includes(seed);
-			if (inCharmGallery) {
-				[state, solution, total] = findCharmInGallery(seed);
+			if (isCharminGallery(seed)) {
+				[state, solution, total] = getCharmSolveInformation(seed);
 			} else {
-				for (let i = 0; i < this.get('dimensionHeight'); i++) {
+				for (let i = 0; i < charmHeight; i++) {
 					solution[i] = [];
 					state[i] = [];
-					for (let j = 0; j < this.get('dimensionWidth'); j++) {
+					for (let j = 0; j < charmWidth; j++) {
 						let random = Math.ceil(Math.random() * 2);
 						solution[i][j] = random;
 						total += (random - 1);
@@ -342,22 +216,8 @@ $(function () {
 				}
 			}
 
-			/* use in console whenever testing charm playability
-let allhintsX = "";
-for (let group in eval(localStorage['picross2.hintsX'])) {
-	allhintsX += eval(localStorage['picross2.hintsX'])[group].map(Math.abs) + "\n"
-}
-console.log(allhintsX)
-console.log(localStorage['picross2.seed'])
-let allhintsY = "";
-for (let group in eval(localStorage['picross2.hintsY'])) {
-	allhintsY += eval(localStorage['picross2.hintsY'])[group].map(Math.abs) + "\n"
-}
-console.log(allhintsY)
-			*/
-
-			let hintsX = this.getHintsX(solution);
-			let hintsY = this.getHintsY(solution);
+			let hintsX = this.getHints(solution, "x");
+			let hintsY = this.getHints(solution, "y");
 			// state = solution; // DEV TEST
 
 			this.set({
@@ -375,52 +235,44 @@ console.log(allhintsY)
 			this.trigger('change');
 		},
 
-		getHintsX: function (solution) {
-			let hintsX = [];
+		getHints: function (solution, direction = "x") {
+			let hints = [];
+			let primaryDimension, secondaryDimension, cellValueGetter;
 
-			for (let i = 0; i < this.get('dimensionHeight'); i++) {
+			if (direction === "y") {
+				primaryDimension = this.get('dimensionWidth');
+				secondaryDimension = this.get('dimensionHeight');
+				cellValueGetter = (i, j) => solution[j][i]; // vertical
+			} else {
+				primaryDimension = this.get('dimensionHeight');
+				secondaryDimension = this.get('dimensionWidth');
+				cellValueGetter = (i, j) => solution[i][j]; // horizontal (default)
+			}
+
+			for (let i = 0; i < primaryDimension; i++) {
 				let streak = 0;
-				hintsX[i] = [];
-				for (let j = 0; j < this.get('dimensionWidth'); j++) {
-					if (solution[i][j] < 2) {
-						if (streak > 0) {
-							hintsX[i].push(streak);
-						}
-						streak = 0;
-					} else {
+				hints[i] = [];
+
+				for (let j = 0; j < secondaryDimension; j++) {
+					let cellValue = cellValueGetter(i, j);
+
+					if (cellValue >= 2) {
 						streak++;
+						continue;
+					}
+
+					if (streak > 0) {
+						hints[i].push(streak);
+						streak = 0;
 					}
 				}
+
 				if (streak > 0) {
-					hintsX[i].push(streak);
+					hints[i].push(streak);
 				}
 			}
 
-			return hintsX;
-		},
-
-		getHintsY: function (solution) {
-			let hintsY = [];
-
-			for (let j = 0; j < this.get('dimensionWidth'); j++) {
-				let streak = 0;
-				hintsY[j] = [];
-				for (let i = 0; i < this.get('dimensionHeight'); i++) {
-					if (solution[i][j] < 2) {
-						if (streak > 0) {
-							hintsY[j].push(streak);
-						}
-						streak = 0;
-					} else {
-						streak++;
-					}
-				}
-				if (streak > 0) {
-					hintsY[j].push(streak);
-				}
-			}
-
-			return hintsY;
+			return hints;
 		},
 
 		guess: function (x, y, guess) {
@@ -454,75 +306,48 @@ console.log(allhintsY)
 			let hintsX = this.get('hintsX');
 			let hintsY = this.get('hintsY');
 
-			// cross out row hints
-			let filled = true;
-			let cellIndex = 0;
-			let hintIndex = 0;
-			for (cellIndex; cellIndex < state[x].length;) {
-				if (state[x][cellIndex] === 2) {
-					if (hintIndex < hintsX[x].length) {
-						for (let i = 0; i < Math.abs(hintsX[x][hintIndex]); i++) {
-							if (state[x][cellIndex] === 2) {
-								cellIndex++;
-							} else {
-								filled = false;
-								break;
-							}
-						}
-						if (state[x][cellIndex] === 2) {
-							filled = false;
-							break;
-						}
-						hintIndex++;
-					} else {
+			const updateHints = (hints, index, isRow) => {
+				let filled = true;
+				let cellIndex = 0;
+				let hintIndex = 0;
+				const length = isRow ? state[index].length : state.length;
+				const checkValue = isRow ? (i) => state[index][i] : (i) => state[i][index];
+
+				for (cellIndex; cellIndex < length;) {
+					if (checkValue(cellIndex) !== 2) {
+						cellIndex++;
+						continue;
+					}
+					if (hintIndex >= hints[index].length) {
 						filled = false;
 						break;
 					}
-				} else {
-					cellIndex++;
+					for (let i = 0; i < Math.abs(hints[index][hintIndex]); i++) {
+						if (cellIndex >= length || checkValue(cellIndex) !== 2) {
+							filled = false;
+							break;
+						}
+						cellIndex++;
+					}
+					if (cellIndex < length && checkValue(cellIndex) === 2) {
+						filled = false;
+						break;
+					}
+					hintIndex++;
 				}
-			}
-			if (cellIndex < state[x].length || hintIndex < hintsX[x].length) {
-				filled = false;
-			}
-			for (let i = 0; i < hintsX[x].length; i++) {
-				hintsX[x][i] = Math.abs(hintsX[x][i]) * (filled ? -1 : 1);
-			}
+				if (cellIndex < length || hintIndex < hints[index].length) {
+					filled = false;
+				}
+				for (let i = 0; i < hints[index].length; i++) {
+					hints[index][i] = Math.abs(hints[index][i]) * (filled ? -1 : 1);
+				}
+			};
+
+			// cross out row hints
+			updateHints(hintsX, x, true);
 
 			// cross out column hints
-			filled = true;
-			cellIndex = 0;
-			hintIndex = 0;
-			for (cellIndex; cellIndex < state.length;) {
-				if (state[cellIndex][y] === 2) {
-					if (hintIndex < hintsY[y].length) {
-						for (let i = 0; i < Math.abs(hintsY[y][hintIndex]); i++) {
-							if (cellIndex < state.length && state[cellIndex][y] === 2) {
-								cellIndex++;
-							} else {
-								filled = false;
-								break;
-							}
-						}
-						if (cellIndex < state.length && state[cellIndex][y] === 2) {
-							filled = false;
-							break;
-						}
-						hintIndex++;
-					} else {
-						filled = false;
-						break;
-					}
-				} else {
-					cellIndex++;
-				}
-			}
-			if (cellIndex < state.length || hintIndex < hintsY[y].length) {
-				filled = false;
-			}
-			for (let i = 0; i < hintsY[y].length; i++) {
-				hintsY[y][i] = Math.abs(hintsY[y][i]) * (filled ? -1 : 1);
-			}
+			updateHints(hintsY, y, false);
 
 			this.set({
 				hintsX: hintsX,
@@ -539,50 +364,40 @@ console.log(allhintsY)
 
 			// convert marks to crossses
 			let markedCells = [];
-			for (let y = 0; y < state.length; y++) {
-				for (let x = 0; x < state[y].length; x++) {
-					if (state[y][x] == 9) {
+			state.forEach((column, y) => {
+				column.forEach((cell, x) => {
+					if (cell === 9) {
 						state[y][x] = 1;
 						markedCells.push([y, x]);
 					}
-				}
-			}
+				});
+			});
 
 			let hintsX = this.get('hintsX');
 			let hintsY = this.get('hintsY');
-			let solutionX = this.getHintsX(state);
-			let solutionY = this.getHintsY(state);
+			let solutionX = this.getHints(state, "x");
+			let solutionY = this.getHints(state, "y");
 
-			for (let i = 0; i < hintsX.length; i++) {
-				if (hintsX[i].length !== solutionX[i].length) {
-					perfect = false;
-					break;
-				}
-				for (let j = 0; j < hintsX[i].length; j++) {
-					if (Math.abs(hintsX[i][j]) !== solutionX[i][j]) {
-						perfect = false;
-						break;
+			function compareHints(hints, solution) {
+				for (let i = 0; i < hints.length; i++) {
+					if (hints[i].length !== solution[i].length) {
+						return false;
+					}
+					for (let j = 0; j < hints[i].length; j++) {
+						if (Math.abs(hints[i][j]) !== solution[i][j]) {
+							return false;
+						}
 					}
 				}
+				return true;
 			}
 
-			for (let i = 0; i < hintsY.length; i++) {
-				if (hintsY[i].length !== solutionY[i].length) {
-					perfect = false;
-					break;
-				}
-				for (let j = 0; j < hintsY[i].length; j++) {
-					if (Math.abs(hintsY[i][j]) !== solutionY[i][j]) {
-						perfect = false;
-						break;
-					}
-				}
-			}
+			let perfectX = compareHints(hintsX, solutionX);
+			let perfectY = compareHints(hintsY, solutionY);
+			perfect = perfectX && perfectY;
 
 			// reverting marked cells if not perfect
-			if (!perfect) {
-				markedCells.forEach(([y, x]) => state[y][x] = 9);
-			}
+			if (!perfect) markedCells.forEach(([y, x]) => state[y][x] = 9);
 
 			return perfect;
 		}
@@ -594,68 +409,45 @@ console.log(allhintsY)
 		el: $("body"),
 
 		events: function () {
+			const baseEvents = {
+				"change #autoPause": "changeAutoPauseMode",
+				"change #dark": "changeDarkMode",
+				"change #easy": "changeEasyMode",
+				"change #showTimer": "changeTimerDisplayMode",
+				/* "click #achievements": "achievementHandler", */
+				"click #customSeed": function (e) {
+					e.currentTarget.select();
+				},
+				/* "click #exportSave": "exportStorage",  */
+				"click #galleryStudy": "galleryStudy",
+				/* "click #importSave": "importStorage", */
+				"click #new": "newGame",
+				"click #prestigeExperience": "prestigeExperience",
+				"click #seed": function (e) {
+					e.currentTarget.select();
+				},
+				"click #solve": "solve",
+				"contextmenu": function (e) {
+					e.preventDefault();
+				},
+				"click #theCookieOfAllTime": "sweetTreat",
+				/* "click #updateAchievements": "achievementHandler", */
+				"mousedown": "clickStart",
+				"mouseout td.cell": "mouseOut",
+				"mouseover td.cell": "mouseOver",
+				"mouseup": "clickEnd",
+				"submit #customForm": "newCustom",
+			};
+
 			if (touchSupport && 'ontouchstart' in document.documentElement) {
-				return {
-					"change #autoPause": "changeAutoPauseMode",
-					"change #dark": "changeDarkMode",
-					"change #easy": "changeEasyMode",
-					"change #showTimer": "changeTimerDisplayMode",
-					// "click #achievements": "renderAchievements",
-					"click #customSeed": function (e) {
-						e.currentTarget.select();
-					},
-					"click #galleryStudy": "galleryStudy",
-					"click #new": "newGame",
-					"click #prestigeExperience": "prestigeExperience",
-					"click #seed": function (e) {
-						e.currentTarget.select();
-					},
-					"click #solve": "solve",
-					"click #statReset": "statReset",
-					"contextmenu": function (e) {
-						e.preventDefault();
-					},
-					// "click #theCookieOfAllTime": "sweetTreat",
-					// "click #updateAchievements": "renderAchievements",
-					"mousedown": "clickStart",
-					"mouseout td.cell": "mouseOut",
-					"mouseover td.cell": "mouseOver",
-					"mouseup": "clickEnd",
-					"submit #customForm": "newCustom",
+				Object.assign(baseEvents, {
 					"touchend td.cell": "touchEnd",
 					"touchmove td.cell": "touchMove",
-					"touchstart td.cell": "touchStart",
-				}
-			} else {
-				return {
-					"change #autoPause": "changeAutoPauseMode",
-					"change #dark": "changeDarkMode",
-					"change #easy": "changeEasyMode",
-					"change #showTimer": "changeTimerDisplayMode",
-					// "click #achievements": "renderAchievements",
-					"click #customSeed": function (e) {
-						e.currentTarget.select();
-					},
-					"click #galleryStudy": "galleryStudy",
-					"click #new": "newGame",
-					"click #prestigeExperience": "prestigeExperience",
-					"click #seed": function (e) {
-						e.currentTarget.select();
-					},
-					"click #solve": "solve",
-					"click #statReset": "statReset",
-					"contextmenu": function (e) {
-						e.preventDefault();
-					},
-					// "click #theCookieOfAllTime": "sweetTreat",
-					// "click #updateAchievements": "renderAchievements",
-					"mousedown": "clickStart",
-					"mouseout td.cell": "mouseOut",
-					"mouseover td.cell": "mouseOver",
-					"mouseup": "clickEnd",
-					"submit #customForm": "newCustom",
-				};
+					"touchstart td.cell": "touchStart"
+				});
 			}
+
+			return baseEvents;
 		},
 
 		mouseStartX: -1,
@@ -667,179 +459,64 @@ console.log(allhintsY)
 		initialize: function () {
 			this.model.resume();
 			$('#dimensions').val(this.model.get('dimensionWidth') + 'x' + this.model.get('dimensionHeight'));
-			if (this.model.get('darkMode')) {
-				$('#dark').attr('checked', 'checked');
-			} else {
-				$('#dark').removeAttr('checked');
-			}
-			if (this.model.get('easyMode')) {
-				$('#easy').attr('checked', 'checked');
-			} else {
-				$('#easy').removeAttr('checked');
-			}
-			if (this.model.get('timerDisplayMode')) {
-				$('#showTimer').attr('checked', 'checked');
-			} else {
-				$('#showTimer').removeAttr('checked');
-			}
-			if (this.model.get('autoPauseMode')) {
-				$('#autoPause').attr('checked', 'checked');
-			} else {
-				$('#autoPause').removeAttr('checked');
-			}
+			$('#dark').prop('checked', this.model.get('darkMode'));
+			$('#easy').prop('checked', this.model.get('easyMode'));
+			$('#showTimer').prop('checked', this.model.get('timerDisplayMode'));
+			$('#autoPause').prop('checked', this.model.get('autoPauseMode'));
 			this.render();
 			this.showSeed();
 		},
 
+		/* importStorage: function () {
+			importSave.call(this);
+		}, */
+
+		/* exportStorage: function () {
+			exportSave();
+		}, */
+
+		updateMode: function (selector, modelKey) {
+			const isChecked = $(selector).prop('checked');
+			this.model.set({
+				[modelKey]: isChecked
+			});
+			this.render();
+		},
+
 		changeDarkMode: function () {
-			let darkMode = $('#dark').attr('checked') !== undefined;
-			this.model.set({
-				darkMode: darkMode
-			});
-			this.render();
+			this.updateMode('#dark', 'darkMode');
 		},
-
 		changeEasyMode: function () {
-			let easyMode = $('#easy').attr('checked') !== undefined;
-			this.model.set({
-				easyMode: easyMode
-			});
-			this.render();
+			this.updateMode('#easy', 'easyMode');
 		},
-
-		changeTimerDisplayMode: function () {
-			let timerDisplayMode = $('#showTimer').attr('checked') !== undefined;
-			this.model.set({
-				timerDisplayMode: timerDisplayMode
-			});
-			this.render();
-		},
-
 		changeAutoPauseMode: function () {
-			let autoPauseMode = $('autoPause').attr('checked') !== undefined;
-			this.model.set({
-				autoPauseMode: autoPauseMode
-			});
-			this.render();
+			this.updateMode('#autoPause', 'autoPauseMode');
+		},
+		changeTimerDisplayMode: function () {
+			this.updateMode('#showTimer', 'timerDisplayMode');
 		},
 
-		changeDimensions: function (e) {
-			let ogDim = $('#dimensions').val();
-			let dimSelect = document.getElementById("dimensions");
-			// charm gallery resizer
-			switch (e) {
-				default:
-					break;
-					/* NomNomNami - Charm Studies Originals */
-					// 5x5
-				case "Astral Magic":
-				case "Temporal Magic":
-				case "Spatial Magic":
-				case "Sweets!":
-				case "Love <3":
-					dimSelect.value = "5x5";
-					break;
-					// 10x10
-				case "Connection Magic":
-				case "Illusion Magic":
-				case "Growth Magic":
-				case "Kitty~":
-				case "Charm Book":
-				case "Cute Staff":
-				case "Charm Studies": // game logo
-					dimSelect.value = "10x10";
-					break;
-					// 15x15
-				case "Magic Circle":
-				case "Broomstick":
-				case "Senna <3":
-				case "Me!":
-					dimSelect.value = "15x15";
-					break;
-					/* NomNomNami - Other characters/works */
-					/* BAD END THEATER */
-				case "HERO":
-				case "MAIDEN":
-				case "UNDERLING":
-				case "TRAGEDY":
-				case "OVERLORD":
-					/* Starry Flowers */
-				case "Starry Flowers":
-				case "Pastille":
-				case "Periwinkle":
-				case "Astragalus":
-					/* Contract Demon */
-				case "Kamila":
-				case "Eleni":
-					/* Astra's Garden */
-				case "Vinegar":
-				case "Cassava":
-					/* Syrup and the Ultimate Sweet */
-				case "Syrup":
-				case "Gumdrop":
-				case "Butterscotch":
-				case "Toffee":
-					/* Indie Crossovers */
-					/* In Stars and Time */
-				case "Siffrin":
-				case "Mirabelle":
-				case "Isabeau":
-				case "Odile":
-				case "Bonnie":
-					/* OMORI */
-				case "SUNNY":
-				case "AUBREY":
-				case "KEL":
-				case "OMORI/HERO":
-				case "BASIL":
-				case "MARI":
-				case "OMORI":
-					/* Special */
-				case "Sif24":
-					dimSelect.value = "30x30";
-			}
-			let dimensions = $('#dimensions').val();
+		changeDimensions: function (seed) {
+			let dimensions = (isCharminGallery(seed)) ? getCharmDimensions(seed) : $('#dimensions').val();
+			$('#dimensions').val(dimensions);
 			dimensions = dimensions.split('x');
 			this.model.set({
 				dimensionWidth: dimensions[0],
 				dimensionHeight: dimensions[1]
 			});
-			dimSelect.value = ogDim;
 		},
 
 		galleryStudy: function (e) {
 			e.preventDefault();
-
 			let selectedCharm = document.getElementById("original-charms").value;
-			if (selectedCharm !== "default") {
-				this._newGame(selectedCharm);
-				document.getElementById("original-charms").value = "default";
-			}
-		},
-
-		statReset: function (e) {
-			e.preventDefault();
-
-			this.model.set({
-				// stat update
-				perfectStreak: 0,
-				charmsComplete: 0,
-				charmsPerfect: 0,
-				playerExperience: 0,
-				playerExperienceBuffer: 0,
-				playerPrestige: 0,
-			});
-			this.render();
+			if (selectedCharm !== "default") this._newGame(selectedCharm);
 		},
 
 		_newGame: function (customSeed) {
-			if (!this.model.isPerfect()) {
-				this.storeExperience();
-			}
-			$('#solve').prop('disabled', false);
-			$('#solve').text('Finish Charm!');
-			$('#puzzle').removeClass('complete');
-			$('#puzzle').removeClass('perfect');
+			if (!this.model.isPerfect()) this.storeExperience();
+			document.getElementById("original-charms").value = "default";
+			$('#solve').prop('disabled', false).text('Finish Charm!');
+			$('#puzzle').removeClass('complete perfect');
 			$('#progress').removeClass('done');
 			this.changeDimensions(customSeed);
 			this.model.reset(customSeed);
@@ -855,13 +532,8 @@ console.log(allhintsY)
 
 		newCustom: function (e) {
 			e.preventDefault();
-
 			let customSeed = $.trim($('#customSeed').val());
-			if (customSeed.length) {
-				this._newGame(customSeed);
-			} else {
-				this._newGame();
-			}
+			customSeed.length ? this._newGame(customSeed) : this._newGame();
 		},
 
 		showSeed: function () {
@@ -870,13 +542,11 @@ console.log(allhintsY)
 		},
 
 		clickStart: function (e) {
-			if (this.model.get('complete')) {
-				return;
-			}
+			if (this.model.get('complete')) return;
 
 			let target = $(e.target);
 
-			if (this.mouseMode != 0 || target.attr('data-x') === undefined || target.attr('data-y') === undefined) {
+			if (this.mouseMode !== 0 || target.attr('data-x') === undefined || target.attr('data-y') === undefined) {
 				this.mouseMode = 0;
 				this.render();
 				return;
@@ -884,23 +554,9 @@ console.log(allhintsY)
 
 			this.mouseStartX = target.attr('data-x');
 			this.mouseStartY = target.attr('data-y');
-			switch (e.which) {
-				case 1:
-					// left click
-					e.preventDefault();
-					this.mouseMode = 1;
-					break;
-				case 2:
-					// middle click
-					e.preventDefault();
-					this.mouseMode = 2;
-					break;
-				case 3:
-					// right click
-					e.preventDefault();
-					this.mouseMode = 3;
-					break;
-			}
+
+			e.preventDefault();
+			this.mouseMode = e.which;
 		},
 
 		mouseOver: function (e) {
@@ -910,8 +566,7 @@ console.log(allhintsY)
 			this.mouseEndX = endX;
 			this.mouseEndY = endY;
 
-			$('td.hover').removeClass('hover');
-			$('td.hoverLight').removeClass('hoverLight');
+			$('td.hover, td.hoverLight').removeClass('hover hoverLight');
 
 			if (this.mouseMode === 0) {
 				$('td.cell[data-y=' + endY + ']').addClass('hoverLight');
@@ -930,28 +585,33 @@ console.log(allhintsY)
 			let diffX = Math.abs(endX - startX);
 			let diffY = Math.abs(endY - startY);
 
+			function highlightCells(primaryAxis, secondaryAxis, startPrimary, endPrimary, constantSecondary, diff) {
+				$('td.cell[data-' + primaryAxis + '=' + endPrimary + ']').addClass('hoverLight');
+
+				let start = Math.min(startPrimary, endPrimary);
+				let end = Math.max(startPrimary, endPrimary);
+
+				for (let i = start; i <= end; i++) {
+					$('td.cell[data-' + primaryAxis + '=' + i + '][data-' + secondaryAxis + '=' + constantSecondary + ']').addClass('hover');
+				}
+
+				let endCell = $('td.cell[data-' + primaryAxis + '=' + endPrimary + '][data-' + secondaryAxis + '=' + constantSecondary + ']');
+				endCell.text(diff + 1);
+				if (endCell.hasClass('s1')) {
+					endCell.addClass('hidden-content').css("color", "#ffb6c8");
+				}
+
+				let startCell = $('td.cell[data-' + primaryAxis + '=' + startPrimary + '][data-' + secondaryAxis + '=' + constantSecondary + ']');
+				startCell.text(diff + 1);
+				if (startCell.hasClass('s1')) {
+					startCell.addClass('hidden-content').css("color", "#ffb6c8");
+				}
+			}
+
 			if (diffX > diffY) {
-				$('td.cell[data-x=' + endX + ']').addClass('hoverLight');
-				let start = Math.min(startX, endX);
-				let end = Math.max(startX, endX);
-				for (let i = start; i <= end; i++) {
-					$('td.cell[data-x=' + i + '][data-y=' + startY + ']').addClass('hover');
-					$('td.cell[data-x=' + i + '][data-y=' + startY + ']').text(diffX + 1);
-					if ($('td.cell[data-x=' + i + '][data-y=' + startY + ']').hasClass('s1')) {
-						$('td.cell[data-x=' + i + '][data-y=' + startY + ']').addClass('hidden-content').css("color", "#ffb6c8");
-					}
-				}
+				highlightCells('x', 'y', startX, endX, startY, diffX);
 			} else {
-				$('td.cell[data-y=' + endY + ']').addClass('hoverLight');
-				let start = Math.min(startY, endY);
-				let end = Math.max(startY, endY);
-				for (let i = start; i <= end; i++) {
-					$('td.cell[data-x=' + startX + '][data-y=' + i + ']').addClass('hover');
-					$('td.cell[data-x=' + startX + '][data-y=' + i + ']').text(diffY + 1);
-					if ($('td.cell[data-x=' + startX + '][data-y=' + i + ']').hasClass('s1')) {
-						$('td.cell[data-x=' + startX + '][data-y=' + i + ']').addClass('hidden-content').css("color", "#ffb6c8");
-					}
-				}
+				highlightCells('y', 'x', startY, endY, startX, diffY);
 			}
 		},
 
@@ -969,76 +629,60 @@ console.log(allhintsY)
 			let diffX = Math.abs(endX - startX);
 			let diffY = Math.abs(endY - startY);
 
+			function updateCellContent(primaryAxis, primaryValue, secondaryAxis, secondaryValue) {
+				let cellSelector = `td.cell[data-${primaryAxis}='${primaryValue}'][data-${secondaryAxis}='${secondaryValue}']`;
+				let cell = $(cellSelector);
+
+				cell.remove('hidden-content');
+				cell.text('');
+
+				if (cell.hasClass('hidden-content')) {
+					cell.removeClass('hidden-content');
+				}
+			}
+
 			if (diffX > diffY) {
-				$('td.cell[data-x=' + endX + '][data-y=' + startY + ']').remove('hidden-content');
-				$('td.cell[data-x=' + endX + '][data-y=' + startY + ']').text('');
-				if ($('td.cell[data-x=' + endX + '][data-y=' + startY + ']').hasClass('hidden-content')) {
-					$('td.cell[data-x=' + endX + '][data-y=' + startY + ']').removeClass('hidden-content');
-				}
+				updateCellContent('x', endX, 'y', startY);
 			} else {
-				$('td.cell[data-x=' + startX + '][data-y=' + endY + ']').remove('hidden-content');
-				$('td.cell[data-x=' + startX + '][data-y=' + endY + ']').text('');
-				if ($('td.cell[data-x=' + startX + '][data-y=' + endY + ']').hasClass('hidden-content')) {
-					$('td.cell[data-x=' + startX + '][data-y=' + endY + ']').removeClass('hidden-content');
-				}
+				updateCellContent('x', startX, 'y', endY);
 			}
 		},
 
 		clickEnd: function (e) {
-			if (this.model.get('complete')) {
+			if (this.model.get('complete')) return;
+
+			let target = $(e.target);
+
+			const clickModes = {
+				1: 2, // left click
+				2: 9, // middle click
+				3: 1 // right click
+			};
+
+
+			if (this.mouseMode !== e.which) {
+				this.mouseMode = 0;
 				return;
 			}
 
-			let target = $(e.target);
-			switch (e.which) {
-				case 1:
-					// left click
-					e.preventDefault();
-					if (this.mouseMode != 1) {
-						this.mouseMode = 0;
-						return;
-					}
-					if (target.attr('data-x') === undefined || target.attr('data-y') === undefined) {
-						this.clickArea(this.mouseEndX, this.mouseEndY, 2);
-					} else {
-						this.clickArea(target.attr('data-x'), target.attr('data-y'), 2);
-					}
-					break;
-				case 2:
-					// middle click
-					if (this.mouseMode != 2) {
-						this.mouseMode = 0;
-						return;
-					}
-					if (target.attr('data-x') === undefined || target.attr('data-y') === undefined) {
-						this.clickArea(this.mouseEndX, this.mouseEndY, 9);
-					} else {
-						this.clickArea(target.attr('data-x'), target.attr('data-y'), 9);
-					}
-					break;
-				case 3:
-					// right click
-					e.preventDefault();
-					if (this.mouseMode != 3) {
-						this.mouseMode = 0;
-						return;
-					}
-					if (target.attr('data-x') === undefined || target.attr('data-y') === undefined) {
-						this.clickArea(this.mouseEndX, this.mouseEndY, 1);
-					} else {
-						this.clickArea(target.attr('data-x'), target.attr('data-y'), 1);
-					}
-					break;
-			}
+			const dataX = target.attr('data-x');
+			const dataY = target.attr('data-y');
+
+			const x = (dataX !== undefined || dataY !== undefined) ? dataX : this.mouseEndX;
+			const y = (dataX !== undefined || dataY !== undefined) ? dataY : this.mouseEndY;
+
+
+			e.preventDefault();
+
+			this.clickArea(x, y, clickModes[e.which]);
+
 			this.mouseMode = 0;
 			this.render();
 			this.checkCompletion();
 		},
 
 		checkCompletion: function () {
-			if (this.model.isPerfect()) {
-				this.solve();
-			}
+			if (this.model.isPerfect()) this.solve();
 		},
 
 		clickArea: function (endX, endY, guess) {
@@ -1101,77 +745,45 @@ console.log(allhintsY)
 			}
 		},
 
-		round25: function (num) {
-			return Math.round(num / 25) * 25;
-		},
-
 		calculateMaxExperience: function () {
 			let charmWidth = Number(this.model.get('dimensionWidth'));
 			let charmHeight = Number(this.model.get('dimensionHeight'));
-			let dimensionAdjust = (((charmWidth + charmHeight) / 2) ** 2).toFixed(0); // exp multi based off size
 			let total = this.model.get('total');
+
+			let dimensionAdjust = Math.pow((charmWidth + charmHeight) / 2, 2).toFixed(0); // exp multi based off size
 
 			let hintsX = this.model.get('hintsX');
 			let hintsY = this.model.get('hintsY');
 
-			let totalComplexity = 0; // exp multi based off below
-			let sparseBias = 0; // give bonus to charms with few cells compared to more populated ones
-			let separationMulti; // consider rows/columns that have more than one hint number more complex
-			let pascalBias; // pascal's triangle - consider rows/columns that have the highest nCr to be most complex
+			let calculateComplexity = (hints, dimension) => {
+				return hints.reduce((totalComplexity, hint) => {
+					let sum = hint.reduce((acc, val) => acc + val + 1, -1);
+					if (sum < 0 && hints.length == 0) return totalComplexity; // skip zeroes
+					let median = Math.ceil(dimension / 2);
+					let spaceDiff = Math.abs(sum - median);
 
-			for (let i = 0; i < hintsX.length; i++) {
-				pascalBias = 0;
-				separationMulti = 0;
+					let pascalBias = (spaceDiff && sum > 0) // check if not highest possibilities (nCr), if sum 0, no xp awarded
+						?
+						1 + Math.abs(1 / (sum - median)) :
+						2.5;
+					let separationMulti = 1 + 0.5 * (hint.length - 1); // consider rows/columns that have more than one hint number more complex
 
-				let rowSum = hintsX[i].reduce((partialSum, a) => partialSum + a + 1, -1);
-				let rowMedian = Math.ceil(charmWidth / 2);
-				let rowSpaceDifference = Math.abs(rowSum - rowMedian);
+					return totalComplexity + (pascalBias * separationMulti);
+				}, 0);
+			};
 
-				if (rowSpaceDifference != 0 && rowSum > 0) { // check if not highest possibilities (nCr), if rowSum 0, no xp awarded
-					pascalBias = 1 + Math.abs(1 / (rowSum - rowMedian));
-				} else {
-					pascalBias = 2.5;
-				}
+			let totalComplexity = calculateComplexity(hintsX, charmWidth) + calculateComplexity(hintsY, charmHeight);
 
-				separationMulti = 1 + 1 / 2 * (hintsX[i].length - 1);
+			let triangle = charmWidth * charmHeight / 2; // triangle area = 1/2 bh
 
-				totalComplexity += pascalBias * separationMulti;
-			}
-
-			for (let i = 0; i < hintsY.length; i++) {
-				pascalBias = 0;
-				separationMulti = 0;
-
-				let columnSum = hintsY[i].reduce((partialSum, a) => partialSum + a + 1, -1);
-				let columnMedian = Math.ceil(charmHeight / 2);
-				let columnSpaceDifference = Math.abs(columnSum - columnMedian);
-
-				if (columnSpaceDifference != 0 && columnSum > 0) { // check if not highest possibilities (nCr), if columnSum 0, no xp awarded
-					pascalBias = 1 + Math.abs(1 / (columnSum - columnMedian));
-				} else {
-					pascalBias = 2.5;
-				}
-
-				separationMulti = 1 + 1 / 2 * (hintsY[i].length - 1);
-
-
-				totalComplexity += pascalBias * separationMulti;
-			}
-
-			let triangle = (charmWidth * charmHeight / 2); // stupid name but i love it too much to not keep it
-			// triangle area = 1/2 bh
-
-			if (triangle > total) {
-				sparseBias = 1 + 0.01 * Math.abs(total - triangle);
-			} else {
-				sparseBias = 1 + 0.005 * Math.abs(total - triangle);
-			}
+			let biasFactor = triangle > total ? 0.025 : 0.005; // more bias for smaller charms
+			let sparseBias = 1 + biasFactor * Math.abs(total - triangle); // give bonus to charms with few cells compared to more populated ones
 
 			let formulaXP = dimensionAdjust * totalComplexity * sparseBias;
-			if (this.model.get('seed') == this.model.get('charmExhaustedID')) { // disincentivise repeating charms in a row
+			if (this.model.get('seed') === this.model.get('charmExhaustedID')) { // disincentivise repeating charms in a row
 				formulaXP /= 4;
 			}
-			let maxXP = this.round25(formulaXP); // round to nearest 25 because aesthetic idk
+			let maxXP = round25(formulaXP); // round to nearest 25 because aesthetic idk
 
 			this.model.set({
 				charmMaxExperience: maxXP
@@ -1190,70 +802,75 @@ console.log(allhintsY)
 			progress = progress / 100;
 
 			let maxXP = this.model.get('charmMaxExperience');
-			if (!maxXP) { // solves (clear storage fix?)
+			if (!maxXP) { // clearStorage fix
 				this.calculateMaxExperience();
 				maxXP = this.model.get('charmMaxExperience');
 			}
 
-			// convert marks to crossses
+			// convert marks to crosses
 			let markedCells = [];
-			for (let y = 0; y < state.length; y++) {
-				for (let x = 0; x < state[y].length; x++) {
-					if (state[y][x] == 9) {
+			state.forEach((row, y) => {
+				row.forEach((cell, x) => {
+					if (cell === 9) {
 						state[y][x] = 1;
 						markedCells.push([y, x]);
 					}
-				}
-			}
+				});
+			});
 
 			let hintsX = this.model.get('hintsX');
 			let hintsY = this.model.get('hintsY');
-			let solutionX = this.model.getHintsX(state);
-			let solutionY = this.model.getHintsY(state);
-
-			let allRuns = 0,
-				incorrectRuns = 0;
+			let solutionX = this.model.getHints(state, "x");
+			let solutionY = this.model.getHints(state, "y");
 
 			// accuracy will be determined by imperfection finding
 
-			for (let i = 0; i < hintsX.length; i++) {
-				if (hintsX[i].length == 0) {
-					continue;
-				}
-				allRuns++;
-				if (hintsX[i].length !== solutionX[i].length) {
-					incorrectRuns++;
-					continue;
-				}
-				for (let j = 0; j < hintsX[i].length; j++) {
-					if (Math.abs(hintsX[i][j]) !== solutionX[i][j]) {
-						incorrectRuns++;
-						break;
-					}
-				}
-			}
+			const countIncorrectRuns = (hints, solution) => {
+				let allRuns = 0;
+				let incorrectRuns = 0;
 
-			for (let i = 0; i < hintsY.length; i++) {
-				if (hintsY[i].length == 0) {
-					continue;
-				}
-				allRuns++;
-				if (hintsY[i].length !== solutionY[i].length) {
-					incorrectRuns++;
-					continue;
-				}
-				for (let j = 0; j < hintsY[i].length; j++) {
-					if (Math.abs(hintsY[i][j]) !== solutionY[i][j]) {
+				hints.forEach((hint, i) => {
+					if (hint.length === 0) return;
+
+					allRuns++;
+
+					if (hint.length !== solution[i].length) {
 						incorrectRuns++;
-						break;
+						return;
 					}
-				}
-			}
+
+					for (let j = 0; j < hint.length; j++) {
+						if (Math.abs(hint[j]) !== solution[i][j]) {
+							incorrectRuns++;
+							break;
+						}
+					}
+				});
+
+				return {
+					allRuns,
+					incorrectRuns
+				};
+			};
+
+			const {
+				allRuns: allRunsX,
+				incorrectRuns: incorrectRunsX
+			} = countIncorrectRuns(hintsX, solutionX);
+			const {
+				allRuns: allRunsY,
+				incorrectRuns: incorrectRunsY
+			} = countIncorrectRuns(hintsY, solutionY);
+
+			let allRuns = allRunsX + allRunsY;
+			let incorrectRuns = incorrectRunsX + incorrectRunsY;
+
 			// reverting marked cells
 			markedCells.forEach(([y, x]) => state[y][x] = 9);
-			let accuracy = (allRuns - incorrectRuns) / allRuns;
 
-			let xp = this.round25((progress * accuracy) * maxXP);
+			let accuracy = (allRuns - incorrectRuns) / allRuns;
+			let xp = round25((progress * accuracy) * maxXP);
+
 			this.model.set({
 				charmExperience: xp
 			});
@@ -1261,11 +878,6 @@ console.log(allhintsY)
 
 		expToLv: function (experience) {
 			let playerPrestige = this.model.get('playerPrestige');
-
-			function nthRoot(n, expression) {
-				if (expression < 0 && n % 2 != 1) return NaN; // Not well defined
-				return (expression < 0 ? -1 : 1) * Math.pow(Math.abs(expression), 1 / n);
-			}
 
 			let result = Math.floor(expCalcConstant * nthRoot(expCalcPower, (nthRoot((1 + (expCalcPrestigeFactor * playerPrestige)), experience) - expCalcBase))); // inverse of lvToExp (thanks maths class)
 			if (Number.isNaN(result)) {
@@ -1278,44 +890,10 @@ console.log(allhintsY)
 			return result;
 		},
 
-		nFormatter: function (num, digits = 1) {
-			const lookup = [{
-					value: 1,
-					symbol: ""
-				},
-				{
-					value: 1e3,
-					symbol: "k"
-				},
-				{
-					value: 1e6,
-					symbol: "M"
-				},
-				{
-					value: 1e9,
-					symbol: "B"
-				},
-				{ // realistically who will get this far
-					value: 1e12,
-					symbol: "T"
-				},
-				{
-					value: 1e15,
-					symbol: "Qd"
-				}, // would do more but unsafe integer past this point
-				// also it would take 570 millenia by perfecting a 30x30 every two hours without stopping but uhhhhh
-				// nobody tryna prestige 166 right
-				//       right
-			];
-			const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
-			const item = lookup.findLast(item => num >= item.value);
-			return item ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol) : "0";
-		},
-
 		lvToExp: function (level) {
 			let playerPrestige = this.model.get('playerPrestige');
-			let result = this.round25((expCalcBase + (level / expCalcConstant) ** expCalcPower) ** (1 + (expCalcPrestigeFactor * playerPrestige)));
-			return result; // redundant
+			let result = round25((expCalcBase + (level / expCalcConstant) ** expCalcPower) ** (1 + (expCalcPrestigeFactor * playerPrestige)));
+			return result;
 		},
 
 		storeExperience: function () {
@@ -1323,15 +901,13 @@ console.log(allhintsY)
 			let currentXPBuffer = this.model.get('playerExperienceBuffer');
 			let charmExperience = this.model.get('charmExperience');
 
-			if (progress > 100) { // punish over 100% progress
-				progress = 10;
-			}
+			if (progress > 100) progress = 10; // punish over 100% progress
 			progress = progress / 100;
 
 			let progressAdjust = progress + 0.15; // reward players who only give up late, still punishing to players who give up early
 			progressAdjust = progressAdjust > 1 ? 1 : progressAdjust; // don't allow give up bonus to exceed 100%
 
-			let newXPbuffer = this.round25((charmExperience * progressAdjust) + currentXPBuffer);
+			let newXPbuffer = round25((charmExperience * progressAdjust) + currentXPBuffer);
 			this.model.set({
 				playerExperienceBuffer: newXPbuffer
 			});
@@ -1353,24 +929,6 @@ console.log(allhintsY)
 
 		stylePrestige: function (nextLevelExperience) {
 			let playerPrestige = this.model.get('playerPrestige');
-
-			function romanize(num) {
-				if (isNaN(num))
-					return NaN;
-				if (num == 0)
-					return "-";
-				let digits = String(+num).split(""),
-					key = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
-						"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
-						"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"
-					],
-					roman = "",
-					i = 3;
-				while (i--)
-					roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-				return Array(+digits.join("") + 1).join("M") + roman;
-			}
-
 
 			function prestigeToTitle(prestige) {
 				let prestigeTitle;
@@ -1435,73 +993,41 @@ console.log(allhintsY)
 
 			this.stylePrestige(nextLevelExperience);
 
-			// let title = {IMPLEMENT PLEASE};
-
-			function nFormatter(num, digits = 2) {
-				const lookup = [{
-						value: 1,
-						symbol: ""
-					},
-					{
-						value: 1e3,
-						symbol: "k"
-					},
-					{
-						value: 1e6,
-						symbol: "M"
-					},
-					{
-						value: 1e9,
-						symbol: "B"
-					},
-					{
-						value: 1e12,
-						symbol: "T"
-					},
-					{
-						value: 1e15,
-						symbol: "Qd"
-					},
-				];
-				const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
-				const item = lookup.findLast(item => num >= item.value);
-				return item ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol) : "0";
-			}
-
 			function lvToTitle(level) {
-				let title;
-				if (level == 0) {
-					title = "Clueless Cassia";
-				} else if (level == "MAX") {
-					title = "True Logician";
-				} else {
-					const perFiveLevelsTitles = {
-						0: "Charms 101 Student", // beginner class
-						1: "Desk Sleeper", // what cassia always ends up doing
-						2: "Graduate-to-be", // in alignment with cassia's goals
-						3: "Connection Capturer", // connection magic charm + cassia wants to have a connection with senna
-						4: "Amateur Illusionist", // illusion magic, taught in charms II
-						5: "Adept Abstractor", // abstractor is profession who analyses data, hence analysing charms to solve them
-						6: "Intermediate Imbuer", // charms imbue an object with magic
-						7: "Charmed Individual", // "lucky individual" + "charmed life" - senna
-						8: "Concentrated Learner", // "places with a high concentration of magic" - senna
-						9: "Random Resolver", // "these questions are completely random..." -  senna
-						10: "Reliable Authority", // "reliable as a friend" - cassia
-						11: "Diligent Tutor", // senna tutors to the best of her ability
-						12: "Fluent Painter", // "fluid" - hence fluent, pillars of magic
-						13: "Proficient Artist", // cassia bought into the myth that witch hair length improves proficiency
-						14: "Arithmagic Ace", // senna's favourite class, see also Random Resolver
-						15: "Wise Witch", // senna's favoured familiar - owls, often seen as wise
-						16: "Spell Scholar", // senna wants (or rather needs) scholarships for her figwood entry
-						17: "Charm Extraordinaire", // no reference
-						18: "Figwood Prodigy", // figwood - top magic school for witches
-						19: "Infinite Intellect", // "i do not have endless time" - infinite is synonym of endless
-					};
+				const titles = {
+					0: "Clueless Cassia",
+					"MAX": "True Logician"
+				};
 
+				const perFiveLevelsTitles = [
+					"Charms 101 Student", // beginner class
+					"Desk Sleeper", // what cassia always ends up doing
+					"Graduate-to-be", // in alignment with cassia's goals
+					"Connection Capturer", // connection magic charm + cassia wants to have a connection with senna
+					"Amateur Illusionist", // illusion magic, taught in charms II
+					"Adept Abstractor", // abstractor is profession who analyses data, hence analysing charms to solve them
+					"Intermediate Imbuer", // charms imbue an object with magic
+					"Charmed Individual", // "lucky individual" + "charmed life" - senna
+					"Concentrated Learner", // "places with a high concentration of magic" - senna
+					"Random Resolver", // "these questions are completely random..." -  senna
+					"Reliable Authority", // "reliable as a friend" - cassia
+					"Diligent Tutor", // senna tutors to the best of her ability
+					"Fluent Painter", // "fluid" - hence fluent - pillars of magic
+					"Proficient Artist", // cassia bought into the myth that witch hair length improves proficiency
+					"Arithmagic Ace", // senna's favourite class, see also Random Resolver
+					"Wise Witch", // senna's favoured familiar - owls, often seen as wise
+					"Spell Scholar", // senna wants (or rather needs) scholarships for her figwood entry
+					"Charm Extraordinaire", // no reference
+					"Figwood Prodigy", // figwood - top magic school for witches
+					"Infinite Intellect" // "i do not have endless time" - infinite is synonym of endless
+				];
+
+				if (titles.hasOwnProperty(level)) {
+					return titles[level];
+				} else if (typeof level === 'number' && level > 0) {
 					let lvFiveIncrement = Math.floor(level / 5);
-					title = perFiveLevelsTitles[lvFiveIncrement];
+					return perFiveLevelsTitles[Math.min(lvFiveIncrement, perFiveLevelsTitles.length - 1)];
 				}
-				return title;
 			}
 
 			playerExperience = nFormatter(playerExperience);
@@ -1549,14 +1075,12 @@ console.log(allhintsY)
 				}
 			}
 
-			let charmsPerfect, perfectStreak;
+			let charmsPerfect = this.model.get('charmsPerfect');
+			let perfectStreak = 0;
 
 			if (perfect) {
-				charmsPerfect = this.model.get('charmsPerfect') + 1;
+				charmsPerfect += 1;
 				perfectStreak = this.model.get('perfectStreak') + 1;
-			} else {
-				charmsPerfect = this.model.get('charmsPerfect');
-				perfectStreak = 0;
 			}
 
 			let thisCharmsComplete = this.model.get('charmsComplete') + 1;
@@ -1575,84 +1099,58 @@ console.log(allhintsY)
 			});
 			this.calculateExperience();
 			this.applyExperience();
+			/* checkAchievementCompletion.call(this); */
 
 			this.render();
 		},
 
 		charmSum: function (hints, space, dimension) {
-			let html = "";
 			dimension = Number(dimension);
-			if (space <= 0) {
-				return;
-			} // don't display sum if row/column complete
+			let sumTag = "strong";
+			let sumClass = "smol";
+			let tooltipText = "";
+			let sumTooltip = "";
 
-			if (space == dimension) { // full row/column can be filled, one possibility
-				return '<strong class="smol full tooltip right">' + space + '<span class="tooltiptext">Can complete row/column!</span>' + '</strong>';
-			}
+			if (space < 0) {
+				space = "✪"
+				sumTag = "em";
+				sumClass = "";
+			} else if (space == dimension) { // full row/column can be filled, one possibility
+				sumClass = "smol full tooltip";
+				tooltipText = "Can complete row/column!";
+			} else {
+				let isPartial = false;
+				let spaceDifference = dimension - space;
+				hints.forEach(hint => {
+					if (hint > spaceDifference) {
+						isPartial = true;
+					}
+				});
 
-			let isPartial = false;
-			let SDDifference = dimension - space;
-			hints.forEach(hint => {
-				if (hint > SDDifference) {
-					isPartial = true;
+				if (isPartial) { // part of row/column can be filled, multiple possibilities
+					sumClass = "smol partial tooltip";
+					tooltipText = "Can partially complete row/column.";
 				}
-			});
-
-			if (isPartial) { // part of row/column can be filled, multiple possibilities
-				return '<strong class="smol partial tooltip right">' + space + '<span class="tooltiptext">Can partially complete row/column.</span>' + '</strong>';
 			}
 
-			return '<strong class="smol">' + space + '</strong>';
+			if (tooltipText) {
+				sumTooltip = `<span class="tooltiptext">${tooltipText}</span>`;
+			}
+
+			return `<${sumTag} class="${sumClass}">${space}${sumTooltip}</${sumTag}>`
 		},
 
 		/* sweetTreat: function () {
 			let achievements = this.model.get('achievements');
 			(achievements.find(achv => achv.id == "achv-SweetTreat")).completed = true;
+			this.achievementHandler();
 		}, */
 
-		/* renderAchievements: function () {
-			this.model.checkAchievementCompletion();
-			let achievements = this.model.get('achievements');
-			let achievementRequirements = this.model.getAchievementRequirements();
-
-			achievements.forEach((achievement) => {
-				let achvElement = document.getElementById(achievement.id)
-				let achvProgress = achvElement.getElementsByClassName("achievement-progress-bar")[0];
-				let achvStatus = achvElement.getElementsByClassName("achievement-progress-status")[0];
-
-				let requirement = achievementRequirements.find(req => req.id === achievement.id);
-				
-				if (achievement.completed) {
-					achvElement.classList.add("done");
-					achvStatus.innerHTML = "Done!";
-
-					if (requirement.types.includes("no-progressing")) {
-						achvProgress.setAttribute("value", "1")
-						achvProgress.setAttribute("max", "1")
-					} else {
-						achvProgress.setAttribute("value", requirement.requirements);
-						achvProgress.setAttribute("max", requirement.requirements);
-					}
-
-					return;
-				}
-
-
-				if (requirement.types.includes("no-progressing")) {
-					achvProgress.setAttribute("value", "0")
-					achvProgress.setAttribute("max", "1")
-				} else {
-					let progressText = achievement.progress.toString()
-					let requirementText = requirement.requirements.toString()
-					achvProgress.setAttribute("value", progressText);
-					achvProgress.setAttribute("max", requirementText);
-					achvStatus.innerHTML = `${progressText}/${requirementText}`
-				}
-			});
+		/* achievementHandler: function () {
+			renderAchievements.call(this);
 		}, */
 
 		render: function () {
-			// let achievements = this.model.get('achievements');
 			let progress = this.model.get('guessed') / this.model.get('total') * 100;
 			$('#progress').text(progress.toFixed(1) + '%');
 
@@ -1699,49 +1197,33 @@ console.log(allhintsY)
 			let hintsXText = [];
 			let hintsYText = [];
 
-			let xSpace = 0;
-			let ySpace = 0;
 			let charmWidth = this.model.get('dimensionWidth');
 			let charmHeight = this.model.get('dimensionHeight');
 
+			function processHints(hints, isEasyMode, dimension) {
+				return hints.map(hintArray => {
+					let processedHints = hintArray.map(value => {
+						if (isEasyMode || this.model.get('complete')) {
+							return value < 0 ? `<em>${Math.abs(value)}</em>` : `<strong>${value}</strong>`;
+						} else {
+							return `<strong>${Math.abs(value)}</strong>`;
+						}
+					});
+
+					if (isEasyMode) {
+						let space = hintArray.reduce((acc, cur) => acc + cur, hintArray.length - 1);
+						processedHints.push(this.charmSum(hintArray, space, dimension));
+					}
+					return processedHints;
+				});
+			}
+
 			if (this.model.get('easyMode') || this.model.get('complete')) {
-				for (let i = 0; i < hintsX.length; i++) {
-					hintsXText[i] = [];
-					for (let j = 0; j < hintsX[i].length; j++) {
-						if (hintsX[i][j] < 0) {
-							hintsXText[i][j] = '<em>' + Math.abs(hintsX[i][j]) + '</em>';
-						} else {
-							hintsXText[i][j] = '<strong>' + hintsX[i][j] + '</strong>';
-						}
-					}
-					xSpace = hintsX[i].reduce((acc, cur) => acc + cur, hintsX[i].length - 1);
-					hintsXText[i].push(this.charmSum(hintsX[i], xSpace, charmWidth));
-				}
-				for (let i = 0; i < hintsY.length; i++) {
-					hintsYText[i] = [];
-					for (let j = 0; j < hintsY[i].length; j++) {
-						if (hintsY[i][j] < 0) {
-							hintsYText[i][j] = '<em>' + Math.abs(hintsY[i][j]) + '</em>';
-						} else {
-							hintsYText[i][j] = '<strong>' + hintsY[i][j] + '</strong>';
-						}
-					}
-					ySpace = hintsY[i].reduce((acc, cur) => acc + cur, hintsY[i].length - 1);
-					hintsYText[i].push(this.charmSum(hintsY[i], ySpace, charmHeight));
-				}
+				hintsXText = processHints.call(this, hintsX, true, charmWidth);
+				hintsYText = processHints.call(this, hintsY, true, charmHeight);
 			} else {
-				for (let i = 0; i < hintsX.length; i++) {
-					hintsXText[i] = [];
-					for (let j = 0; j < hintsX[i].length; j++) {
-						hintsXText[i][j] = '<strong>' + Math.abs(hintsX[i][j]) + '</strong>';
-					}
-				}
-				for (let i = 0; i < hintsY.length; i++) {
-					hintsYText[i] = [];
-					for (let j = 0; j < hintsY[i].length; j++) {
-						hintsYText[i][j] = '<strong>' + Math.abs(hintsY[i][j]) + '</strong>';
-					}
-				}
+				hintsXText = processHints.call(this, hintsX, false, charmWidth);
+				hintsYText = processHints.call(this, hintsY, false, charmHeight);
 			}
 
 			document.getElementById("perfectStreak").style.fontSize = (15 + Math.floor(Math.log2(this.model.get('perfectStreak') + 1))).toString() + "px";
