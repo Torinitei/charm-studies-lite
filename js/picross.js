@@ -77,7 +77,7 @@ $(function () {
 		save: function () {
 			if (localStorageSupport()) {
 				localStorage['picross2.saveVersion'] = saveVersion;
- 
+
 				localStorage['picross2.dimensionWidth'] = JSON.stringify(this.get('dimensionWidth'));
 				localStorage['picross2.dimensionHeight'] = JSON.stringify(this.get('dimensionHeight'));
 				localStorage['picross2.state'] = JSON.stringify(this.get('state'));
@@ -205,7 +205,7 @@ $(function () {
 			let solution = [];
 			let state = [];
 			let total = 0;
-5
+			
 			let charmHeight = this.get('dimensionHeight');
 			let charmWidth = this.get('dimensionWidth');
 
@@ -472,6 +472,7 @@ $(function () {
 			$('#easy').prop('checked', this.model.get('easyMode'));
 			$('#showTimer').prop('checked', this.model.get('timerDisplayMode'));
 			$('#autoPause').prop('checked', this.model.get('autoPauseMode'));
+			$('#noSum').prop('checked', this.model.get('noSumMode'));
 			this.render();
 			this.showSeed();
 		},
