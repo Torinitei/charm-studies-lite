@@ -32,6 +32,7 @@ $(function () {
 	const expCalcPower = 2;
 	const expCalcBase = 400;
 	const expCalcPrestigeFactor = 0.01;
+	const expEventMulti = 2;
 
 	let PuzzleModel = Backbone.Model.extend({
 
@@ -796,7 +797,7 @@ $(function () {
 			if (this.model.get('seed') === this.model.get('charmExhaustedID')) { // disincentivise repeating charms in a row
 				formulaXP /= 4;
 			}
-			let maxXP = round25(formulaXP); // round to nearest 25 because aesthetic idk
+			let maxXP = round25(expEventMulti * formulaXP); // round to nearest 25 because aesthetic idk
 
 			this.model.set({
 				charmMaxExperience: maxXP

@@ -58,11 +58,12 @@
 				</span> <span class="modal-highlight" id="prestige">–</span>&ensp;
 
 				<span class="highlight">Level <span id="playerLevel">x</span></span>
-				&emsp;<span class="tooltip">XP<span class="tooltiptext smol">You gain experience for each charm you do.
+				&emsp;<span class="modal-highlight">EVENT &times;2</span> <span class="tooltip">XP<span class="tooltiptext smol">You gain experience for each charm you do.
 						Accuracy and progression award you a proportion of the maximum XP for that charm,
 						which is determined by the size and individual complexity of the charm.</span></span>&ensp;
 				<span id="currentXP">xxx</span>/<span id="nextXP">xxx</span> <span class="tooltip"><span
-						class="smol">+<span id="bufferedXP">xx</span><span class="tooltiptext">If you give up partway through a charm (hit New Charm before you solve),
+						class="smol">+<span id="bufferedXP">xx</span><span class="tooltiptext">If you give up partway
+							through a charm (hit New Charm before you solve),
 							a portion of your experience is stored in a buffer.
 							This is given to you the next time you solve a charm (perfect or not).
 						</span></span></span>&ensp;
@@ -368,27 +369,34 @@
 					<div class="modal-content">
 						<div class="modal-header">~ Credits ~</div>
 						<div class="modal-body">
-							<a href="https://liouh.com/picross/">Original</a> designed and written by <a href="http://liouh.com/home/">Henry
-								Liou</a>. <a
-								class="modal-highlight" href="https://www.paypal.com/paypalme/liouh">Buy him a
+							<a href="https://liouh.com/picross/">Original</a> designed and written by <a
+								href="http://liouh.com/home/">Henry
+								Liou</a>. <a class="modal-highlight" href="https://www.paypal.com/paypalme/liouh">Buy
+								him a
 								coffee!</a><br>
-							Edited on and further developed by <a href="https://torinitei.carrd.co/">Torinitei</a>. <a
-								class="modal-highlig	ht smol" href="https://www.youtube.com/watch?v=msMkeJTEGuU">(thank
+							Edited on and further developed by<br>&emsp;<a
+								href="https://torinitei.carrd.co/">Torinitei</a> <span class="smol">(he/they, here since
+								first release)</span>,<br>&emsp;and DarklyBot <span class="smol">(she/her, here
+								since 27/09/2024)</span>. <a class="modal-highlight smol"
+								href="https://www.youtube.com/watch?v=msMkeJTEGuU">(thank
 								you
 								so
-								much a-for-to playing my game)</a><br>
+								much a-for-to playing our game)</a><br>
 							Themed after and uses mechanics from <a href="https://nomnomnami.com/">NomnomNami</a>'s <a
 								href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>. <a
 								class="modal-highlight" href="https://www.patreon.com/nomnomnami">Support her amazing
-								works!</a><br><br>
+								works!</a><br><a href="https://cohost.org/nomnomnami/post/7857890-charm-studies-fangam" class="smol">(oh my
+									goodness we've been approved)</a><br><br>
 
 							<span class="modal-highlight">Special Thanks</span><br>
-							<a href="https://www.youtube.com/channel/UCoyphXvpFSIXOSoHzHrqM7A">Sif</a>, for inspiring
+							<a class="modal-highlight"
+								href="https://www.youtube.com/channel/UCoyphXvpFSIXOSoHzHrqM7A">Sif</a>, for inspiring
 							and encouraging me
 							to make this website!<br>
 							Sudoku Crusher, for their <a
 								href="https://www.sentohsharyoga.com/puzzle/nonogram/text/free_size">nonogram online
-								solver!</a>
+								solver!</a><br>
+							<a href="https://www.resizepixel.com">ResizePixel</a>, for their image editing tools (to help with charm making!)
 						</div>
 					</div>
 				</div>
@@ -417,17 +425,37 @@
 					<div class="modal-content">
 						<div class="modal-header">Update Log</div>
 						<div class="modal-body">
+							<span class="modal-highlight beeg">2024/09/27 ~ Approval day!! &lt;3</span><br>
+							<span class="category">Celebration</span><br><br>
+
+							Well, I can't quite believe it. <span class="modal-highlight">Hello everyone!</span> It's an
+							honour to be here ♫<br>
+							To be honest - I wasn't quite expecting this to happen- <span class="smol">(should i have
+								prepared? how do you prepare for this-)</span><br>
+							To celebrate the approval of the game, all experience gained will be doubled!<br>
+							<span class="modal-highlight beeg">Please enjoy Charm Studies lite! 🩷</span>
+							<ul>
+								<li>Temporary boosted XP gained from &times;1 to &times;2</li>
+								<li>Added additonal credits</li>
+							</ul><br>
+
+
+
 							<span class="modal-highlight">2024/09/26 ~ Optimisations!</span><br>
 							<span class="category">Gameplay</span>
 							<span class="category">Quality of Life</span>
 							<span class="category">Style</span><br><br>
 
-							<span class="modal-highlight">Optimisations have arrived! <span class="smol">(well at least some)</span></span>
+							<span class="modal-highlight">Optimisations have arrived! <span class="smol">(well at least
+									some)</span></span>
 							<ul>
 								<li>Major reworking and refactoring to improve performance!</li>
-								<li>Dependencies updated and switched to their minified versions for faster loading times!</li>
-								<li>Cell selection count now only shows on first and last cell (for performance and aesthetics)</li>
-								<li>Buffed XP for charms with less than half the board filled (from &times;1.01/cell to &times;1.025/cell)</li>
+								<li>Dependencies updated and switched to their minified versions for faster loading
+									times!</li>
+								<li>Cell selection count now only shows on first and last cell (for performance and
+									aesthetics)</li>
+								<li>Buffed XP for charms with less than half the board filled (from &times;1.01/cell to
+									&times;1.025/cell)</li>
 								<li>Reworked charm sums to no longer shift content when cells complete</li>
 								<li>Slight style changes to easy mode to more clearly distinguish meaningful hints</li>
 								<li>Preparations made for achievement system</li>
@@ -438,7 +466,7 @@
 								<li>Further refactoring and modularising scripts</li>
 								<li>Adding more charms! OneShot being considered for next indie crossover :3</li>
 								<li>Implementation and continual addition of achievements</li>
-							</ul><br><br>
+							</ul><br>
 
 							<span class="modal-highlight">2024/08/26 ~ Waiting for something to happen?</span><br>
 							<span class="category">Charms</span>

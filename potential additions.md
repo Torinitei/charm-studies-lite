@@ -41,6 +41,6 @@
 
 ## To-do
 
-* Play the rest of NomNomNami's games!
+* Play the rest of NomnomNami's games!
   * Partly for more charms, but more so because they're silly :3
   

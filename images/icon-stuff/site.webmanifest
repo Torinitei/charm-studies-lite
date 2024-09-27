@@ -5,7 +5,7 @@
         "games",
         "music"
     ],
-    "description": "Take the magic of NomNomNami's Charm Studies, and put it in your browser!",
+    "description": "Take the magic of NomnomNami's Charm Studies, and put it in your browser!",
     "display": "standalone",
     "display_override": [
         "window-controls-overlay",
@@ -42,7 +42,7 @@
             "type": "image/png",
             "form_factor": "wide",
             "label": "Charm Studies lite desktop screenshot",
-            "description": "Take the magic of NomNomNami's Charm Studies, and put it in your browser!",
+            "description": "Take the magic of NomnomNami's Charm Studies, and put it in your browser!",
             "platform": "windows"
         },
         {

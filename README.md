@@ -4,7 +4,7 @@
 
 This is a variant of [liouh's picross](https://github.com/liouh/picross).
 Please go check them out! He did all the hard work and I just changed around some styles.
-This is themed after [NomNomNami's Charm Studies](https://nomnomnami.itch.io/charm-studies)! Highly recommend you go check her out, they make great stuff.
+This is themed after [NomnomNami's Charm Studies](https://nomnomnami.itch.io/charm-studies)! Highly recommend you go check her out, they make great stuff.
 
 ## Instructions
 
@@ -29,7 +29,7 @@ On touch capable devices:
 * Auto-saves using HTML5 web storage
 * Progress indicator
 * Charm completion and streak statistics
-* Original Charm Studies charms from NomNomNami's game, and a few extra ones based off her works!
+* Original Charm Studies charms from NomnomNami's game, and a few extra ones based off her works!
 * Charm Studies OST! (as a YT embed)
 
 ### Library Dependencies

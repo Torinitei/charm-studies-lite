@@ -332,7 +332,7 @@ let charms = {
         ],
         total: 124
     },
-    /* NomNomNami - Other characters/works */
+    /* NomnomNami - Other characters/works */
     // 30x30
     /* BAD END THEATER */
     "HERO": {

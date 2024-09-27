@@ -1023,6 +1023,10 @@ body.dark td:has(> .smol.full) {
 	text-decoration: dotted underline;
 }
 
+.beeg {
+	font-size: 130%;
+}
+
 
 #solve {
 	width: 121.33px;
