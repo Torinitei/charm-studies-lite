@@ -1126,6 +1126,10 @@ html {
 	font-size: 70%;
 }
 
+.category.beeg {
+	font-size: 130%;
+}
+
 button:disabled {
 	background-color: var(--light-disabled);
 	border-color: var(--light-disabled);

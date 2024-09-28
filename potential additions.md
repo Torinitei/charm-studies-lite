@@ -15,8 +15,6 @@
     * Alternative banner for imperfect completion
   * Moving away from default HTML select elements
     * select2 is a pain
-  * Making things more accessible
-    * Increasing contrast for sum elements in light mode
   * Move away from tooltips to onclick modals
     * Autoformatting is pain with span tooltips
   * Make main settings menu for all toggles and debugs
@@ -27,9 +25,8 @@
 
   * Custom charm maker/editor
     * Not sure how that would work
-  * Cassia reactions?
-    * Could be problematic
-      * As a fan of Nami's work I want to include this stuff but I don't want to detract or steal from the original >.<
+  * Cassia reactions
+    * Sprite use officially approved!! tysm nami <3
   * Achievements
     * Beat certain amount of charms
       * Under certain times
@@ -38,6 +35,10 @@
         * Maybe unlock custom themes/music
           * BET could use custom font? Pixter Display
     * Give +1% XP multi for each achievement unlocked
+
+  * Charms
+    * OneShot
+    * UNDERTALE | DELTARUNE
 
 ## To-do
 

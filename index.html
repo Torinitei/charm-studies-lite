@@ -96,8 +96,8 @@
 						</label><br>
 						<input id="easy" type="checkbox" checked>
 						<label class="tooltip" for="easy">✿ Easy mode
-							<span class="tooltiptext">Adds crossouts (which keep track of which columns/rows you've
-								completed), and adds sums (which can be used for logical deduction).
+							<span class="tooltiptext">Adds crossouts (to keep track of completed hints), 
+								and adds sums (used for steady deduction).
 
 								Highly recommended!</span>
 						</label><br>
@@ -107,9 +107,9 @@
 						</label><br>
 						<input id="autoPause" type="checkbox" checked>
 						<label class="tooltip" for="autoPause">❚❚ Auto-pause
-							<span class="tooltiptext">Auto-pauses the charm when you switch windows, tab out, or
-								interact with the OST.
-								Click on anywhere else on the page, or manually unpause, to solve this.
+							<span class="tooltiptext">Auto-pauses the charm when you switch windows, 
+								tab out, or interact with the OST.
+								Click on anywhere else on the page, or manually unpause, to undo this.
 
 								NOTE: PWA and non-Chromium browser users may have issues with this feature.
 							</span>
@@ -167,7 +167,12 @@
 							id="completeCharms">x</span> (<span class="stat" id="pcRatio">xx.x%</span>)</span>
 
 					<div class="custom"></div>
-					<h2>Charm XP:</h2>
+					<h2 class="tooltip">Charm XP:
+						<span class="tooltiptext">The amount of experience you gain with this charm!
+							If you repeat the same charm twice in a row, you'll get 25% of the charm's XP at maximum.
+							Add variety to your charms to accrue more experience!
+						</span>
+					</h2>
 					<span class="stat" id="charm-exp">x</span>/<span class="stat" id="charm-max-exp">x</span> XP
 				</div>
 				<h1 class="title">Other</h1>
@@ -396,7 +401,8 @@
 							Sudoku Crusher, for their <a
 								href="https://www.sentohsharyoga.com/puzzle/nonogram/text/free_size">nonogram online
 								solver!</a><br>
-							<a href="https://www.resizepixel.com">ResizePixel</a>, for their image editing tools (to help with charm making!)
+							<a href="https://www.resizepixel.com">ResizePixel</a>, for their image editing tools (to help with charm making!)<br>
+							The <a href="https://discord.gg/TMfXfXfFJe">Namiverse Discord</a>, for supporting the project! <span class="smol">(this isn't anything official, just a server for fans I recently discovered)</span>
 						</div>
 					</div>
 				</div>
@@ -425,8 +431,18 @@
 					<div class="modal-content">
 						<div class="modal-header">Update Log</div>
 						<div class="modal-body">
+							<span class="modal-highlight smol">2024/09/28</span>
+							<span class="category smol">Gameplay</span>
+							<span class="category smol">Quality of Life</span><br>
+							<ul>
+								<li><span class="modal-highlight">EXPERIMENTAL:</span> Charm hints will now partially complete! (crossouts around tiles required)</li>
+								<li>Added clarification for charm exhaustion mechanic under Charm XP tooltip <span class="smol">(in a nutshell, don't repeat charms! you get less xp)</span></li>
+								<li>Added additional credits (thanks namiverse discord :3)</li>
+							</ul><br>
+							
+
 							<span class="modal-highlight beeg">2024/09/27 ~ Approval day!! &lt;3</span><br>
-							<span class="category">Celebration</span><br><br>
+							<span class="category beeg">Celebration</span><br><br>
 
 							Well, I can't quite believe it. <span class="modal-highlight">Hello everyone!</span> It's an
 							honour to be here ♫<br>
@@ -436,7 +452,7 @@
 							<span class="modal-highlight beeg">Please enjoy Charm Studies lite! 🩷</span>
 							<ul>
 								<li>Temporary boosted XP gained from &times;1 to &times;2</li>
-								<li>Added additonal credits</li>
+								<li>Added additional credits</li>
 							</ul><br>
 
 

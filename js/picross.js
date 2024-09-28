@@ -36,45 +36,64 @@ $(function () {
 
 	let PuzzleModel = Backbone.Model.extend({
 
+		/**
+		 * Gets the default save attributes.
+		 * @typedef {{ ...}} defaults
+		 */
+
 		defaults: function () {
 			return {
-				dimensionWidth: 10, // default dimension width
-				dimensionHeight: 10, // default dimension height
-				state: [],
-				hintsX: [],
-				hintsY: [],
-				guessed: 0,
-				total: 100,
-				complete: false,
-				perfect: false,
-				seed: 0,
-				darkMode: false,
-				easyMode: true,
+				// stat definitions
+				dimensionWidth: 10, // charm width
+				dimensionHeight: 10, // charm height
+				state: [], // board state
+				hintsX: [], // row hints
+				hintsY: [], // column hints
+				guessed: 0, // tiles painted (cells filled)
+				total: 100, // tiles to paint (number of cells to correctly fill)
+				complete: false, // if charm is complete or not
+				perfect: false, // if charm is completed perfectly or not
+				seed: 0, // charm seed
+				darkMode: false, // dark mode
+				easyMode: true, // crossouts + sums
 				// stats update
-				perfectStreak: 0,
-				charmsComplete: 0,
-				charmsPerfect: 0,
+				perfectStreak: 0, // how many charms done perfectly in a row
+				charmsComplete: 0, // how many charms done
+				charmsPerfect: 0, // how many charms done perfectly
 				// experience update
-				playerExperience: 0,
-				playerExperienceBuffer: 0,
-				playerPrestige: 0,
-				charmExperience: 0,
-				charmMaxExperience: 0,
-				autoPauseMode: true,
-				timerDisplayMode: true,
-				charmExhaustedID: "",
+				playerExperience: 0, // player XP
+				playerExperienceBuffer: 0, // player XP not yet claimed (acquired when giving up a charm)
+				playerPrestige: 0, // prestige level (experience restart count)
+				charmExperience: 0, // experience player has earned from their current charm
+				charmMaxExperience: 0, // experience player can earn for completing the charm perfectly
+				autoPauseMode: true, // if the charm will pause when not in focus
+				timerDisplayMode: true, // if the timer is visible, or hidden with "=^.^"=
+				charmExhaustedID: "", // the ID of the last charm completed (to incentivise playing unique charms and discourage repetition)
 				// optimisation update
-				noSumMode: false,
+				noSumMode: false, // takes off sums from easy mode
 				// achievements update
 				/* achievements: [] */
 			}
 		},
 
+
+		/**
+		 * Sets up the universal function for Backbone to save any time *change* is triggered.
+		 */
 		initialize: function () {
 			this.on('change', this.save);
 		},
 
-		/*  >>> DO NOT OPTIMISE ZONE <<< */
+		
+		/*  >>> DO NOT OPTIMISE ZONE <<< 
+			I have had trouble optimising the save and resume functions in the past, so unfortunately DRY is hard to not violate here.
+			Please let me know if you are going to work on these, and if you find a better way to deal with this, also let me know!
+		*/
+
+
+		/**
+		 * Saves the player's game info in localStorage. (5MB max, no concern of being near capacity thus far)
+		 */
 		save: function () {
 			if (localStorageSupport()) {
 				localStorage['picross2.saveVersion'] = saveVersion;
@@ -112,6 +131,9 @@ $(function () {
 			}
 		},
 
+		/**
+		 * On loading the game, loads all the game info attributes of localStorage into Backbone to use.
+		 */
 		resume: function () {
 
 			if (!localStorageSupport() || localStorage['picross2.saveVersion'] != saveVersion) {
@@ -121,6 +143,12 @@ $(function () {
 
 			let defaults = this.defaults()
 
+
+			/**
+			 * Safely retrieves a value for a save attribute. If any attribute undefined, return the default.
+			 * @param {String} saveKey 
+			 * @returns {*}
+			 */
 			function safeLocalStorage(saveKey) {
 				if (localStorage[saveKey] != 'undefined' && localStorage[saveKey] !== undefined) {
 					return localStorage[saveKey];
@@ -193,6 +221,8 @@ $(function () {
 				/* achievements: achievements */
 			});
 		},
+
+
 		/*  >>> END OF DO NOT OPTIMISE ZONE <<< */
 
 		reset: function (customSeed) {
@@ -206,7 +236,7 @@ $(function () {
 			let solution = [];
 			let state = [];
 			let total = 0;
-			
+
 			let charmHeight = this.get('dimensionHeight');
 			let charmWidth = this.get('dimensionWidth');
 
@@ -285,8 +315,8 @@ $(function () {
 		},
 
 		guess: function (x, y, guess) {
-			let state = this.get('state');
-			let guessed = this.get('guessed');
+			var state = this.get('state');
+			var guessed = this.get('guessed');
 
 			if (state[x][y] === 2) {
 				guessed--;
@@ -307,6 +337,7 @@ $(function () {
 			}, {
 				silent: true
 			});
+			this.trigger('change');
 
 			this.updateCrossouts(state, x, y);
 		},
@@ -315,6 +346,7 @@ $(function () {
 			let hintsX = this.get('hintsX');
 			let hintsY = this.get('hintsY');
 
+			// Function to update hints based on current guesses
 			const updateHints = (hints, index, isRow) => {
 				let filled = true;
 				let cellIndex = 0;
@@ -344,20 +376,138 @@ $(function () {
 					}
 					hintIndex++;
 				}
+
+				// If the cellIndex or hintIndex doesn't cover the entire hint array, it's not filled.
 				if (cellIndex < length || hintIndex < hints[index].length) {
 					filled = false;
 				}
+
+				// Update the hints to mark as filled or unfilled
 				for (let i = 0; i < hints[index].length; i++) {
 					hints[index][i] = Math.abs(hints[index][i]) * (filled ? -1 : 1);
 				}
 			};
 
-			// cross out row hints
+			// Cross out row hints
 			updateHints(hintsX, x, true);
-
-			// cross out column hints
+			// Cross out column hints
 			updateHints(hintsY, y, false);
 
+			// Cross out hints in X direction (left and right)
+			const crossOutHintsInRow = (index) => {
+				// Cross out left
+				let tracker = 0;
+				for (let hintIndex = 0; hintIndex < hintsX[index].length; hintIndex++) {
+					while (Math.abs(state[index][tracker]) === 1) {
+						tracker++;
+					}
+					if (state[index][tracker] === 0) {
+						break;
+					}
+					let streak = hintsX[index][hintIndex];
+					if (streak < 0) {
+						tracker += Math.abs(streak);
+						continue;
+					}
+					for (let j = 1; j <= streak; j++) {
+						if (Math.abs(state[index][tracker]) === 2) {
+							tracker++;
+							if (j === streak && (tracker === state[0].length || Math.abs(state[index][tracker]) === 1)) {
+								hintsX[index][hintIndex] = streak * -1;
+							}
+						} else {
+							break;
+						}
+					}
+				}
+
+				// Cross out right
+				tracker = state[0].length - 1;
+				for (let hintIndex = hintsX[index].length - 1; hintIndex >= 0; hintIndex--) {
+					while (Math.abs(state[index][tracker]) === 1) {
+						tracker--;
+					}
+					if (state[index][tracker] === 0) {
+						break;
+					}
+					let streak = hintsX[index][hintIndex];
+					if (streak < 0) {
+						tracker -= Math.abs(streak);
+						continue;
+					}
+					for (let j = 1; j <= streak; j++) {
+						if (Math.abs(state[index][tracker]) === 2) {
+							tracker--;
+							if (j === streak && (tracker === -1 || Math.abs(state[index][tracker]) === 1)) {
+								hintsX[index][hintIndex] = streak * -1;
+							}
+						} else {
+							break;
+						}
+					}
+				}
+			};
+
+			// Cross out hints in Y direction (top and bottom)
+			const crossOutHintsInColumn = (index) => {
+				// Cross out top
+				let tracker = 0;
+				for (let hintIndex = 0; hintIndex < hintsY[index].length; hintIndex++) {
+					while (Math.abs(state[tracker][index]) === 1) {
+						tracker++;
+					}
+					if (state[tracker][index] === 0) {
+						break;
+					}
+					let streak = hintsY[index][hintIndex];
+					if (streak < 0) {
+						tracker += Math.abs(streak);
+						continue;
+					}
+					for (let j = 1; j <= streak; j++) {
+						if (Math.abs(state[tracker][index]) === 2) {
+							tracker++;
+							if (j === streak && (tracker === state.length || Math.abs(state[tracker][index]) === 1)) {
+								hintsY[index][hintIndex] = streak * -1;
+							}
+						} else {
+							break;
+						}
+					}
+				}
+
+				// Cross out bottom
+				tracker = state.length - 1;
+				for (let hintIndex = hintsY[index].length - 1; hintIndex >= 0; hintIndex--) {
+					while (Math.abs(state[tracker][index]) === 1) {
+						tracker--;
+					}
+					if (state[tracker][index] === 0) {
+						break;
+					}
+					let streak = hintsY[index][hintIndex];
+					if (streak < 0) {
+						tracker -= Math.abs(streak);
+						continue;
+					}
+					for (let j = 1; j <= streak; j++) {
+						if (Math.abs(state[tracker][index]) === 2) {
+							tracker--;
+							if (j === streak && (tracker === -1 || Math.abs(state[tracker][index]) === 1)) {
+								hintsY[index][hintIndex] = streak * -1;
+							}
+						} else {
+							break;
+						}
+					}
+				}
+			};
+
+			// Call the cross out functions for both row and column
+			crossOutHintsInRow(x);
+			crossOutHintsInColumn(y);
+
+			// Set the updated hints back to the model
 			this.set({
 				hintsX: hintsX,
 				hintsY: hintsY
@@ -366,6 +516,7 @@ $(function () {
 			});
 			this.trigger('change');
 		},
+
 
 		isPerfect: function () {
 			let perfect = true;
@@ -1118,32 +1269,40 @@ $(function () {
 			this.render();
 		},
 
-		charmSum: function (hints, space, dimension) {
+		charmSum: function (hints, dimension) {
 			dimension = Number(dimension);
 			let sumTag = "strong";
 			let sumClass = "smol";
 			let tooltipText = "";
 			let sumTooltip = "";
 
-			if (space < 0) {
+
+			let space = hints.reduce((acc, cur) => acc + Math.abs(cur), hints.length - 1);
+			
+			let sumAbsoluteHints = hints.reduce((acc, cur) => acc + Math.abs(cur), 0);
+			let absoluteHintSum = Math.abs(hints.reduce((acc, cur) => acc + cur, 0));
+
+			if (sumAbsoluteHints == absoluteHintSum && Math.max(...hints) < 0) { // if all hints met
 				space = "✪"
 				sumTag = "em";
 				sumClass = "";
-			} else if (space == dimension) { // full row/column can be filled, one possibility
-				sumClass = "smol full tooltip";
-				tooltipText = "Can complete row/column!";
 			} else {
-				let isPartial = false;
-				let spaceDifference = dimension - space;
-				hints.forEach(hint => {
-					if (hint > spaceDifference) {
-						isPartial = true;
-					}
-				});
+				if (space == dimension) { // full row/column can be filled, one possibility
+					sumClass = "smol full tooltip";
+					tooltipText = "Can complete row/column!";
+				} else {
+					let isPartial = false;
+					let spaceDifference = dimension - space;
+					hints.forEach(hint => {
+						if (hint > spaceDifference) {
+							isPartial = true;
+						}
+					});
 
-				if (isPartial) { // part of row/column can be filled, multiple possibilities
-					sumClass = "smol partial tooltip";
-					tooltipText = "Can partially complete row/column.";
+					if (isPartial) { // part of row/column can be filled, multiple possibilities
+						sumClass = "smol partial tooltip";
+						tooltipText = "Can partially complete row/column.";
+					}
 				}
 			}
 
@@ -1225,11 +1384,8 @@ $(function () {
 						}
 					});
 
-					if (isEasyMode) {
-						let space = hintArray.reduce((acc, cur) => acc + cur, hintArray.length - 1);
-						if (!noSumMode) {
-							processedHints.push(this.charmSum(hintArray, space, dimension));
-						}
+					if (isEasyMode && !noSumMode) {
+						processedHints.push(this.charmSum(hintArray, dimension));
 					}
 					return processedHints;
 				});
