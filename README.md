@@ -11,6 +11,7 @@ This is themed after [NomnomNami's Charm Studies](https://nomnomnami.itch.io/cha
 * Left click: Paint tile
 * Right click: Cross out tile
 * Middle click: Mark/Highlight tile
+
 All support multi-select with dragging!
 
 On touch capable devices:
