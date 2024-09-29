@@ -1323,8 +1323,8 @@ $(function () {
 			function lvToTitle(level) {
 				// Minimum and maximum level titles
 				const titles = {
-					0: "Clueless Cassia",
-					"MAX": "True Logician"
+					0: "Clueless Cassia", // Just look at the app icon and you'll see what I mean
+					"MAX": "True Logician" // What Senna wants to be, the world's best logician
 				};
 
 				const perFiveLevelsTitles = [

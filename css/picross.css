@@ -7,7 +7,7 @@
 	--dark-debug-text: #ce8899;
 	--dark-debug: #6d2235;
 	--dark-disabled: #101010;
-	--dark-gradient-1: #5f7da1;
+	--dark-gradient-1: #5f7da1; 
 	--dark-gradient-2: #866d92;
 	--dark-gradient-3: #a35b6d;
 	--dark-gradient-4: #926d80;
@@ -30,11 +30,11 @@
 	--light-debug-text: #763042;
 	--light-debug: #dd94a6;
 	--light-disabled: #efefef;
-	--light-gradient-1: #bedbff;
-	--light-gradient-2: #f3daff;
-	--light-gradient-3: #ffb6c8;
-	--light-gradient-4: #ffdaed;
-	--light-gradient-5: #ffdeb8;
+	--light-gradient-1: #bedbff; /* periwinkle */
+	--light-gradient-2: #f3daff; /* astragalus */
+	--light-gradient-3: #ffb6c8; /* cassia */
+	--light-gradient-4: #ffdaed; /* pastille */
+	--light-gradient-5: #ffdeb8; /* senna */
 	--light-gradient-all: linear-gradient(90deg, var(--light-gradient-1), var(--light-gradient-2), var(--light-gradient-3), var(--light-gradient-4), var(--light-gradient-5));
 	--light-modal-header: #cc6600;
 	--light-panel-border: #a9736b;
@@ -939,7 +939,6 @@ body.dark select hr {
 }
 
 #puzzle.complete.perfect {
-	/* character references:         periwinkle,	astragalus, cassia,		pastille, 	senna	*/
 	background: var(--light-gradient-all);
 	background-size: 400% 400%;
 	animation: gradient 10s ease infinite;
