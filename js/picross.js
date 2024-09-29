@@ -22,12 +22,12 @@ import {
 
 $(function () {
 
-	// localStorage save format versioning
+	// localStorage save format versioning (legacy code)
 	const saveVersion = '2024.08.06';
 
 	const touchSupport = true;
 
-	// experience constants
+	// Experience calculation constants
 	const expCalcConstant = 0.1;
 	const expCalcPower = 2;
 	const expCalcBase = 400;
@@ -40,38 +40,37 @@ $(function () {
 		 * Gets the default save attributes.
 		 * @typedef {{ ...}} defaults
 		 */
-
 		defaults: function () {
 			return {
-				// stat definitions
-				dimensionWidth: 10, // charm width
-				dimensionHeight: 10, // charm height
-				state: [], // board state
-				hintsX: [], // row hints
-				hintsY: [], // column hints
-				guessed: 0, // tiles painted (cells filled)
-				total: 100, // tiles to paint (number of cells to correctly fill)
-				complete: false, // if charm is complete or not
-				perfect: false, // if charm is completed perfectly or not
-				seed: 0, // charm seed
-				darkMode: false, // dark mode
-				easyMode: true, // crossouts + sums
-				// stats update
-				perfectStreak: 0, // how many charms done perfectly in a row
-				charmsComplete: 0, // how many charms done
-				charmsPerfect: 0, // how many charms done perfectly
-				// experience update
-				playerExperience: 0, // player XP
-				playerExperienceBuffer: 0, // player XP not yet claimed (acquired when giving up a charm)
-				playerPrestige: 0, // prestige level (experience restart count)
-				charmExperience: 0, // experience player has earned from their current charm
-				charmMaxExperience: 0, // experience player can earn for completing the charm perfectly
-				autoPauseMode: true, // if the charm will pause when not in focus
-				timerDisplayMode: true, // if the timer is visible, or hidden with "=^.^"=
-				charmExhaustedID: "", // the ID of the last charm completed (to incentivise playing unique charms and discourage repetition)
-				// optimisation update
-				noSumMode: false, // takes off sums from easy mode
-				// achievements update
+				// Stat definitions
+				dimensionWidth: 10, // Charm width
+				dimensionHeight: 10, // Charm height
+				state: [], // Board state
+				hintsX: [], // Row hints
+				hintsY: [], // Column hints
+				guessed: 0, // Tiles painted (cells filled)
+				total: 100, // Tiles to paint (number of cells to correctly fill)
+				complete: false, // If charm is complete or not
+				perfect: false, // If charm is completed perfectly or not
+				seed: 0, // Charm seed
+				darkMode: false, // Dark mode
+				easyMode: true, // Crossouts + sums
+				// Stats update
+				perfectStreak: 0, // How many charms done perfectly in a row
+				charmsComplete: 0, // How many charms done
+				charmsPerfect: 0, // How many charms done perfectly
+				// Experience update
+				playerExperience: 0, // Player XP
+				playerExperienceBuffer: 0, // Player XP not yet claimed (acquired when giving up a charm)
+				playerPrestige: 0, // Prestige level (experience restart count)
+				charmExperience: 0, // Experience player has earned from their current charm
+				charmMaxExperience: 0, // Experience player can earn for completing the charm perfectly
+				autoPauseMode: true, // If the charm will pause when not in focus
+				timerDisplayMode: true, // If the timer is visible, or hidden with "=^.^"=
+				charmExhaustedID: "", // The ID of the last charm completed (to incentivise playing unique charms and discourage repetition)
+				// Optimisation update
+				noSumMode: false, // Takes off sums from easy mode
+				// Achievements update
 				/* achievements: [] */
 			}
 		},
@@ -84,9 +83,9 @@ $(function () {
 			this.on('change', this.save);
 		},
 
-		
+
 		/*  >>> DO NOT OPTIMISE ZONE <<< 
-			I have had trouble optimising the save and resume functions in the past, so unfortunately DRY is hard to not violate here.
+			I have had trouble optimising the save and resume functions in the past, so unfortunately DRY (Don't Repeat Yourself) is hard to not violate here.
 			Please let me know if you are going to work on these, and if you find a better way to deal with this, also let me know!
 		*/
 
@@ -110,11 +109,11 @@ $(function () {
 				localStorage['picross2.seed'] = JSON.stringify(this.get('seed'));
 				localStorage['picross2.darkMode'] = JSON.stringify(this.get('darkMode'));
 				localStorage['picross2.easyMode'] = JSON.stringify(this.get('easyMode'));
-				// stats update
+
 				localStorage['charmStudiesLite.stats.perfectStreak'] = JSON.stringify(this.get('perfectStreak'));
 				localStorage['charmStudiesLite.stats.charmsComplete'] = JSON.stringify(this.get('charmsComplete'));
 				localStorage['charmStudiesLite.stats.charmsPerfect'] = JSON.stringify(this.get('charmsPerfect'));
-				// experience update
+
 				localStorage['charmStudiesLite.stats.EXP.playerExperience'] = JSON.stringify(this.get('playerExperience'));
 				localStorage['charmStudiesLite.stats.EXP.playerExperienceBuffer'] = JSON.stringify(this.get('playerExperienceBuffer'));
 				localStorage['charmStudiesLite.stats.EXP.playerPrestige'] = JSON.stringify(this.get('playerPrestige'));
@@ -123,9 +122,9 @@ $(function () {
 				localStorage['charmStudiesLite.timer.autoPauseMode'] = JSON.stringify(this.get('autoPauseMode'));
 				localStorage['charmStudiesLite.timer.timerDisplayMode'] = JSON.stringify(this.get('timerDisplayMode'));
 				localStorage['charmStudiesLite.stats.EXP.charmExhaustedID'] = JSON.stringify(this.get('charmExhaustedID'));
-				// optimisations update
+
 				localStorage['charmStudiesLite.noSumMode'] = JSON.stringify(this.get('noSumMode'));
-				// achievements update
+
 				/* updateAchievementList.call(this);
 				localStorage['charmStudiesLite.achievements'] = JSON.stringify(this.get('achievements')); */
 			}
@@ -170,11 +169,11 @@ $(function () {
 			const seed = JSON.parse(safeLocalStorage('picross2.seed'));
 			const darkMode = JSON.parse(safeLocalStorage('picross2.darkMode'));
 			const easyMode = JSON.parse(safeLocalStorage('picross2.easyMode'));
-			// stats update
+
 			const perfectStreak = JSON.parse(safeLocalStorage('charmStudiesLite.stats.perfectStreak'));
 			const charmsComplete = JSON.parse(safeLocalStorage('charmStudiesLite.stats.charmsComplete'));
 			const charmsPerfect = JSON.parse(safeLocalStorage('charmStudiesLite.stats.charmsPerfect'));
-			// experience update
+
 			const playerExperience = JSON.parse(safeLocalStorage('charmStudiesLite.stats.EXP.playerExperience'));
 			const playerExperienceBuffer = JSON.parse(safeLocalStorage('charmStudiesLite.stats.EXP.playerExperienceBuffer'));
 			const playerPrestige = JSON.parse(safeLocalStorage('charmStudiesLite.stats.EXP.playerPrestige'));
@@ -183,7 +182,7 @@ $(function () {
 			const autoPauseMode = JSON.parse(safeLocalStorage('charmStudiesLite.timer.autoPauseMode'));
 			const timerDisplayMode = JSON.parse(safeLocalStorage('charmStudiesLite.timer.timerDisplayMode'));
 			const charmExhaustedID = JSON.parse(safeLocalStorage('charmStudiesLite.stats.EXP.charmExhaustedID'));
-			// optimisations update
+
 			const noSumMode = JSON.parse(safeLocalStorage('charmStudiesLite.noSumMode'));
 			// achievements update
 			/* const achievements = JSON.parse(safeLocalStorage('charmStudiesLite.achievements')); */
@@ -202,11 +201,9 @@ $(function () {
 				seed: seed,
 				easyMode: easyMode,
 				darkMode: darkMode,
-				// stats update
 				perfectStreak: perfectStreak,
 				charmsComplete: charmsComplete,
 				charmsPerfect: charmsPerfect,
-				// experience update
 				playerExperience: playerExperience,
 				playerExperienceBuffer: playerExperienceBuffer,
 				playerPrestige: playerPrestige,
@@ -215,9 +212,7 @@ $(function () {
 				autoPauseMode: autoPauseMode,
 				timerDisplayMode: timerDisplayMode,
 				charmExhaustedID: charmExhaustedID,
-				// optimisations update
 				noSumMode: noSumMode,
-				// achievements update
 				/* achievements: achievements */
 			});
 		},
@@ -225,14 +220,19 @@ $(function () {
 
 		/*  >>> END OF DO NOT OPTIMISE ZONE <<< */
 
+		/**
+		 * Resets the board's state (starts a new charm).
+		 * @param {String} customSeed Any seed inputted through the custom entry, or a seed from the Charm Gallery.
+		 */
 		reset: function (customSeed) {
 
 			let seed = customSeed;
-			if (seed === undefined) {
+			if (seed === undefined) { // Generate a millisecond Unix seed if no seed inputted (onpress New Game)
 				seed = '' + new Date().getTime();
 			}
-			Math.seedrandom(seed);
+			Math.seedrandom(seed); // Set the seed for Math.random 
 
+			// Board initialising
 			let solution = [];
 			let state = [];
 			let total = 0;
@@ -240,9 +240,10 @@ $(function () {
 			let charmHeight = this.get('dimensionHeight');
 			let charmWidth = this.get('dimensionWidth');
 
-			if (isCharminGallery(seed)) {
+			if (isCharminGallery(seed)) { // For charm gallery seeds
 				[state, solution, total] = getCharmSolveInformation(seed);
 			} else {
+				// Generate random board
 				for (let i = 0; i < charmHeight; i++) {
 					solution[i] = [];
 					state[i] = [];
@@ -257,13 +258,13 @@ $(function () {
 
 			let hintsX = this.getHints(solution, "x");
 			let hintsY = this.getHints(solution, "y");
-			// state = solution; // DEV TEST
+			// state = solution; // DEV TEST: Will auto-fill board with correct solution.
 
 			this.set({
 				state: state,
 				hintsX: hintsX,
 				hintsY: hintsY,
-				guessed: 0, // total, // DEV TEST
+				guessed: 0, // total, // DEV TEST: Will let progress be 100%.
 				total: total,
 				complete: false,
 				perfect: false,
@@ -274,6 +275,12 @@ $(function () {
 			this.trigger('change');
 		},
 
+		/**
+		 * Returns the hint numbers for a given row/column.
+		 * @param {Array[]} solution The state of the board.
+		 * @param {String} direction The direction to go in. x (horizontally) by default.
+		 * @returns 
+		 */
 		getHints: function (solution, direction = "x") {
 			let hints = [];
 			let primaryDimension, secondaryDimension, cellValueGetter;
@@ -281,11 +288,11 @@ $(function () {
 			if (direction === "y") {
 				primaryDimension = this.get('dimensionWidth');
 				secondaryDimension = this.get('dimensionHeight');
-				cellValueGetter = (i, j) => solution[j][i]; // vertical
+				cellValueGetter = (i, j) => solution[j][i]; // Vertical
 			} else {
 				primaryDimension = this.get('dimensionHeight');
 				secondaryDimension = this.get('dimensionWidth');
-				cellValueGetter = (i, j) => solution[i][j]; // horizontal (default)
+				cellValueGetter = (i, j) => solution[i][j]; // Horizontal
 			}
 
 			for (let i = 0; i < primaryDimension; i++) {
@@ -295,7 +302,7 @@ $(function () {
 				for (let j = 0; j < secondaryDimension; j++) {
 					let cellValue = cellValueGetter(i, j);
 
-					if (cellValue >= 2) {
+					if (cellValue >= 2) { // Skip painted and highlighted tiles
 						streak++;
 						continue;
 					}
@@ -314,19 +321,25 @@ $(function () {
 			return hints;
 		},
 
+		/**
+		 * Updates the state of a cell according to its guess.
+		 * @param {Number} x The x-coordinate of the cell to guess.
+		 * @param {Number} y The y-coordinate of the cell to guess.
+		 * @param {Number} guess The guess (state) of the cell to check against.
+		 */
 		guess: function (x, y, guess) {
 			var state = this.get('state');
 			var guessed = this.get('guessed');
 
-			if (state[x][y] === 2) {
+			if (state[x][y] === 2) { // If tile already painted, decrement the guessed count
 				guessed--;
 			}
 
-			if (state[x][y] === guess) {
+			if (state[x][y] === guess) { // If guess type same as existing tile type, revert to empty cell
 				state[x][y] = 0;
 			} else {
 				state[x][y] = guess;
-				if (guess === 2) {
+				if (guess === 2) { // Increment the guessed count
 					guessed++;
 				}
 			}
@@ -339,9 +352,15 @@ $(function () {
 			});
 			this.trigger('change');
 
-			this.updateCrossouts(state, x, y);
+			this.updateCrossouts(state, x, y); // Update the crossouts after a guess
 		},
 
+		/**
+		 * Crosses out completed hints for the charm.
+		 * @param {Array[]} state The current state of the board.
+		 * @param {Number} x The row number to reference.
+		 * @param {Number} y The column number to reference.
+		 */
 		updateCrossouts: function (state, x, y) {
 			let hintsX = this.get('hintsX');
 			let hintsY = this.get('hintsY');
@@ -377,7 +396,7 @@ $(function () {
 					hintIndex++;
 				}
 
-				// If the cellIndex or hintIndex doesn't cover the entire hint array, it's not filled.
+				// If the cellIndex or hintIndex doesn't cover the entire hint array, it's not filled
 				if (cellIndex < length || hintIndex < hints[index].length) {
 					filled = false;
 				}
@@ -388,6 +407,7 @@ $(function () {
 				}
 			};
 
+			/* Blanket row/column (all hint) checks */
 			// Cross out row hints
 			updateHints(hintsX, x, true);
 			// Cross out column hints
@@ -401,7 +421,7 @@ $(function () {
 					while (Math.abs(state[index][tracker]) === 1) {
 						tracker++;
 					}
-					if (state[index][tracker] === 0) {
+					if (state[index][tracker] === 0 || state[index][tracker] === 9) { // Stop tracking on empty or highlighted cells
 						break;
 					}
 					let streak = hintsX[index][hintIndex];
@@ -427,7 +447,7 @@ $(function () {
 					while (Math.abs(state[index][tracker]) === 1) {
 						tracker--;
 					}
-					if (state[index][tracker] === 0) {
+					if (state[index][tracker] === 0 || state[index][tracker] === 9) { // Stop tracking on empty or highlighted cells
 						break;
 					}
 					let streak = hintsX[index][hintIndex];
@@ -456,7 +476,7 @@ $(function () {
 					while (Math.abs(state[tracker][index]) === 1) {
 						tracker++;
 					}
-					if (state[tracker][index] === 0) {
+					if (state[tracker][index] === 0 || state[tracker][index] === 9) { // Stop tracking on empty or highlighted cells
 						break;
 					}
 					let streak = hintsY[index][hintIndex];
@@ -482,7 +502,7 @@ $(function () {
 					while (Math.abs(state[tracker][index]) === 1) {
 						tracker--;
 					}
-					if (state[tracker][index] === 0) {
+					if (state[tracker][index] === 0 || state[tracker][index] === 9) { // Stop tracking on empty or highlighted cells
 						break;
 					}
 					let streak = hintsY[index][hintIndex];
@@ -503,7 +523,7 @@ $(function () {
 				}
 			};
 
-			// Call the cross out functions for both row and column
+			/* Partial hint checks */
 			crossOutHintsInRow(x);
 			crossOutHintsInColumn(y);
 
@@ -518,11 +538,15 @@ $(function () {
 		},
 
 
+		/**
+		 * Checks if the charm has been completed perfectly.
+		 * @returns {Boolean} True if perfect, false otherwise.
+		 */
 		isPerfect: function () {
 			let perfect = true;
 			let state = this.get('state');
 
-			// convert marks to crossses
+			// Convert marks (highlights) to crossses
 			let markedCells = [];
 			state.forEach((column, y) => {
 				column.forEach((cell, x) => {
@@ -538,6 +562,12 @@ $(function () {
 			let solutionX = this.getHints(state, "x");
 			let solutionY = this.getHints(state, "y");
 
+			/**
+			 * Checks if the board state matches the charm hints for a given dimension.
+			 * @param {Array} hints The hints derived from the board state.
+			 * @param {Array} solution The hints of the charm.
+			 * @returns 
+			 */
 			function compareHints(hints, solution) {
 				for (let i = 0; i < hints.length; i++) {
 					if (hints[i].length !== solution[i].length) {
@@ -556,7 +586,7 @@ $(function () {
 			let perfectY = compareHints(hintsY, solutionY);
 			perfect = perfectX && perfectY;
 
-			// reverting marked cells if not perfect
+			// Reverting marked cells if not perfect
 			if (!perfect) markedCells.forEach(([y, x]) => state[y][x] = 9);
 
 			return perfect;
@@ -568,7 +598,12 @@ $(function () {
 
 		el: $("body"),
 
+		/**
+		 * Returns the list of events which can be triggered through in-game interaction.
+		 * @typedef {{...}} events The list of events, dependent on device.
+		 */
 		events: function () {
+			// The events shared on all devices
 			const baseEvents = {
 				"change #autoPause": "changeAutoPauseMode",
 				"change #dark": "changeDarkMode",
@@ -600,6 +635,7 @@ $(function () {
 				"submit #customForm": "newCustom",
 			};
 
+			// Events specifically for mobile devices
 			if (touchSupport && 'ontouchstart' in document.documentElement) {
 				Object.assign(baseEvents, {
 					"touchend td.cell": "touchEnd",
@@ -611,12 +647,16 @@ $(function () {
 			return baseEvents;
 		},
 
+		// Initial mouse settings
 		mouseStartX: -1,
 		mouseStartY: -1,
 		mouseEndX: -1,
 		mouseEndY: -1,
 		mouseMode: 0,
 
+		/**
+		 * Function to intiialise the game from startup. Loads save attributes, sets settings (via checkboxes), and renders the board and seed.
+		 */
 		initialize: function () {
 			this.model.resume();
 			$('#dimensions').val(this.model.get('dimensionWidth') + 'x' + this.model.get('dimensionHeight'));
@@ -629,6 +669,7 @@ $(function () {
 			this.showSeed();
 		},
 
+		// Settings test functions - ignore this crappily done stuff
 		/* importStorage: function () {
 			importSave.call(this);
 		}, */
@@ -637,6 +678,11 @@ $(function () {
 			exportSave();
 		}, */
 
+		/**
+		 * Helper function to toggle setting modes on checkbox change.
+		 * @param {String} selector The ID of the checkbox.
+		 * @param {String} modelKey The mode to toggle.
+		 */
 		updateMode: function (selector, modelKey) {
 			const isChecked = $(selector).prop('checked');
 			this.model.set({
@@ -645,6 +691,7 @@ $(function () {
 			this.render();
 		},
 
+		// See updateMode
 		changeDarkMode: function () {
 			this.updateMode('#dark', 'darkMode');
 		},
@@ -661,6 +708,10 @@ $(function () {
 			this.updateMode('#noSum', 'noSumMode');
 		},
 
+		/**
+		 * Sets the size of the board according to the dimensions value, or the specific charm value.
+		 * @param {String} seed The charm seed (for Charm Gallery boards)
+		 */
 		changeDimensions: function (seed) {
 			let dimensions = (isCharminGallery(seed)) ? getCharmDimensions(seed) : $('#dimensions').val();
 			$('#dimensions').val(dimensions);
@@ -671,16 +722,24 @@ $(function () {
 			});
 		},
 
+		/**
+		 * Functionality for the Charm Gallery "Study Charm~" button. Starts a new game with the gallery select.
+		 * @param {*} e Used with preventDefault to stop the refreshing of the page (button submitting does that) 
+		 */
 		galleryStudy: function (e) {
 			e.preventDefault();
 			let selectedCharm = document.getElementById("original-charms").value;
-			if (selectedCharm !== "default") this._newGame(selectedCharm);
+			if (selectedCharm !== "default") this._newGame(selectedCharm); // Will not trigger when "select charm" is present
 		},
 
+		/**
+		 * Functionality for the "New Charm >" and "Custom Charm" buttons. Starts a new game.
+		 * @param {String} customSeed The seed of the charm (used for dimensions and board generation with Charm Gallery).
+		 */
 		_newGame: function (customSeed) {
-			if (!this.model.isPerfect()) this.storeExperience();
-			document.getElementById("original-charms").value = "default";
-			$('#solve').prop('disabled', false).text('Finish Charm!');
+			if (!this.model.isPerfect()) this.storeExperience(); // Buffer charm experience if charm not perfect (given up)
+			document.getElementById("original-charms").value = "default"; // Resets charm gallery selection
+			$('#solve').prop('disabled', false).text('Finish Charm!'); // Enables solve button interactoin
 			$('#puzzle').removeClass('complete perfect');
 			$('#progress').removeClass('done');
 			this.changeDimensions(customSeed);
@@ -690,28 +749,43 @@ $(function () {
 			this.showSeed();
 		},
 
+		/**
+		 * Literally just used to reset the custom seed value. I don't know why this is it's own function, but oh well.
+		 */
 		newGame: function () {
 			$('#customSeed').val('');
 			this._newGame();
 		},
 
+		/**
+		 * Starts a new game with a custom ID.
+		 * @param {*} e Used with preventDefault to stop the refreshing of the page (button submitting does that)
+		 */
 		newCustom: function (e) {
 			e.preventDefault();
-			let customSeed = $.trim($('#customSeed').val());
+			let customSeed = $.trim($('#customSeed').val()); // Removes all trailing and leading whitespace.
 			customSeed.length ? this._newGame(customSeed) : this._newGame();
 		},
 
+		/**
+		 * Literally just used to show the seed. Why is this its own function, again?
+		 * 	(it's probably reused a bunch and i'm just being salty)
+		 */
 		showSeed: function () {
 			let seed = this.model.get('seed');
 			$('#seed').val(seed);
 		},
 
+		/**
+		 * Handles the mouse down event, sets the mouse mode according to the mouse button when on a cell.
+		 * @param {*} e Used with preventDefault to stop the refreshing of the page (button submitting does that). Additionally used for detecting mouse mode.
+		 */
 		clickStart: function (e) {
 			if (this.model.get('complete')) return;
 
 			let target = $(e.target);
 
-			if (this.mouseMode !== 0 || target.attr('data-x') === undefined || target.attr('data-y') === undefined) {
+			if (this.mouseMode !== 0 || target.attr('data-x') === undefined || target.attr('data-y') === undefined) { // When not in charm, or mouse mode not initially 0 (none)
 				this.mouseMode = 0;
 				this.render();
 				return;
@@ -724,6 +798,11 @@ $(function () {
 			this.mouseMode = e.which;
 		},
 
+		/**
+		 * Handles cell hover events.
+		 * @param {*} e Used to ascertain where the mouse is.
+		 * @returns 
+		 */
 		mouseOver: function (e) {
 			let target = $(e.currentTarget);
 			let endX = target.attr('data-x');
@@ -731,9 +810,9 @@ $(function () {
 			this.mouseEndX = endX;
 			this.mouseEndY = endY;
 
-			$('td.hover, td.hoverLight').removeClass('hover hoverLight');
+			$('td.hover, td.hoverLight').removeClass('hover hoverLight'); // Remove style classes from charm cells
 
-			if (this.mouseMode === 0) {
+			if (this.mouseMode === 0) { // If no mouse button pressed, add hover effects
 				$('td.cell[data-y=' + endY + ']').addClass('hoverLight');
 				$('td.cell[data-x=' + endX + ']').addClass('hoverLight');
 				$('td.cell[data-x=' + endX + '][data-y=' + endY + ']').addClass('hover');
@@ -743,45 +822,59 @@ $(function () {
 			let startX = this.mouseStartX;
 			let startY = this.mouseStartY;
 
-			if (startX === -1 || startY === -1) {
+			if (startX === -1 || startY === -1) { // If start and end coordinates still default (undetermined)
 				return;
 			}
 
+			// Space differece between cells both horizontally and vertically
 			let diffX = Math.abs(endX - startX);
 			let diffY = Math.abs(endY - startY);
 
+			/**
+			 * Highlights a run of cells according to the difference and its properties.
+			 * @param {String} primaryAxis 
+			 * @param {String} secondaryAxis 
+			 * @param {Number} startPrimary 
+			 * @param {Number} endPrimary 
+			 * @param {Number} constantSecondary 
+			 * @param {Number} diff 
+			 */
 			function highlightCells(primaryAxis, secondaryAxis, startPrimary, endPrimary, constantSecondary, diff) {
-				$('td.cell[data-' + primaryAxis + '=' + endPrimary + ']').addClass('hoverLight');
+				$('td.cell[data-' + primaryAxis + '=' + endPrimary + ']').addClass('hoverLight'); // For entire row/column, highlight cells
 
 				let start = Math.min(startPrimary, endPrimary);
 				let end = Math.max(startPrimary, endPrimary);
 
+				// Add hover class for each cell gone over
 				for (let i = start; i <= end; i++) {
 					$('td.cell[data-' + primaryAxis + '=' + i + '][data-' + secondaryAxis + '=' + constantSecondary + ']').addClass('hover');
 				}
 
-				let endCell = $('td.cell[data-' + primaryAxis + '=' + endPrimary + '][data-' + secondaryAxis + '=' + constantSecondary + ']');
-				endCell.text(diff + 1);
-				if (endCell.hasClass('s1')) {
-					endCell.addClass('hidden-content').css("color", "#ffb6c8");
+				let startCell = $('td.cell[data-' + primaryAxis + '=' + startPrimary + '][data-' + secondaryAxis + '=' + constantSecondary + ']');
+				startCell.text(diff + 1); // Show run length in start cell
+				if (startCell.hasClass('s1')) { // Change text colour to pink if over a cross
+					startCell.addClass('hidden-content').css("color", "#ffb6c8");
 				}
 
-				let startCell = $('td.cell[data-' + primaryAxis + '=' + startPrimary + '][data-' + secondaryAxis + '=' + constantSecondary + ']');
-				startCell.text(diff + 1);
-				if (startCell.hasClass('s1')) {
-					startCell.addClass('hidden-content').css("color", "#ffb6c8");
+				let endCell = $('td.cell[data-' + primaryAxis + '=' + endPrimary + '][data-' + secondaryAxis + '=' + constantSecondary + ']');
+				endCell.text(diff + 1);
+				if (endCell.hasClass('s1')) { // Show run length in end cell
+					endCell.addClass('hidden-content').css("color", "#ffb6c8"); // Change text colour to pink if over a cross
 				}
 			}
 
-			if (diffX > diffY) {
-				highlightCells('x', 'y', startX, endX, startY, diffX);
+			if (diffX > diffY) { // Horizontal difference vs Vertical difference - to determine drag orientation
+				highlightCells('x', 'y', startX, endX, startY, diffX); // Horizontal
 			} else {
-				highlightCells('y', 'x', startY, endY, startX, diffY);
+				highlightCells('y', 'x', startY, endY, startX, diffY); // Vertical
 			}
 		},
 
+		/**
+		 * Handles the mouse out event. Removes hover effects, and adjusts cell styling.
+		 */
 		mouseOut: function () {
-			if (this.mouseMode === 0) {
+			if (this.mouseMode === 0) { // If mouse not held down, remove hover effects
 				$('td.hover').removeClass('hover');
 				$('td.hoverLight').removeClass('hoverLight');
 			}
@@ -794,38 +887,47 @@ $(function () {
 			let diffX = Math.abs(endX - startX);
 			let diffY = Math.abs(endY - startY);
 
-			function updateCellContent(primaryAxis, primaryValue, secondaryAxis, secondaryValue) {
-				let cellSelector = `td.cell[data-${primaryAxis}='${primaryValue}'][data-${secondaryAxis}='${secondaryValue}']`;
+			/**
+			 * Updates content of the cell according to its coordinates.
+			 * @param {Number} x The x-coordinate of the cell.
+			 * @param {Number} y The y-coordinate of the cell.
+			 */
+			function updateCellContent(x, y) {
+				let cellSelector = `td.cell[data-x='${x}'][data-y='${y}']`;
 				let cell = $(cellSelector);
 
-				cell.remove('hidden-content');
-				cell.text('');
+				cell.remove('hidden-content'); // Removes ::after element
+				cell.text(''); // Empties text contents of cell
 
-				if (cell.hasClass('hidden-content')) {
+				if (cell.hasClass('hidden-content')) { // Removes hidden-content class (from crossout cells)
 					cell.removeClass('hidden-content');
 				}
 			}
 
 			if (diffX > diffY) {
-				updateCellContent('x', endX, 'y', startY);
+				updateCellContent(endX, startY); // Horizontal
 			} else {
-				updateCellContent('x', startX, 'y', endY);
+				updateCellContent(startX, endY); // Vertical
 			}
 		},
 
+		/**
+		 * Handles mouse up events.
+		 * @param {*} e Used to ascertain where the mouse is.
+		 */
 		clickEnd: function (e) {
-			if (this.model.get('complete')) return;
+			if (this.model.get('complete')) return; // Prevent action on complete puzzle
 
-			let target = $(e.target);
+			let target = $(e.target); // Get cell target
 
 			const clickModes = {
-				1: 2, // left click
-				2: 9, // middle click
-				3: 1 // right click
+				1: 2, // Left click ~ Paint
+				2: 9, // Middle click ~ Cross out
+				3: 1 // Right click ~ Mark/highlight
 			};
 
 
-			if (this.mouseMode !== e.which) {
+			if (this.mouseMode !== e.which) { // Prevents drag-in action from clicks initially outside board
 				this.mouseMode = 0;
 				return;
 			}
@@ -833,28 +935,38 @@ $(function () {
 			const dataX = target.attr('data-x');
 			const dataY = target.attr('data-y');
 
-			const x = (dataX !== undefined || dataY !== undefined) ? dataX : this.mouseEndX;
+			// Use end cell if mouse not outside board
+			const x = (dataX !== undefined || dataY !== undefined) ? dataX : this.mouseEndX; 
 			const y = (dataX !== undefined || dataY !== undefined) ? dataY : this.mouseEndY;
 
 
-			e.preventDefault();
+			e.preventDefault(); // I'll be honest I have no clue what this does but I'm afraid to touch it
 
-			this.clickArea(x, y, clickModes[e.which]);
+			this.clickArea(x, y, clickModes[e.which]); // Click the area selected with the appropriate mouse mode
 
-			this.mouseMode = 0;
+			this.mouseMode = 0; // Resets mouse mode
 			this.render();
 			this.checkCompletion();
 		},
 
+		/**
+		 * Handles auto-solve on perfect completion.
+		 */
 		checkCompletion: function () {
 			if (this.model.isPerfect()) this.solve();
 		},
 
+		/**
+		 * Clicks the selected area of tiles.
+		 * @param {Number} endX The final x-coordinate for a run of cells.
+		 * @param {Number} endY The final y-coordinate for a run of cells.
+		 * @param {Number} guess The state to update the cells with.
+		 */
 		clickArea: function (endX, endY, guess) {
 			let startX = this.mouseStartX;
 			let startY = this.mouseStartY;
 
-			if (startX === -1 || startY === -1) {
+			if (startX === -1 || startY === -1) { // If invalid start coordinate, back out
 				return;
 			}
 
@@ -862,76 +974,93 @@ $(function () {
 			let diffY = Math.abs(endY - startY);
 
 			if (diffX > diffY) {
-				for (let i = Math.min(startX, endX); i <= Math.max(startX, endX); i++) {
+				for (let i = Math.min(startX, endX); i <= Math.max(startX, endX); i++) { // Horizontal
 					this.model.guess(i, startY, guess);
 				}
 			} else {
-				for (let i = Math.min(startY, endY); i <= Math.max(startY, endY); i++) {
+				for (let i = Math.min(startY, endY); i <= Math.max(startY, endY); i++) { // Vertical
 					this.model.guess(startX, i, guess);
 				}
 			}
 		},
 
+		// not gonna lie i have not touched (ironically) the touchscreen handlers so just pray it works
+		/**
+		 * Handler for touch start events.
+		 * @param {*} e Used to ascertain where the touch is.
+		 */
 		touchStart: function (e) {
-			if (this.model.get('complete')) {
+			if (this.model.get('complete')) { // Disallow on complete puzzles
 				return;
 			}
 			let target = $(e.target);
 			this.mouseStartX = this.mouseEndX = e.originalEvent.touches[0].pageX;
 			this.mouseStartY = this.mouseEndY = e.originalEvent.touches[0].pageY;
-			let that = this;
+			let that = this; // Constant `this` context reference
 			this.mouseMode = setTimeout(function () {
 				that.model.guess(target.attr('data-x'), target.attr('data-y'), 1);
 				that.render();
 			}, 750);
 		},
 
+		/**
+		 * Allows for non-large movement during press.
+		 * @param {*} e Used to ascertain where the touch is.
+		 */
 		touchMove: function (e) {
-			if (this.model.get('complete')) {
+			if (this.model.get('complete')) { // Disallow on complete puzzles
 				return;
 			}
 			this.mouseEndX = e.originalEvent.touches[0].pageX;
 			this.mouseEndY = e.originalEvent.touches[0].pageY;
-			if (Math.abs(this.mouseEndX - this.mouseStartX) >= 10 || Math.abs(this.mouseEndY - this.mouseStartY) >= 10) {
-				clearTimeout(this.mouseMode);
+			if (Math.abs(this.mouseEndX - this.mouseStartX) >= 10 || Math.abs(this.mouseEndY - this.mouseStartY) >= 10) { // If significant movement in hold period ...
+				clearTimeout(this.mouseMode); // ... don't cause touch action
 			}
 		},
 
+		/**
+		 * Handler for touch end events.
+		 * @param {*} e Used to ascertain where the touch was.
+		 */
 		touchEnd: function (e) {
-			if (this.model.get('complete')) {
+			if (this.model.get('complete')) { // Disallow on complete puzzles
 				return;
 			}
 			clearTimeout(this.mouseMode);
 			let target = $(e.target);
-			if (Math.abs(this.mouseEndX - this.mouseStartX) < 10 && Math.abs(this.mouseEndY - this.mouseStartY) < 10) {
-				this.model.guess(target.attr('data-x'), target.attr('data-y'), 2);
+			if (Math.abs(this.mouseEndX - this.mouseStartX) < 10 && Math.abs(this.mouseEndY - this.mouseStartY) < 10) { // If no signifcant movement ...
+				this.model.guess(target.attr('data-x'), target.attr('data-y'), 2); // guess
 				this.render();
 				this.checkCompletion();
 			}
 		},
 
+		/**
+		 * Calculates the maximum experience for a charm given its dimensions, spacing, proportion of tiles, and hint combinations. 
+		 */
 		calculateMaxExperience: function () {
 			let charmWidth = Number(this.model.get('dimensionWidth'));
 			let charmHeight = Number(this.model.get('dimensionHeight'));
 			let total = this.model.get('total');
 
-			let dimensionAdjust = Math.pow((charmWidth + charmHeight) / 2, 2).toFixed(0); // exp multi based off size
+			let dimensionAdjust = Math.pow((charmWidth + charmHeight) / 2, 2).toFixed(0); // Multiply EXP based off size
 
 			let hintsX = this.model.get('hintsX');
 			let hintsY = this.model.get('hintsY');
 
 			let calculateComplexity = (hints, dimension) => {
 				return hints.reduce((totalComplexity, hint) => {
-					let sum = hint.reduce((acc, val) => acc + val + 1, -1);
-					if (sum < 0 && hints.length == 0) return totalComplexity; // skip zeroes
+					let sum = hint.reduce((acc, val) => acc + val + 1, -1); // Get sum of hints
+					if (sum < 0 && hints.length == 0) return totalComplexity; // Skip empty rows/columns
 					let median = Math.ceil(dimension / 2);
 					let spaceDiff = Math.abs(sum - median);
 
-					let pascalBias = (spaceDiff && sum > 0) // check if not highest possibilities (nCr), if sum 0, no xp awarded
+					// Calculations in reference to Pascal's triangle - nCr, when r = median of n, most possibilities
+					let pascalBias = (spaceDiff && sum > 0) // Reward rows/columns which have most possibilities, reduce XP multi for those that are more definite
 						?
-						1 + Math.abs(1 / (sum - median)) :
-						2.5;
-					let separationMulti = 1 + 0.5 * (hint.length - 1); // consider rows/columns that have more than one hint number more complex
+						1 + Math.abs(1 / (sum - median)) : // More definite
+						2.5; // Most possibilities
+					let separationMulti = 1 + 0.5 * (hint.length - 1); // Consider rows/columns that have more than one hint number more complex
 
 					return totalComplexity + (pascalBias * separationMulti);
 				}, 0);
@@ -939,16 +1068,16 @@ $(function () {
 
 			let totalComplexity = calculateComplexity(hintsX, charmWidth) + calculateComplexity(hintsY, charmHeight);
 
-			let triangle = charmWidth * charmHeight / 2; // triangle area = 1/2 bh
+			let triangle = charmWidth * charmHeight / 2; // Area of a triangle = 1/2(base * height) (middle amount of tiles)
 
-			let biasFactor = triangle > total ? 0.025 : 0.005; // more bias for smaller charms
-			let sparseBias = 1 + biasFactor * Math.abs(total - triangle); // give bonus to charms with few cells compared to more populated ones
+			let biasFactor = triangle > total ? 0.025 : 0.005; // Bias towards charms with smaller than median tiles to paint (more difficult)
+			let sparseBias = 1 + biasFactor * Math.abs(total - triangle); // Give bonus to charms with few cells compared to more populated ones
 
-			let formulaXP = dimensionAdjust * totalComplexity * sparseBias;
-			if (this.model.get('seed') === this.model.get('charmExhaustedID')) { // disincentivise repeating charms in a row
+			let formulaXP = dimensionAdjust * totalComplexity * sparseBias; // Full calculation
+			if (this.model.get('seed') === this.model.get('charmExhaustedID')) { // Disincentivise repeating charms in a row - charm exhaustion
 				formulaXP /= 4;
 			}
-			let maxXP = round25(expEventMulti * formulaXP); // round to nearest 25 because aesthetic idk
+			let maxXP = round25(expEventMulti * formulaXP); // Round to nearest 25 because who wants 37 XP when you can have 50??
 
 			this.model.set({
 				charmMaxExperience: maxXP
@@ -957,22 +1086,25 @@ $(function () {
 			this.calculateExperience();
 		},
 
+		/**
+		 * Calculates the player's current XP to gain from this charm depending on progress and accuracy.
+		 */
 		calculateExperience: function () {
 			let state = this.model.get('state');
 
 			let progress = this.model.get('guessed') / this.model.get('total') * 100;
-			if (progress > 100) { // punish over 100% progress
+			if (progress > 100) { // Punish player for painting too many tiles
 				progress = 10;
 			}
-			progress = progress / 100;
+			progress = progress / 100; // Convert to decimal multiplier from percentage
 
 			let maxXP = this.model.get('charmMaxExperience');
-			if (!maxXP) { // clearStorage fix
+			if (!maxXP) { // Fix: Clearing localStorage would cause the maximum experience for the default charm as 0 without this
 				this.calculateMaxExperience();
 				maxXP = this.model.get('charmMaxExperience');
 			}
 
-			// convert marks to crosses
+			// Convert marks (highlights) to crosses
 			let markedCells = [];
 			state.forEach((row, y) => {
 				row.forEach((cell, x) => {
@@ -988,24 +1120,23 @@ $(function () {
 			let solutionX = this.model.getHints(state, "x");
 			let solutionY = this.model.getHints(state, "y");
 
-			// accuracy will be determined by imperfection finding
-
+			// Accuracy will be determined by finding imperfections in the player's solution
 			const countIncorrectRuns = (hints, solution) => {
+				// Initialise run ocounters
 				let allRuns = 0;
 				let incorrectRuns = 0;
 
 				hints.forEach((hint, i) => {
 					if (hint.length === 0) return;
+					allRuns++; // Increment per cell
 
-					allRuns++;
-
-					if (hint.length !== solution[i].length) {
+					if (hint.length !== solution[i].length) { // If incorrect length, automatic inaccuracy detection
 						incorrectRuns++;
 						return;
 					}
 
-					for (let j = 0; j < hint.length; j++) {
-						if (Math.abs(hint[j]) !== solution[i][j]) {
+					for (let j = 0; j < hint.length; j++) { // If correct length,
+						if (Math.abs(hint[j]) !== solution[i][j]) { // if not matching with hints, detect inaccuracy
 							incorrectRuns++;
 							break;
 						}
@@ -1021,16 +1152,16 @@ $(function () {
 			const {
 				allRuns: allRunsX,
 				incorrectRuns: incorrectRunsX
-			} = countIncorrectRuns(hintsX, solutionX);
+			} = countIncorrectRuns(hintsX, solutionX); // Horizontal
 			const {
 				allRuns: allRunsY,
 				incorrectRuns: incorrectRunsY
-			} = countIncorrectRuns(hintsY, solutionY);
+			} = countIncorrectRuns(hintsY, solutionY); // Vertical
 
 			let allRuns = allRunsX + allRunsY;
 			let incorrectRuns = incorrectRunsX + incorrectRunsY;
 
-			// reverting marked cells
+			// Reverting marked (highlighted) cells
 			markedCells.forEach(([y, x]) => state[y][x] = 9);
 
 			let accuracy = (allRuns - incorrectRuns) / allRuns;
@@ -1041,11 +1172,16 @@ $(function () {
 			});
 		},
 
+		/**
+		 * Converts a given amount of experience to a level.
+		 * @param {Number} experience The experience of the player.
+		 * @returns The level of the player. MAX for Level 100+, otherwise a number.
+		 */
 		expToLv: function (experience) {
 			let playerPrestige = this.model.get('playerPrestige');
 
 			let result = Math.floor(expCalcConstant * nthRoot(expCalcPower, (nthRoot((1 + (expCalcPrestigeFactor * playerPrestige)), experience) - expCalcBase))); // inverse of lvToExp (thanks maths class)
-			if (Number.isNaN(result)) {
+			if (Number.isNaN(result)) { // Dealing with 0 in maths is funnnnn
 				result = 0;
 			} else if (result >= 100) {
 				return "MAX";
@@ -1055,22 +1191,31 @@ $(function () {
 			return result;
 		},
 
+
+		/**
+		 * Converts a level to its given experience requirement.
+		 * @param {Number} level The level to convert.
+		 * @returns The experience requirement.
+		 */
 		lvToExp: function (level) {
 			let playerPrestige = this.model.get('playerPrestige');
 			let result = round25((expCalcBase + (level / expCalcConstant) ** expCalcPower) ** (1 + (expCalcPrestigeFactor * playerPrestige)));
 			return result;
 		},
 
+		/**
+		 * Stores unclaimed XP into a buffer, proportionate to the player's progress and accuracy (when a charm is given up midway).
+		 */
 		storeExperience: function () {
 			let progress = this.model.get('guessed') / this.model.get('total') * 100;
 			let currentXPBuffer = this.model.get('playerExperienceBuffer');
 			let charmExperience = this.model.get('charmExperience');
 
-			if (progress > 100) progress = 10; // punish over 100% progress
+			if (progress > 100) progress = 10; // Punish over 100% progress
 			progress = progress / 100;
 
-			let progressAdjust = progress + 0.15; // reward players who only give up late, still punishing to players who give up early
-			progressAdjust = progressAdjust > 1 ? 1 : progressAdjust; // don't allow give up bonus to exceed 100%
+			let progressAdjust = progress + 0.15; // Reward players who only give up late, still punishing to players who give up early
+			progressAdjust = progressAdjust > 1 ? 1 : progressAdjust; // Don't allow give up bonus to exceed 100%
 
 			let newXPbuffer = round25((charmExperience * progressAdjust) + currentXPBuffer);
 			this.model.set({
@@ -1078,6 +1223,9 @@ $(function () {
 			});
 		},
 
+		/**
+		 * Apply all the experience from a completed charm and the XP buffer to the player.
+		 */
 		applyExperience: function () {
 			this.storeExperience();
 			let currentXP = this.model.get('playerExperience');
@@ -1092,6 +1240,10 @@ $(function () {
 			this.styleExperience();
 		},
 
+		/**
+		 * Converts prestige to its corresponding title.
+		 * @param {*} nextLevelExperience The experience for the next level - used to check prestige eligibility.
+		 */
 		stylePrestige: function (nextLevelExperience) {
 			let playerPrestige = this.model.get('playerPrestige');
 
@@ -1119,16 +1271,19 @@ $(function () {
 			}
 
 
-			$('#prestige').text(romanize(playerPrestige));
+			$('#prestige').text(romanize(playerPrestige)); // Style prestige number as roman numeral
 			$('#prestigeTitle').text(prestigeToTitle(playerPrestige));
 
 			if (nextLevelExperience == "MAX") {
-				$('#prestigeExperience').prop('disabled', false);
+				$('#prestigeExperience').prop('disabled', false); // Enable prestige button if eligible for prestige
 			} else {
 				$('#prestigeExperience').prop('disabled', true);
 			}
 		},
 
+		/**
+		 * Prestiges the player - removing the required XP, applying all buffered XP to the player, and incrementing the prestige level.
+		 */
 		prestigeExperience: function () {
 			let playerPrestige = this.model.get('playerPrestige');
 			this.applyExperience();
@@ -1137,101 +1292,118 @@ $(function () {
 
 			this.model.set({
 				playerExperience: prestigedExperience,
-				playerExperienceBuffer: 0,
 				playerPrestige: (playerPrestige + 1),
 			});
 
 			this.styleExperience();
 		},
 
+		/**
+		 * Does the styling and text updating for all experience elements, including converting experience numbers to shorthand, displaying level titles.
+		 */
 		styleExperience: function () {
 			let playerExperience = this.model.get('playerExperience');
 			let level = this.expToLv(playerExperience);
 			let nextLevelExperience;
 			if (level == "MAX") {
-				nextLevelExperience = "MAX";
+				nextLevelExperience = "MAX"; // Prestige eligibility, next level requirement not needed as prestige augments value
 			} else {
-				nextLevelExperience = this.lvToExp(level + 1);
+				nextLevelExperience = this.lvToExp(level + 1); // Next level XP requirement display
 			}
 
 			let bufferedExperience = this.model.get('playerExperienceBuffer');
 
 			this.stylePrestige(nextLevelExperience);
 
+			/**
+			 * Converts a given player level to its corresponding title.
+			 * @param {Number} level The player's level.
+			 * @returns {String} The level title.
+			 */
 			function lvToTitle(level) {
+				// Minimum and maximum level titles
 				const titles = {
 					0: "Clueless Cassia",
 					"MAX": "True Logician"
 				};
 
 				const perFiveLevelsTitles = [
-					"Charms 101 Student", // beginner class
-					"Desk Sleeper", // what cassia always ends up doing
-					"Graduate-to-be", // in alignment with cassia's goals
-					"Connection Capturer", // connection magic charm + cassia wants to have a connection with senna
-					"Amateur Illusionist", // illusion magic, taught in charms II
-					"Adept Abstractor", // abstractor is profession who analyses data, hence analysing charms to solve them
-					"Intermediate Imbuer", // charms imbue an object with magic
-					"Charmed Individual", // "lucky individual" + "charmed life" - senna
-					"Concentrated Learner", // "places with a high concentration of magic" - senna
-					"Random Resolver", // "these questions are completely random..." -  senna
-					"Reliable Authority", // "reliable as a friend" - cassia
-					"Diligent Tutor", // senna tutors to the best of her ability
-					"Fluent Painter", // "fluid" - hence fluent - pillars of magic
-					"Proficient Artist", // cassia bought into the myth that witch hair length improves proficiency
-					"Arithmagic Ace", // senna's favourite class, see also Random Resolver
-					"Wise Witch", // senna's favoured familiar - owls, often seen as wise
-					"Spell Scholar", // senna wants (or rather needs) scholarships for her figwood entry
-					"Charm Extraordinaire", // no reference
-					"Figwood Prodigy", // figwood - top magic school for witches
-					"Infinite Intellect" // "i do not have endless time" - infinite is synonym of endless
+					// Reference list
+					"Charms 101 Student", // Beginner class
+					"Desk Sleeper", // What cassia always ends up doing in class, due to cosy corner
+					"Graduate-to-be", // In alignment with cassia's goals, of graduating (with friends!!)
+					"Connection Capturer", // Connection Magic charm + Cassia wants to have a connection with Senna
+					"Amateur Illusionist", // Illusion magic, taught in Charms II
+					"Adept Abstractor", // Abstractor is a professional who analyses data, hence analysing charms to solve them
+					"Intermediate Imbuer", // Charms imbue an object with magic
+					"Charmed Individual", // "Lucky individual" + "Charmed life" - Senna
+					"Concentrated Learner", // "Places with a high concentration of magic" - Senna
+					"Random Resolver", // "These questions are completely random..." -  Senna
+					"Reliable Authority", // "Reliable as a friend" - Cassia
+					"Diligent Tutor", // Senna tutors to the best of her ability
+					"Fluent Painter", // "Fluid," hence fluent, pillars of magic
+					"Proficient Artist", // Cassia bought into the myth that a witch's hair length improves their magic proficiency
+					"Arithmagic Ace", // Senna's favourite class, see also Random Resolver
+					"Wise Witch", // Senna's favoured familiar: owls, often seen as wise
+					"Spell Scholar", // Senna wants (or rather needs) scholarships for her entry to Figwood
+					"Charm Extraordinaire", // No reference in particular
+					"Figwood Prodigy", // Figwood: top magic school for witches
+					"Infinite Intellect" // "I do not have endless time" - infinite is a synonym for endless
 				];
 
-				if (titles.hasOwnProperty(level)) {
+				if (titles.hasOwnProperty(level)) { // If minimum or maximum level
 					return titles[level];
 				} else if (typeof level === 'number' && level > 0) {
-					let lvFiveIncrement = Math.floor(level / 5);
-					return perFiveLevelsTitles[Math.min(lvFiveIncrement, perFiveLevelsTitles.length - 1)];
+					let lvFiveIncrement = Math.floor(level / 5); // Apply new title every five levels
+					return perFiveLevelsTitles[Math.min(lvFiveIncrement, perFiveLevelsTitles.length - 1)]; 
 				}
 			}
 
+			// Format all experience values to their shorthand form
 			playerExperience = nFormatter(playerExperience);
 			if (nextLevelExperience != "MAX") {
 				nextLevelExperience = nFormatter(nextLevelExperience);
 			}
 			bufferedExperience = nFormatter(bufferedExperience);
 
+			// Get XP title
 			let playerTitle = lvToTitle(level);
 
-			$('#playerLevel').text(level);
-			$('#currentXP').text(playerExperience);
-			$('#nextXP').text(nextLevelExperience);
-			$('#bufferedXP').text(bufferedExperience);
-			$('#XPTitle').text(playerTitle);
-
+			
+			// Convert charm XP values to shorthand
 			let charmXPVal = this.model.get('charmExperience');
 			let charmMaxXPVal = this.model.get('charmMaxExperience');
 
 			charmXPVal = nFormatter(charmXPVal, 1);
 			charmMaxXPVal = nFormatter(charmMaxXPVal, 1);
 
+
+			// Update text values
+			$('#playerLevel').text(level);
+			$('#currentXP').text(playerExperience);
+			$('#nextXP').text(nextLevelExperience);
+			$('#bufferedXP').text(bufferedExperience);
+			$('#XPTitle').text(playerTitle);
 			$('#charm-exp').text(charmXPVal);
 			$('#charm-max-exp').text(charmMaxXPVal);
 		},
 
+		/**
+		 * Solves the given charm and changes relevant statistic logic.
+		 */
 		solve: function () {
-			if (this.model.get('complete')) {
+			if (this.model.get('complete')) { // Don't trigger if puzzle already complete
 				return;
 			}
 
-			$('#solve').prop('disabled', true);
+			$('#solve').prop('disabled', true); // Disable button to prevent accidental resolve (yes, two failsafes)
 			let state = this.model.get('state');
 			let hintsX = this.model.get('hintsX');
 			let hintsY = this.model.get('hintsY');
 
 			let perfect = this.model.isPerfect();
 
-			// convert perfect empties to crossses
+			// Convert perfect empty cells to crossouts
 			for (let y = 0; y < state.length; y++) {
 				for (let x = 0; x < state[y].length; x++) {
 					if (state[y][x] == 0 && perfect) {
@@ -1240,17 +1412,18 @@ $(function () {
 				}
 			}
 
+			// Non-perfect statistic values
 			let charmsPerfect = this.model.get('charmsPerfect');
 			let perfectStreak = 0;
 
-			if (perfect) {
+			if (perfect) { // Increment statistics if perfect
 				charmsPerfect += 1;
 				perfectStreak = this.model.get('perfectStreak') + 1;
 			}
 
 			let thisCharmsComplete = this.model.get('charmsComplete') + 1;
 
-			let charmExhaustedID = this.model.get('seed');
+			let charmExhaustedID = this.model.get('seed'); // Set charm exhaustion ID to current charm to prevent XP farming
 
 			this.model.set({
 				complete: true,
@@ -1263,56 +1436,66 @@ $(function () {
 				charmExhaustedID: charmExhaustedID
 			});
 			this.calculateExperience();
-			this.applyExperience();
+			this.applyExperience(); // Apply experience on solving, as opposed to buffering on giving up a charm
 			/* checkAchievementCompletion.call(this); */
 
 			this.render();
 		},
 
+		/**
+		 * Determines the style for the sum of the hints for a given row/column.
+		 * @param {Array} hints The hints for a given row/column.
+		 * @param {*} dimension The dimension operating in (either row (charmWidth) or column (charmHeight)).
+		 * @returns Styled HTML charm sum.
+		 */
 		charmSum: function (hints, dimension) {
 			dimension = Number(dimension);
+			// Initial sum attributes
 			let sumTag = "strong";
 			let sumClass = "smol";
 			let tooltipText = "";
 			let sumTooltip = "";
 
 
-			let space = hints.reduce((acc, cur) => acc + Math.abs(cur), hints.length - 1);
-			
+			let space = hints.reduce((acc, cur) => acc + Math.abs(cur), hints.length - 1); // Summation of hints
+
 			let sumAbsoluteHints = hints.reduce((acc, cur) => acc + Math.abs(cur), 0);
 			let absoluteHintSum = Math.abs(hints.reduce((acc, cur) => acc + cur, 0));
 
-			if (sumAbsoluteHints == absoluteHintSum && Math.max(...hints) < 0) { // if all hints met
+			if (sumAbsoluteHints == absoluteHintSum && Math.max(...hints) < 0) { // If all hints met, gray out and show complete symbol
 				space = "✪"
 				sumTag = "em";
-				sumClass = "";
+				sumClass = ""; // Restore to normal size for width/height consistency
 			} else {
-				if (space == dimension) { // full row/column can be filled, one possibility
+				if (space == dimension) { // Full row/column can be filled, one possibility
 					sumClass = "smol full tooltip";
 					tooltipText = "Can complete row/column!";
 				} else {
 					let isPartial = false;
 					let spaceDifference = dimension - space;
-					hints.forEach(hint => {
+					hints.forEach(hint => { // Determine if possibility to fill out at least 1 tile from hints, see Wikipedia:Nonogram#Solving_techniques
 						if (hint > spaceDifference) {
 							isPartial = true;
 						}
 					});
 
-					if (isPartial) { // part of row/column can be filled, multiple possibilities
+					if (isPartial) { // Part of row/column can be filled, multiple possibilities
 						sumClass = "smol partial tooltip";
 						tooltipText = "Can partially complete row/column.";
 					}
 				}
 			}
 
+			// If there is a tooltip to display, wrap it in the necessary HTML
 			if (tooltipText) {
 				sumTooltip = `<span class="tooltiptext">${tooltipText}</span>`;
 			}
 
+			// The reusable structure for charm sum elements.
 			return `<${sumTag} class="${sumClass}">${space}${sumTooltip}</${sumTag}>`
 		},
 
+		// Achievement crap, ignore for now
 		/* sweetTreat: function () {
 			let achievements = this.model.get('achievements');
 			(achievements.find(achv => achv.id == "achv-SweetTreat")).completed = true;
@@ -1323,17 +1506,21 @@ $(function () {
 			renderAchievements.call(this);
 		}, */
 
+		/**
+		 * The main render function. Displays the puzzle, experience, hints, everything. (Yes, how descriptive. What do you expect?)
+		 */
 		render: function () {
+			// Convert progress to percentage
 			let progress = this.model.get('guessed') / this.model.get('total') * 100;
-			$('#progress').text(progress.toFixed(1) + '%');
+			$('#progress').text(progress.toFixed(1) + '%'); 
 
 			if (this.model.get('darkMode')) {
-				$('body').addClass('dark');
+				$('body').addClass('dark'); // Adds dark mode attribute to all elements with toggle on
 			} else {
 				$('body').removeClass('dark');
 			}
 
-			// stats update
+			// Stats update
 			let perfVal = this.model.get('charmsPerfect');
 			let compVal = this.model.get('charmsComplete');
 			let strkVal = this.model.get('perfectStreak');
@@ -1348,17 +1535,17 @@ $(function () {
 			}
 			$('#pcRatio').text(pcRatio.toFixed(1) + '%');
 
-			// experience update
+			// Experience update
 			this.calculateExperience();
 			this.styleExperience();
 
-			if (this.model.get('complete')) {
+			if (this.model.get('complete')) { // Style puzzle on completion
 				$('#solve').prop('disabled', true);
-				$('#solve').text('Not quite...');
+				$('#solve').text('Not quite...'); // Alternative banner to "You did it!"
 				$('#puzzle').addClass('complete');
 				if (this.model.get('perfect')) {
 					$('#progress').addClass('done');
-					$('#solve').text('You did it!');
+					$('#solve').text('You did it!'); // Referencing complete charm in original Charm Studies
 					$('#puzzle').addClass('perfect');
 				}
 			}
@@ -1373,6 +1560,13 @@ $(function () {
 			let charmWidth = this.model.get('dimensionWidth');
 			let charmHeight = this.model.get('dimensionHeight');
 
+			/**
+			 * Determines the HTML all for column/row hints.
+			 * @param {Array} hints The hints array to operate on.
+			 * @param {Boolean} isEasyMode If easy mode is on (determines if charm sum is calculated).
+			 * @param {*} dimension The dimension to measure with for index-based loops (either charmWidth or charmHeight).
+			 * @returns The HTML element to assign hints text to.
+			 */
 			function processHints(hints, isEasyMode, dimension) {
 				let noSumMode = this.model.get('noSumMode');
 				return hints.map(hintArray => {
@@ -1391,7 +1585,7 @@ $(function () {
 				});
 			}
 
-			if (this.model.get('easyMode') || this.model.get('complete')) {
+			if (this.model.get('easyMode') || this.model.get('complete')) { // Return crossout hints with easy mode / complete puzzles
 				hintsXText = processHints.call(this, hintsX, true, charmWidth);
 				hintsYText = processHints.call(this, hintsY, true, charmHeight);
 			} else {
@@ -1399,8 +1593,10 @@ $(function () {
 				hintsYText = processHints.call(this, hintsY, false, charmHeight);
 			}
 
+			// Increment font size by 1 per power of 2 in streak, for funsies
 			document.getElementById("perfectStreak").style.fontSize = (15 + Math.floor(Math.log2(this.model.get('perfectStreak') + 1))).toString() + "px";
 
+			// Puzzle generation
 			let html = '<table>';
 			html += '<tr><td class="key"></td>';
 			for (let i = 0; i < state[0].length; i++) {
@@ -1418,6 +1614,7 @@ $(function () {
 
 			$('#puzzle').html(html);
 
+			// Puzzle attributes calculations and setting
 			let side = (600 - (state[0].length * 5)) / state[0].length;
 			$('#puzzle td.cell').css({
 				width: side,
@@ -1434,6 +1631,10 @@ $(function () {
 
 });
 
+/**
+ * Check if the brower supports localStorage - used to determine if save/load should be called.
+ * @returns {Boolean} True if supported, else false.
+ */
 function localStorageSupport() {
 	try {
 		return 'localStorage' in window && window.localStorage !== null;

@@ -1,12 +1,28 @@
+/**
+ * Rounds a number to the nearest multiple of 25. Used in experience functions for stylistic purposes.
+ * @param {Number} num The number to round.
+ * @returns The 25-rounded number.
+ */
 export function round25(num) {
     return Math.round(num / 25) * 25;
 }
 
+/**
+ * Takes the nth root of any expression given.
+ * @param {Number} n The root index to use.
+ * @param {Number} expression The expression to root.
+ * @returns The rooted result.
+ */
 export function nthRoot(n, expression) {
     if (expression < 0 && n % 2 != 1) return NaN; // Not well defined
     return (expression < 0 ? -1 : 1) * Math.pow(Math.abs(expression), 1 / n);
 }
 
+/**
+ * Converts a number to its Roman Numeral form.
+ * @param {Number} num The number to romanise.
+ * @returns The roman numeral equivalent.
+ */
 export function romanize(num) {
     if (isNaN(num))
         return NaN;
@@ -24,6 +40,12 @@ export function romanize(num) {
     return Array(+digits.join("") + 1).join("M") + roman;
 }
 
+/**
+ * Formats a number to its shorthand notation, e.g. 1k, 3.7M, 9.8B.
+ * @param {Number} num The number to round.
+ * @param {Number} digits The amount of digits to leave after the decimal point. 1 by default.
+ * @returns 
+ */
 export function nFormatter(num, digits = 1) {
     const lookup = [{
             value: 1,
