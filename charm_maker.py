@@ -1,4 +1,4 @@
-"""This is quite literally just to do funky stuff with images"""
+"""This is quite literally just to do funky stuff with black and white images"""
 
 import os
 from itertools import islice
@@ -7,8 +7,9 @@ from PIL import Image
 
 os.system("cls")
 FILE = rf"{input('file: ')}"
+os.system("cls")
+
 FILE = FILE.replace('"', "")
-print("")
 im = Image.open(FILE)
 CHARM_NAME = os.path.splitext(os.path.basename(os.path.normpath(FILE)))[0]
 
@@ -27,7 +28,7 @@ pix_val = list(im.getdata())
 repix_val = []
 TOTAL_COUNT = 0
 for tup in pix_val:
-    if tup == (0, 0, 0) or tup == (0, 0, 0, 255):
+    if tup == 0 or tup == (0, 0, 0) or tup == (0, 0, 0, 255):
         repix_val.append(0)
         TOTAL_COUNT += 1
     else:
@@ -49,7 +50,5 @@ FINAL_OUTPUT = f"""\"{CHARM_NAME}\": {{
 {FINAL_TOTAL}
 }},"""
 
-
 pyperclip.copy(FINAL_OUTPUT)
 print(FINAL_OUTPUT)
-print("")

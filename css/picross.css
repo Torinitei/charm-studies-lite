@@ -285,44 +285,46 @@ iframe {
 
 .group-contract-demon {
 	background-color: #41001d;
-
 	color: #c3234b;
-
 }
 
 .group-nami-charms {
 	background-color: #dc7891;
-
 	color: #fff;
-
 }
 
 .group-starry-flowers {
 	background-color: #9dbdfc;
-
 	color: #212c5a;
-
 }
 
 .group-syrup-and-the-ultimate-sweet {
 	background-color: #f7e7ff;
-
 	color: #353535;
-
 }
 
 .group-crossover-in-stars-and-time {
 	background-color: #fff;
-
 	color: #000;
-
 }
 
 .group-crossover-omori {
-	background-color: #fff;
+	background-color: #000;
+	color: #fff;
+}
 
-	color: #000;
+.group-crossover-oneshot {
+	background-color: #24072e;
+	color: #f1b686;
+}
 
+.open-sans-oneshot {
+	font-family: "Open Sans", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400px;
+	font-style: normal;
+	font-variation-settings:
+		"wdth" 100;
 }
 
 header {

@@ -146,7 +146,6 @@ $(function () {
 			/**
 			 * Safely retrieves a value for a save attribute. If any attribute undefined, return the default.
 			 * @param {String} saveKey 
-			 * @returns {*}
 			 */
 			function safeLocalStorage(saveKey) {
 				if (localStorage[saveKey] != 'undefined' && localStorage[saveKey] !== undefined) {
@@ -276,10 +275,10 @@ $(function () {
 		},
 
 		/**
-		 * Returns the hint numbers for a given row/column.
+		 * Returns the hint numbers for all rows/columns.
 		 * @param {Array[]} solution The state of the board.
 		 * @param {String} direction The direction to go in. x (horizontally) by default.
-		 * @returns 
+		 * @returns {Array[]} All row/column hints as a 2D array.
 		 */
 		getHints: function (solution, direction = "x") {
 			let hints = [];
@@ -566,7 +565,7 @@ $(function () {
 			 * Checks if the board state matches the charm hints for a given dimension.
 			 * @param {Array} hints The hints derived from the board state.
 			 * @param {Array} solution The hints of the charm.
-			 * @returns 
+			 * @returns {Boolean} If the board matches the hints perfectly.
 			 */
 			function compareHints(hints, solution) {
 				for (let i = 0; i < hints.length; i++) {
@@ -801,7 +800,6 @@ $(function () {
 		/**
 		 * Handles cell hover events.
 		 * @param {*} e Used to ascertain where the mouse is.
-		 * @returns 
 		 */
 		mouseOver: function (e) {
 			let target = $(e.currentTarget);
