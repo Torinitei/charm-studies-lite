@@ -8,16 +8,18 @@ This is themed after [NomnomNami's Charm Studies](https://nomnomnami.itch.io/cha
 
 ## Instructions
 
-* Left click: paint cell
-* Right click: cross out cell
-Both support dragging to select multiple!
+* Left click: Paint tile
+* Right click: Cross out tile
+* Middle click: Mark/Highlight tile
+All support multi-select with dragging!
 
 On touch capable devices:
 
-* Tap: mark cell as active
-* Tap and hold: mark cell as inactive
+* Tap: Paint tile
+* Tap and hold: Cross out tile
 
 **NOTE:** This website was designed with desktop in mind. Results may vary across devices. Apologies >.<
+Mobile controls are planned to be optimised in the future!
 
 ### Features
 
@@ -29,8 +31,8 @@ On touch capable devices:
 * Auto-saves using HTML5 web storage
 * Progress indicator
 * Charm completion and streak statistics
-* Original Charm Studies charms from NomnomNami's game, and a few extra ones based off her works!
-* Charm Studies OST! (as a YT embed)
+* Original Charm Studies charms from NomnomNami's game, and a few extra ones based off her works! (and a few indies, too~)
+* Charm Studies OST!
 
 ### Library Dependencies
 
