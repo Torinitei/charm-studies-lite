@@ -327,8 +327,8 @@ $(function () {
 		 * @param {Number} guess The guess (state) of the cell to check against.
 		 */
 		guess: function (x, y, guess) {
-			var state = this.get('state');
-			var guessed = this.get('guessed');
+			let state = this.get('state');
+			let guessed = this.get('guessed');
 
 			if (state[x][y] === 2) { // If tile already painted, decrement the guessed count
 				guessed--;
