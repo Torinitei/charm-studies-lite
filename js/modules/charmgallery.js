@@ -15,22 +15,21 @@ function blankCharm(charmLength, filler = 0) {
  * @returns {boolean}
  */
 export function isCharminGallery(seed) {
-    let charmFound = charms.hasOwnProperty(seed);
-    return charmFound;
+    return charms.hasOwnProperty(seed);
 }
 
 /**
  * Gets the appropriate size, solution, and total for a charm in the charm gallery.
  * @param {string} seed The seed of the charm to find.
- * @returns {[number[], number[], number]}
+ * @returns {[Number[], Number, Number]}
  *  -   `state` The initial charm state.
  *  -   `solution` The intended charm solution.
  *  -   `total` The correct amount of tiles to paint in the charm.
  */
 export function getCharmSolveInformation(seed) {
-    let solution = charms[seed].solution;
-    let state = charms[seed].state;
-    let total = charms[seed].total;
+    const solution = charms[seed].solution;
+    const state = charms[seed].state;
+    const total = charms[seed].total;
 
     return [state, solution, total];
 }
@@ -41,8 +40,7 @@ export function getCharmSolveInformation(seed) {
  * @returns {string} The dimensions of the charm, in format "AxB", A being the length, and B being the height.
  */
 export function getCharmDimensions(seed) {
-    let charmDimensions = charms[seed].dimensions;
-    return charmDimensions;
+    return charms[seed].dimensions;
 }
 
 /**
@@ -62,7 +60,7 @@ export function testCharmPlayability() {
     console.log(allhintsY)
 }
 
-let charms = {
+const charms = {
     "Astral Magic": {
         state: blankCharm(5),
         dimensions: "5x5",

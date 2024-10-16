@@ -2,17 +2,13 @@ import {
 	isCharminGallery,
 	getCharmSolveInformation,
 	getCharmDimensions,
-	testCharmPlayability
+	/* testCharmPlayability */
 } from "./modules/charmgallery.js";
 /* import {
 	checkAchievementCompletion,
 	renderAchievements,
 	updateAchievementList
 } from "./modules/achievementhandler.js"; */
-/* import {
-	exportSave,
-	importSave
-} from "./modules/saveload.js" */
 import {
 	round25,
 	nthRoot,
@@ -21,12 +17,6 @@ import {
 } from "./modules/utilities.js";
 
 $(function () {
-
-	// localStorage save format versioning (legacy code)
-	const saveVersion = '2024.08.06';
-
-	const touchSupport = true;
-
 	// Experience calculation constants
 	const expCalcConstant = 0.1;
 	const expCalcPower = 2;
@@ -34,7 +24,7 @@ $(function () {
 	const expCalcPrestigeFactor = 0.01;
 	const expEventMulti = 2;
 
-	let PuzzleModel = Backbone.Model.extend({
+	const PuzzleModel = Backbone.Model.extend({
 
 		/**
 		 * Gets the default save attributes.
@@ -72,7 +62,7 @@ $(function () {
 				noSumMode: false, // Takes off sums from easy mode
 				// Achievements update
 				/* achievements: [] */
-			}
+			};
 		},
 
 
@@ -88,14 +78,11 @@ $(function () {
 			I have had trouble optimising the save and resume functions in the past, so unfortunately DRY (Don't Repeat Yourself) is hard to not violate here.
 			Please let me know if you are going to work on these, and if you find a better way to deal with this, also let me know!
 		*/
-
-
 		/**
 		 * Saves the player's game info in localStorage. (5MB max, no concern of being near capacity thus far)
 		 */
 		save: function () {
 			if (localStorageSupport()) {
-				localStorage['picross2.saveVersion'] = saveVersion;
 
 				localStorage['picross2.dimensionWidth'] = JSON.stringify(this.get('dimensionWidth'));
 				localStorage['picross2.dimensionHeight'] = JSON.stringify(this.get('dimensionHeight'));
@@ -135,25 +122,24 @@ $(function () {
 		 */
 		resume: function () {
 
-			if (!localStorageSupport() || localStorage['picross2.saveVersion'] != saveVersion) {
+			if (!localStorageSupport()) {
 				this.reset();
 				return;
 			}
 
-			let defaults = this.defaults()
-
+			const defaults = this.defaults();
 
 			/**
 			 * Safely retrieves a value for a save attribute. If any attribute undefined, return the default.
 			 * @param {String} saveKey 
 			 */
 			function safeLocalStorage(saveKey) {
-				if (localStorage[saveKey] != 'undefined' && localStorage[saveKey] !== undefined) {
-					return localStorage[saveKey];
+				if (localStorage[saveKey] == 'undefined' || localStorage[saveKey] === undefined) {
+					const defaultKey = (saveKey.split(".")).at(-1);
+					const newKey = JSON.stringify(defaults[defaultKey]);
+					return newKey;
 				}
-				let defaultKey = (saveKey.split(".")).at(-1);
-				let newKey = JSON.stringify(defaults[defaultKey])
-				return newKey;
+				return localStorage[saveKey];
 			}
 
 			const dimensionWidth = JSON.parse(safeLocalStorage('picross2.dimensionWidth'));
@@ -215,8 +201,6 @@ $(function () {
 				/* achievements: achievements */
 			});
 		},
-
-
 		/*  >>> END OF DO NOT OPTIMISE ZONE <<< */
 
 		/**
@@ -236,12 +220,13 @@ $(function () {
 			let state = [];
 			let total = 0;
 
-			let charmHeight = this.get('dimensionHeight');
-			let charmWidth = this.get('dimensionWidth');
 
 			if (isCharminGallery(seed)) { // For charm gallery seeds
 				[state, solution, total] = getCharmSolveInformation(seed);
 			} else {
+				// Set up dimensions to limit for loops
+				const charmHeight = this.get('dimensionHeight');
+				const charmWidth = this.get('dimensionWidth');
 				// Generate random board
 				for (let i = 0; i < charmHeight; i++) {
 					solution[i] = [];
@@ -255,8 +240,8 @@ $(function () {
 				}
 			}
 
-			let hintsX = this.getHints(solution, "x");
-			let hintsY = this.getHints(solution, "y");
+			const hintsX = this.getHints(solution, "x");
+			const hintsY = this.getHints(solution, "y");
 			// state = solution; // DEV TEST: Will auto-fill board with correct solution.
 
 			this.set({
@@ -556,10 +541,10 @@ $(function () {
 				});
 			});
 
-			let hintsX = this.get('hintsX');
-			let hintsY = this.get('hintsY');
-			let solutionX = this.getHints(state, "x");
-			let solutionY = this.getHints(state, "y");
+			const hintsX = this.get('hintsX');
+			const hintsY = this.get('hintsY');
+			const solutionX = this.getHints(state, "x");
+			const solutionY = this.getHints(state, "y");
 
 			/**
 			 * Checks if the board state matches the charm hints for a given dimension.
@@ -581,8 +566,8 @@ $(function () {
 				return true;
 			}
 
-			let perfectX = compareHints(hintsX, solutionX);
-			let perfectY = compareHints(hintsY, solutionY);
+			const perfectX = compareHints(hintsX, solutionX);
+			const perfectY = compareHints(hintsY, solutionY);
 			perfect = perfectX && perfectY;
 
 			// Reverting marked cells if not perfect
@@ -593,7 +578,7 @@ $(function () {
 
 	});
 
-	let PuzzleView = Backbone.View.extend({
+	const PuzzleView = Backbone.View.extend({
 
 		el: $("body"),
 
@@ -635,7 +620,7 @@ $(function () {
 			};
 
 			// Events specifically for mobile devices
-			if (touchSupport && 'ontouchstart' in document.documentElement) {
+			if ('ontouchstart' in document.documentElement) {
 				Object.assign(baseEvents, {
 					"touchend td.cell": "touchEnd",
 					"touchmove td.cell": "touchMove",
@@ -667,15 +652,6 @@ $(function () {
 			this.render();
 			this.showSeed();
 		},
-
-		// Settings test functions - ignore this crappily done stuff
-		/* importStorage: function () {
-			importSave.call(this);
-		}, */
-
-		/* exportStorage: function () {
-			exportSave();
-		}, */
 
 		/**
 		 * Helper function to toggle setting modes on checkbox change.
@@ -727,7 +703,7 @@ $(function () {
 		 */
 		galleryStudy: function (e) {
 			e.preventDefault();
-			let selectedCharm = document.getElementById("original-charms").value;
+			const selectedCharm = document.getElementById("original-charms").value;
 			if (selectedCharm !== "default") this._newGame(selectedCharm); // Will not trigger when "select charm" is present
 		},
 
@@ -762,7 +738,7 @@ $(function () {
 		 */
 		newCustom: function (e) {
 			e.preventDefault();
-			let customSeed = $.trim($('#customSeed').val()); // Removes all trailing and leading whitespace.
+			const customSeed = $.trim($('#customSeed').val()); // Removes all trailing and leading whitespace.
 			customSeed.length ? this._newGame(customSeed) : this._newGame();
 		},
 
@@ -771,7 +747,7 @@ $(function () {
 		 * 	(it's probably reused a bunch and i'm just being salty)
 		 */
 		showSeed: function () {
-			let seed = this.model.get('seed');
+			const seed = this.model.get('seed');
 			$('#seed').val(seed);
 		},
 
@@ -803,8 +779,8 @@ $(function () {
 		 */
 		mouseOver: function (e) {
 			let target = $(e.currentTarget);
-			let endX = target.attr('data-x');
-			let endY = target.attr('data-y');
+			const endX = target.attr('data-x');
+			const endY = target.attr('data-y');
 			this.mouseEndX = endX;
 			this.mouseEndY = endY;
 
@@ -817,16 +793,16 @@ $(function () {
 				return;
 			}
 
-			let startX = this.mouseStartX;
-			let startY = this.mouseStartY;
+			const startX = this.mouseStartX;
+			const startY = this.mouseStartY;
 
 			if (startX === -1 || startY === -1) { // If start and end coordinates still default (undetermined)
 				return;
 			}
 
 			// Space differece between cells both horizontally and vertically
-			let diffX = Math.abs(endX - startX);
-			let diffY = Math.abs(endY - startY);
+			const diffX = Math.abs(endX - startX);
+			const diffY = Math.abs(endY - startY);
 
 			/**
 			 * Highlights a run of cells according to the difference and its properties.
@@ -840,24 +816,24 @@ $(function () {
 			function highlightCells(primaryAxis, secondaryAxis, startPrimary, endPrimary, constantSecondary, diff) {
 				$('td.cell[data-' + primaryAxis + '=' + endPrimary + ']').addClass('hoverLight'); // For entire row/column, highlight cells
 
-				let start = Math.min(startPrimary, endPrimary);
-				let end = Math.max(startPrimary, endPrimary);
+				const start = Math.min(startPrimary, endPrimary);
+				const end = Math.max(startPrimary, endPrimary);
 
 				// Add hover class for each cell gone over
 				for (let i = start; i <= end; i++) {
 					$('td.cell[data-' + primaryAxis + '=' + i + '][data-' + secondaryAxis + '=' + constantSecondary + ']').addClass('hover');
 				}
 
-				let startCell = $('td.cell[data-' + primaryAxis + '=' + startPrimary + '][data-' + secondaryAxis + '=' + constantSecondary + ']');
+				const startCell = $('td.cell[data-' + primaryAxis + '=' + startPrimary + '][data-' + secondaryAxis + '=' + constantSecondary + ']');
 				startCell.text(diff + 1); // Show run length in start cell
 				if (startCell.hasClass('s1')) { // Change text colour to pink if over a cross
 					startCell.addClass('hidden-content').css("color", "#ffb6c8");
 				}
 
-				let endCell = $('td.cell[data-' + primaryAxis + '=' + endPrimary + '][data-' + secondaryAxis + '=' + constantSecondary + ']');
-				endCell.text(diff + 1);
-				if (endCell.hasClass('s1')) { // Show run length in end cell
-					endCell.addClass('hidden-content').css("color", "#ffb6c8"); // Change text colour to pink if over a cross
+				const endCell = $('td.cell[data-' + primaryAxis + '=' + endPrimary + '][data-' + secondaryAxis + '=' + constantSecondary + ']');
+				endCell.text(diff + 1); // Show run length in end cell
+				if (endCell.hasClass('s1')) { // Change text colour to pink if over a cross
+					endCell.addClass('hidden-content').css("color", "#ffb6c8");
 				}
 			}
 
@@ -877,13 +853,13 @@ $(function () {
 				$('td.hoverLight').removeClass('hoverLight');
 			}
 
-			let startX = this.mouseStartX;
-			let startY = this.mouseStartY;
-			let endX = this.mouseEndX;
-			let endY = this.mouseEndY;
+			const startX = this.mouseStartX;
+			const startY = this.mouseStartY;
+			const endX = this.mouseEndX;
+			const endY = this.mouseEndY;
 
-			let diffX = Math.abs(endX - startX);
-			let diffY = Math.abs(endY - startY);
+			const diffX = Math.abs(endX - startX);
+			const diffY = Math.abs(endY - startY);
 
 			/**
 			 * Updates content of the cell according to its coordinates.
@@ -891,8 +867,8 @@ $(function () {
 			 * @param {Number} y The y-coordinate of the cell.
 			 */
 			function updateCellContent(x, y) {
-				let cellSelector = `td.cell[data-x='${x}'][data-y='${y}']`;
-				let cell = $(cellSelector);
+				const cellSelector = `td.cell[data-x='${x}'][data-y='${y}']`;
+				const cell = $(cellSelector);
 
 				cell.remove('hidden-content'); // Removes ::after element
 				cell.text(''); // Empties text contents of cell
@@ -934,7 +910,7 @@ $(function () {
 			const dataY = target.attr('data-y');
 
 			// Use end cell if mouse not outside board
-			const x = (dataX !== undefined || dataY !== undefined) ? dataX : this.mouseEndX; 
+			const x = (dataX !== undefined || dataY !== undefined) ? dataX : this.mouseEndX;
 			const y = (dataX !== undefined || dataY !== undefined) ? dataY : this.mouseEndY;
 
 
@@ -961,22 +937,25 @@ $(function () {
 		 * @param {Number} guess The state to update the cells with.
 		 */
 		clickArea: function (endX, endY, guess) {
-			let startX = this.mouseStartX;
-			let startY = this.mouseStartY;
+			const startX = Number(this.mouseStartX);
+			const startY = Number(this.mouseStartY);
+
 
 			if (startX === -1 || startY === -1) { // If invalid start coordinate, back out
 				return;
 			}
 
-			let diffX = Math.abs(endX - startX);
-			let diffY = Math.abs(endY - startY);
+			const diffX = Math.abs(endX - startX);
+			const diffY = Math.abs(endY - startY);
 
 			if (diffX > diffY) {
 				for (let i = Math.min(startX, endX); i <= Math.max(startX, endX); i++) { // Horizontal
+					console.log(i, startY, guess);
 					this.model.guess(i, startY, guess);
 				}
 			} else {
 				for (let i = Math.min(startY, endY); i <= Math.max(startY, endY); i++) { // Vertical
+					console.log(startX, i, guess);
 					this.model.guess(startX, i, guess);
 				}
 			}
@@ -994,7 +973,7 @@ $(function () {
 			let target = $(e.target);
 			this.mouseStartX = this.mouseEndX = e.originalEvent.touches[0].pageX;
 			this.mouseStartY = this.mouseEndY = e.originalEvent.touches[0].pageY;
-			let that = this; // Constant `this` context reference
+			const that = this; // Constant `this` context reference
 			this.mouseMode = setTimeout(function () {
 				that.model.guess(target.attr('data-x'), target.attr('data-y'), 1);
 				that.render();
@@ -1037,16 +1016,16 @@ $(function () {
 		 * Calculates the maximum experience for a charm given its dimensions, spacing, proportion of tiles, and hint combinations. 
 		 */
 		calculateMaxExperience: function () {
-			let charmWidth = Number(this.model.get('dimensionWidth'));
-			let charmHeight = Number(this.model.get('dimensionHeight'));
-			let total = this.model.get('total');
+			const charmWidth = Number(this.model.get('dimensionWidth'));
+			const charmHeight = Number(this.model.get('dimensionHeight'));
+			const total = this.model.get('total');
 
-			let dimensionAdjust = Math.pow((charmWidth + charmHeight) / 2, 2).toFixed(0); // Multiply EXP based off size
+			const dimensionAdjust = Math.pow((charmWidth + charmHeight) / 2, 2).toFixed(0); // Multiply EXP based off size
 
-			let hintsX = this.model.get('hintsX');
-			let hintsY = this.model.get('hintsY');
+			const hintsX = this.model.get('hintsX');
+			const hintsY = this.model.get('hintsY');
 
-			let calculateComplexity = (hints, dimension) => {
+			const calculateComplexity = (hints, dimension) => {
 				return hints.reduce((totalComplexity, hint) => {
 					let sum = hint.reduce((acc, val) => acc + val + 1, -1); // Get sum of hints
 					if (sum < 0 && hints.length == 0) return totalComplexity; // Skip empty rows/columns
@@ -1064,18 +1043,18 @@ $(function () {
 				}, 0);
 			};
 
-			let totalComplexity = calculateComplexity(hintsX, charmWidth) + calculateComplexity(hintsY, charmHeight);
+			const totalComplexity = calculateComplexity(hintsX, charmWidth) + calculateComplexity(hintsY, charmHeight);
 
-			let triangle = charmWidth * charmHeight / 2; // Area of a triangle = 1/2(base * height) (middle amount of tiles)
+			const triangle = charmWidth * charmHeight / 2; // Area of a triangle = 1/2(base * height) (middle amount of tiles)
 
-			let biasFactor = triangle > total ? 0.025 : 0.005; // Bias towards charms with smaller than median tiles to paint (more difficult)
-			let sparseBias = 1 + biasFactor * Math.abs(total - triangle); // Give bonus to charms with few cells compared to more populated ones
+			const biasFactor = triangle > total ? 0.025 : 0.005; // Bias towards charms with smaller than median tiles to paint (more difficult)
+			const sparseBias = 1 + biasFactor * Math.abs(total - triangle); // Give bonus to charms with few cells compared to more populated ones
 
 			let formulaXP = dimensionAdjust * totalComplexity * sparseBias; // Full calculation
 			if (this.model.get('seed') === this.model.get('charmExhaustedID')) { // Disincentivise repeating charms in a row - charm exhaustion
 				formulaXP /= 4;
 			}
-			let maxXP = round25(expEventMulti * formulaXP); // Round to nearest 25 because who wants 37 XP when you can have 50??
+			const maxXP = round25(expEventMulti * formulaXP); // Round to nearest 25 because who wants 37 XP when you can have 50??
 
 			this.model.set({
 				charmMaxExperience: maxXP
@@ -1156,14 +1135,14 @@ $(function () {
 				incorrectRuns: incorrectRunsY
 			} = countIncorrectRuns(hintsY, solutionY); // Vertical
 
-			let allRuns = allRunsX + allRunsY;
-			let incorrectRuns = incorrectRunsX + incorrectRunsY;
+			const allRuns = allRunsX + allRunsY;
+			const incorrectRuns = incorrectRunsX + incorrectRunsY;
 
 			// Reverting marked (highlighted) cells
 			markedCells.forEach(([y, x]) => state[y][x] = 9);
 
-			let accuracy = (allRuns - incorrectRuns) / allRuns;
-			let xp = round25((progress * accuracy) * maxXP);
+			const accuracy = (allRuns - incorrectRuns) / allRuns;
+			const xp = round25((progress * accuracy) * maxXP);
 
 			this.model.set({
 				charmExperience: xp
@@ -1353,7 +1332,7 @@ $(function () {
 					return titles[level];
 				} else if (typeof level === 'number' && level > 0) {
 					let lvFiveIncrement = Math.floor(level / 5); // Apply new title every five levels
-					return perFiveLevelsTitles[Math.min(lvFiveIncrement, perFiveLevelsTitles.length - 1)]; 
+					return perFiveLevelsTitles[Math.min(lvFiveIncrement, perFiveLevelsTitles.length - 1)];
 				}
 			}
 
@@ -1367,7 +1346,7 @@ $(function () {
 			// Get XP title
 			let playerTitle = lvToTitle(level);
 
-			
+
 			// Convert charm XP values to shorthand
 			let charmXPVal = this.model.get('charmExperience');
 			let charmMaxXPVal = this.model.get('charmMaxExperience');
@@ -1461,7 +1440,7 @@ $(function () {
 			let absoluteHintSum = Math.abs(hints.reduce((acc, cur) => acc + cur, 0));
 
 			if (sumAbsoluteHints == absoluteHintSum && Math.max(...hints) < 0) { // If all hints met, gray out and show complete symbol
-				space = "✪"
+				space = "✪";
 				sumTag = "em";
 				sumClass = ""; // Restore to normal size for width/height consistency
 			} else {
@@ -1490,7 +1469,7 @@ $(function () {
 			}
 
 			// The reusable structure for charm sum elements.
-			return `<${sumTag} class="${sumClass}">${space}${sumTooltip}</${sumTag}>`
+			return `<${sumTag} class="${sumClass}">${space}${sumTooltip}</${sumTag}>`;
 		},
 
 		// Achievement crap, ignore for now
@@ -1510,7 +1489,7 @@ $(function () {
 		render: function () {
 			// Convert progress to percentage
 			let progress = this.model.get('guessed') / this.model.get('total') * 100;
-			$('#progress').text(progress.toFixed(1) + '%'); 
+			$('#progress').text(progress.toFixed(1) + '%');
 
 			if (this.model.get('darkMode')) {
 				$('body').addClass('dark'); // Adds dark mode attribute to all elements with toggle on
