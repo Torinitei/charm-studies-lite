@@ -271,16 +271,12 @@ iframe {
 /* DO NOT MAKE THESE VARIABLES - STATIC FOR A REASON */
 .group-astras-garden {
 	background-color: #275a6b;
-
 	color: #48ada8;
-
 }
 
 .group-bad-end-theater {
 	background-color: #000;
-
 	color: #fff;
-
 }
 
 .group-contract-demon {
@@ -296,6 +292,11 @@ iframe {
 .group-starry-flowers {
 	background-color: #9dbdfc;
 	color: #212c5a;
+}
+
+.group-lonely-wolf-treat {
+	background-color: #e6f1ff;
+	color: #8c9cb9;
 }
 
 .group-syrup-and-the-ultimate-sweet {

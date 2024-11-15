@@ -43,10 +43,10 @@ export function romanize(num) {
 /**
  * Formats a number to its shorthand notation, e.g. 1k, 3.7M, 9.8B.
  * @param {Number} num The number to round.
- * @param {Number} digits The amount of digits to leave after the decimal point. 1 by default.
+ * @param {Number} digits The amount of digits to leave after the decimal point. 2 by default.
  * @returns 
  */
-export function nFormatter(num, digits = 1) {
+export function nFormatter(num, digits = 2) {
     const lookup = [{
             value: 1,
             symbol: ""

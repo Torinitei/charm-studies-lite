@@ -22,7 +22,7 @@ $(function () {
 	const expCalcPower = 2;
 	const expCalcBase = 400;
 	const expCalcPrestigeFactor = 0.01;
-	const expEventMulti = 2;
+	const expEventMulti = 1;
 
 	const PuzzleModel = Backbone.Model.extend({
 
@@ -200,6 +200,10 @@ $(function () {
 				noSumMode: noSumMode,
 				/* achievements: achievements */
 			});
+
+			if (state.length == 0) { // for goodness sake experience calculation please
+				this.reset();
+			}
 		},
 		/*  >>> END OF DO NOT OPTIMISE ZONE <<< */
 
