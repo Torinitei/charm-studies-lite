@@ -18,17 +18,21 @@ import {
 
 $(function () {
 	// Experience calculation constants
+	/* See graph: https://docs.google.com/spreadsheets/d/1vUeAfwqGSAzh9n3HQN2WFKdOkSIox0sJA1JeNbT89mQ/edit?usp=sharing)) */
 	const expCalcConstant = 0.1;
 	const expCalcPower = 2;
 	const expCalcBase = 400;
 	const expCalcPrestigeFactor = 0.01;
+
+	// Multiply player experience with events - manually set right now
+	// TO-DO: Implement event calendar to auto-apply boost
 	const expEventMulti = 1;
 
 	const PuzzleModel = Backbone.Model.extend({
 
 		/**
 		 * Gets the default save attributes.
-		 * @typedef {{ ...}} defaults
+		 * @typedef {{...}} defaults
 		 */
 		defaults: function () {
 			return {
@@ -58,6 +62,7 @@ $(function () {
 				autoPauseMode: true, // If the charm will pause when not in focus
 				timerDisplayMode: true, // If the timer is visible, or hidden with "=^.^"=
 				charmExhaustedID: "", // The ID of the last charm completed (to incentivise playing unique charms and discourage repetition)
+				// TO-DO: Add charm exhaustion visual indication
 				// Optimisation update
 				noSumMode: false, // Takes off sums from easy mode
 				// Achievements update
@@ -70,7 +75,7 @@ $(function () {
 		 * Sets up the universal function for Backbone to save any time *change* is triggered.
 		 */
 		initialize: function () {
-			this.on('change', this.save);
+			this.on('change', this.save); // Any time you wish to save the player's progress, trigger change.
 		},
 
 
@@ -80,10 +85,11 @@ $(function () {
 		*/
 		/**
 		 * Saves the player's game info in localStorage. (5MB max, no concern of being near capacity thus far)
+		 * 
+		 * **BE CAREFUL IN CHANGING THIS FUNCTION.**
 		 */
 		save: function () {
-			if (localStorageSupport()) {
-
+			if (localStorageSupport()) { // Don't save if no capability to
 				localStorage['picross2.dimensionWidth'] = JSON.stringify(this.get('dimensionWidth'));
 				localStorage['picross2.dimensionHeight'] = JSON.stringify(this.get('dimensionHeight'));
 				localStorage['picross2.state'] = JSON.stringify(this.get('state'));
@@ -96,11 +102,9 @@ $(function () {
 				localStorage['picross2.seed'] = JSON.stringify(this.get('seed'));
 				localStorage['picross2.darkMode'] = JSON.stringify(this.get('darkMode'));
 				localStorage['picross2.easyMode'] = JSON.stringify(this.get('easyMode'));
-
 				localStorage['charmStudiesLite.stats.perfectStreak'] = JSON.stringify(this.get('perfectStreak'));
 				localStorage['charmStudiesLite.stats.charmsComplete'] = JSON.stringify(this.get('charmsComplete'));
 				localStorage['charmStudiesLite.stats.charmsPerfect'] = JSON.stringify(this.get('charmsPerfect'));
-
 				localStorage['charmStudiesLite.stats.EXP.playerExperience'] = JSON.stringify(this.get('playerExperience'));
 				localStorage['charmStudiesLite.stats.EXP.playerExperienceBuffer'] = JSON.stringify(this.get('playerExperienceBuffer'));
 				localStorage['charmStudiesLite.stats.EXP.playerPrestige'] = JSON.stringify(this.get('playerPrestige'));
@@ -109,7 +113,6 @@ $(function () {
 				localStorage['charmStudiesLite.timer.autoPauseMode'] = JSON.stringify(this.get('autoPauseMode'));
 				localStorage['charmStudiesLite.timer.timerDisplayMode'] = JSON.stringify(this.get('timerDisplayMode'));
 				localStorage['charmStudiesLite.stats.EXP.charmExhaustedID'] = JSON.stringify(this.get('charmExhaustedID'));
-
 				localStorage['charmStudiesLite.noSumMode'] = JSON.stringify(this.get('noSumMode'));
 
 				/* updateAchievementList.call(this);
@@ -122,12 +125,12 @@ $(function () {
 		 */
 		resume: function () {
 
-			if (!localStorageSupport()) {
+			if (!localStorageSupport()) { // Don't try to load saves if saves cannot exist
 				this.reset();
 				return;
 			}
 
-			const defaults = this.defaults();
+			const defaults = this.defaults(); 
 
 			/**
 			 * Safely retrieves a value for a save attribute. If any attribute undefined, return the default.
@@ -135,6 +138,7 @@ $(function () {
 			 */
 			function safeLocalStorage(saveKey) {
 				if (localStorage[saveKey] == 'undefined' || localStorage[saveKey] === undefined) {
+					// If any key missing, replace it with default
 					const defaultKey = (saveKey.split(".")).at(-1);
 					const newKey = JSON.stringify(defaults[defaultKey]);
 					return newKey;
@@ -154,11 +158,9 @@ $(function () {
 			const seed = JSON.parse(safeLocalStorage('picross2.seed'));
 			const darkMode = JSON.parse(safeLocalStorage('picross2.darkMode'));
 			const easyMode = JSON.parse(safeLocalStorage('picross2.easyMode'));
-
 			const perfectStreak = JSON.parse(safeLocalStorage('charmStudiesLite.stats.perfectStreak'));
 			const charmsComplete = JSON.parse(safeLocalStorage('charmStudiesLite.stats.charmsComplete'));
 			const charmsPerfect = JSON.parse(safeLocalStorage('charmStudiesLite.stats.charmsPerfect'));
-
 			const playerExperience = JSON.parse(safeLocalStorage('charmStudiesLite.stats.EXP.playerExperience'));
 			const playerExperienceBuffer = JSON.parse(safeLocalStorage('charmStudiesLite.stats.EXP.playerExperienceBuffer'));
 			const playerPrestige = JSON.parse(safeLocalStorage('charmStudiesLite.stats.EXP.playerPrestige'));
@@ -167,7 +169,6 @@ $(function () {
 			const autoPauseMode = JSON.parse(safeLocalStorage('charmStudiesLite.timer.autoPauseMode'));
 			const timerDisplayMode = JSON.parse(safeLocalStorage('charmStudiesLite.timer.timerDisplayMode'));
 			const charmExhaustedID = JSON.parse(safeLocalStorage('charmStudiesLite.stats.EXP.charmExhaustedID'));
-
 			const noSumMode = JSON.parse(safeLocalStorage('charmStudiesLite.noSumMode'));
 			// achievements update
 			/* const achievements = JSON.parse(safeLocalStorage('charmStudiesLite.achievements')); */
@@ -201,7 +202,7 @@ $(function () {
 				/* achievements: achievements */
 			});
 
-			if (state.length == 0) { // for goodness sake experience calculation please
+			if (state.length == 0) { // Should prevent experience calculation loops on reset
 				this.reset();
 			}
 		},
@@ -295,7 +296,7 @@ $(function () {
 						continue;
 					}
 
-					if (streak > 0) {
+					if (streak > 0) { // Push the current tile run to the array
 						hints[i].push(streak);
 						streak = 0;
 					}
@@ -358,26 +359,26 @@ $(function () {
 				let filled = true;
 				let cellIndex = 0;
 				let hintIndex = 0;
-				const length = isRow ? state[index].length : state.length;
-				const checkValue = isRow ? (i) => state[index][i] : (i) => state[i][index];
+				const length = isRow ? state[index].length : state.length; // Toggle between row length and column length
+				const checkValue = isRow ? (i) => state[index][i] : (i) => state[i][index]; // Index switcher for vertical navigation
 
 				for (cellIndex; cellIndex < length;) {
-					if (checkValue(cellIndex) !== 2) {
+					if (checkValue(cellIndex) !== 2) { // Ignore all tiles except painted ones
 						cellIndex++;
 						continue;
 					}
-					if (hintIndex >= hints[index].length) {
+					if (hintIndex >= hints[index].length) { // If more tile runs than hints specify, incorrect fill
 						filled = false;
 						break;
 					}
-					for (let i = 0; i < Math.abs(hints[index][hintIndex]); i++) {
+					for (let i = 0; i < Math.abs(hints[index][hintIndex]); i++) { // Reached if appropriate amount of runs
 						if (cellIndex >= length || checkValue(cellIndex) !== 2) {
 							filled = false;
 							break;
 						}
 						cellIndex++;
 					}
-					if (cellIndex < length && checkValue(cellIndex) === 2) {
+					if (cellIndex < length && checkValue(cellIndex) === 2) { 
 						filled = false;
 						break;
 					}
@@ -694,7 +695,7 @@ $(function () {
 		changeDimensions: function (seed) {
 			let dimensions = (isCharminGallery(seed)) ? getCharmDimensions(seed) : $('#dimensions').val();
 			$('#dimensions').val(dimensions);
-			dimensions = dimensions.split('x');
+			dimensions = dimensions.split('x'); // e.g. splits "15x10" to ["15", "10"]
 			this.model.set({
 				dimensionWidth: dimensions[0],
 				dimensionHeight: dimensions[1]
@@ -765,7 +766,7 @@ $(function () {
 			let target = $(e.target);
 
 			if (this.mouseMode !== 0 || target.attr('data-x') === undefined || target.attr('data-y') === undefined) { // When not in charm, or mouse mode not initially 0 (none)
-				this.mouseMode = 0;
+				this.mouseMode = 0; // Reset mouse mode to no-click
 				this.render();
 				return;
 			}
@@ -810,7 +811,7 @@ $(function () {
 
 			/**
 			 * Highlights a run of cells according to the difference and its properties.
-			 * @param {String} primaryAxis 
+			 * @param {String} primaryAxis
 			 * @param {String} secondaryAxis 
 			 * @param {Number} startPrimary 
 			 * @param {Number} endPrimary 
@@ -954,12 +955,10 @@ $(function () {
 
 			if (diffX > diffY) {
 				for (let i = Math.min(startX, endX); i <= Math.max(startX, endX); i++) { // Horizontal
-					console.log(i, startY, guess);
 					this.model.guess(i, startY, guess);
 				}
 			} else {
 				for (let i = Math.min(startY, endY); i <= Math.max(startY, endY); i++) { // Vertical
-					console.log(startX, i, guess);
 					this.model.guess(startX, i, guess);
 				}
 			}

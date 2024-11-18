@@ -67,7 +67,8 @@
 						which is determined by the size and individual complexity of the charm.</span></span>&ensp;
 				<span id="currentXP">xxx</span>/<span id="nextXP">xxx</span> <span class="tooltip"><span
 						class="smol">+<span id="bufferedXP">xx</span><span class="tooltiptext">If you give up partway
-							through a charm (hit New Charm before you solve),
+							through a charm
+							(hit New Charm before you solve),
 							a portion of your experience is stored in a buffer.
 							This is given to you the next time you solve a charm (perfect or not).
 						</span></span></span>&ensp;
@@ -100,7 +101,7 @@
 						</label><br>
 						<input id="easy" type="checkbox" checked>
 						<label class="tooltip" for="easy">✿ Easy mode
-							<span class="tooltiptext">Adds crossouts (to keep track of completed hints), 
+							<span class="tooltiptext">Adds crossouts (to keep track of completed hints),
 								and adds sums (used for steady deduction).
 
 								Highly recommended!</span>
@@ -111,7 +112,7 @@
 						</label><br>
 						<input id="autoPause" type="checkbox" checked>
 						<label class="tooltip" for="autoPause">❚❚ Auto-pause
-							<span class="tooltiptext">Auto-pauses the charm when you switch windows, 
+							<span class="tooltiptext">Auto-pauses the charm when you switch windows,
 								tab out, or interact with the OST.
 								Click on anywhere else on the page, or manually unpause, to undo this.
 
@@ -269,6 +270,15 @@
 
 							<optgroup class="group-lonely-wolf-treat" label="Lonely Wolf Treat">
 								<option value="Mochi">Mochi</option>
+								<option value="Treat">Treat</option>
+								<option value="Moxie">Moxie</option>
+								<option value="Trick">Trick</option>
+								<option value="Juju">Manjuu (Juju)</option>
+								<option value="Timber">Timber</option>
+								<option value="Danny">Dango (Danny)</option>
+								<option value="Fennel">Fennel</option>
+								<option value="Saffron">Saffron</option>
+								<option value="Annie">Annie</option>
 							</optgroup>
 
 							<option class="charm-header" disabled label="Indie Crossovers ^w^"></option>
@@ -407,8 +417,9 @@
 							Themed after and uses mechanics from <a href="https://nomnomnami.com/">NomnomNami</a>'s <a
 								href="https://nomnomnami.itch.io/charm-studies">Charm Studies</a>. <a
 								class="modal-highlight" href="https://www.patreon.com/nomnomnami">Support her amazing
-								works!</a><br><a href="https://cohost.org/nomnomnami/post/7857890-charm-studies-fangam" class="smol">(oh my
-									goodness we've been approved)</a><br><br>
+								works!</a><br><a href="https://cohost.org/nomnomnami/post/7857890-charm-studies-fangam"
+								class="smol">(oh my
+								goodness we've been approved)</a><br><br>
 
 							<span class="modal-highlight">Special Thanks</span><br>
 							<a class="modal-highlight"
@@ -418,8 +429,11 @@
 							Sudoku Crusher, for their <a
 								href="https://www.sentohsharyoga.com/puzzle/nonogram/text/free_size">nonogram online
 								solver!</a><br>
-							<a href="https://www.resizepixel.com">ResizePixel</a>, for their image editing tools (to help with charm making!)<br>
-							The <a href="https://discord.gg/TMfXfXfFJe">Namiverse Discord</a>, for supporting the project! <span class="smol">(this isn't anything official, just a server for fans I recently discovered)</span>
+							<a href="https://www.resizepixel.com">ResizePixel</a>, for their image editing tools (to
+							help with charm making!)<br>
+							The <a href="https://discord.gg/TMfXfXfFJe">Namiverse Discord</a>, for supporting the
+							project! <span class="smol">(this isn't anything official, just a server for fans I recently
+								discovered)</span>
 						</div>
 					</div>
 				</div>
@@ -448,12 +462,32 @@
 					<div class="modal-content">
 						<div class="modal-header">Update Log</div>
 						<div class="modal-body">
+							<span class="modal-highlight">2024/11/18 ~ Not so lonely now, right?</span><br>
+							<span class="category">Charms</span>
+							<span class="category">Quality of Life</span><br><br>
+							Hey, Tori here! I haven't put out something for a while <span class="smol">(in fact I didn't
+								touch this repo for a month...)</span>,
+							so I wanted to give you all some new charms! Worked on it the last two days :3<br>
+							Hoping I can get back to doing some more updates sometime soon ♫ <span class="smol">(no
+								promises though)</span><br><br>
+							<ul>
+								<li>Taking the InsteRail from Mount Sorbet, welcome in a handful of characters from
+									Lonely Wolf Treat!
+									Whip up some curry for Mochi, Treat, Moxie, Trick, Manjuu (Juju), Timber, Dango
+									(Danny), Fennel, Saffron, and Annie! <span class="smol modal-highlight">(psst, more
+										characters might be on their way in the future...)</span></li>
+								<li>Renamed debug button to be more clear on functionality</li>
+								<li>Fixed(?) issue with cleared storage causing experience calculations to fail repeatedly, and time out <span class="smol">(i should have realised this way sooner ><)</span></li>
+							</ul><br>
+
 							<span class="modal-highlight smol">2024/10/16</span>
 							<span class="category">Quality of Life</span><br>
-							Sparse updates at the moment, but gonna try put out something soon! <span class="smol">(lack of motivation is pain)</span>
+							Sparse updates at the moment, but gonna try put out something soon! <span class="smol">(lack
+								of motivation is pain)</span>
 							<ul>
 								<li>Removed x2 XP indicator mistakenly left in last update</li>
-								<li>Changed some variable declarations internally for clarification <span class="smol">(and ever so slight performance)</span></li>
+								<li>Changed some variable declarations internally for clarification <span
+										class="smol">(and ever so slight performance)</span></li>
 								<li>Removed unnecessary files for now</li>
 							</ul><br>
 							<span class="modal-highlight smol">2024/10/05</span>
@@ -463,13 +497,15 @@
 								<li>Rue charm adjusted to be more playable</li>
 							</ul><br>
 
-							<span class="modal-highlight">2024/09/29 ~</span> <span class="open-sans-oneshot">You only have one shot,
+							<span class="modal-highlight">2024/09/29 ~</span> <span class="open-sans-oneshot">You only
+								have one shot,
 								Player.</span><br>
 							<span class="category">Charms</span>
 							<span class="category">Quality of Life</span>
 							<span class="category">Style</span><br>
 							<ul>
-								<li>Shine a ray of sunlight onto the OneShot crew! Kindly guide Niko, Alula, Prototype, Rue, Silver, Lamplighter, and Cedric to the Charm Gallery~</li>
+								<li>Shine a ray of sunlight onto the OneShot crew! Kindly guide Niko, Alula, Prototype,
+									Rue, Silver, Lamplighter, and Cedric to the Charm Gallery~</li>
 								<li>Updated charm_maker.py to be more robust in image handling</li>
 								<li>Adjusted OMORI theme colours for more variety in Indie Crossover palette</li>
 							</ul><br>
@@ -478,12 +514,17 @@
 							<span class="category">Gameplay</span>
 							<span class="category">Quality of Life</span><br>
 							<ul>
-								<li><span class="modal-highlight">EXPERIMENTAL:</span> Charm hints will now partially complete! (crossouts around tiles required)</li>
-								<li>Added clarification for charm exhaustion mechanic under Charm XP tooltip <span class="smol">(in a nutshell, don't repeat charms! you get less xp)</span></li>
+								<li><span class="modal-highlight">EXPERIMENTAL:</span> Charm hints will now partially
+									complete! (crossouts around tiles required)</li>
+								<li>Added clarification for charm exhaustion mechanic under Charm XP tooltip <span
+										class="smol">(in a nutshell, don't repeat charms! you get less xp)</span></li>
 								<li>Added additional credits (thanks namiverse discord :3)</li>
-								<li>Documented all internal functions! Now it'll be easier than ever to contribute~ <span class="smol modal-highlight">(hey! go <a href="https://github.com/Torinitei/charm-studies-lite">here</a> if you wanna do that!)</span></li>
+								<li>Documented all internal functions! Now it'll be easier than ever to contribute~
+									<span class="smol modal-highlight">(hey! go <a
+											href="https://github.com/Torinitei/charm-studies-lite">here</a> if you wanna
+										do that!)</span></li>
 							</ul><br>
-							
+
 
 							<span class="modal-highlight beeg">2024/09/27 ~ Approval day!! &lt;3</span><br>
 							<span class="category beeg">Celebration</span><br><br>
